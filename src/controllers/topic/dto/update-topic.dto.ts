@@ -1,37 +1,13 @@
-import {
-  IsString,
-  IsOptional,
-  IsArray,
-  IsNumber,
-  ValidateNested,
-} from "class-validator";
 import { ResourceDto } from "./create-topic.dto";
-import { Type } from "class-transformer";
+import { z } from "zod";
 
-export class UpdateTopicDto {
-  @IsOptional()
-  @IsString()
-  title?: string;
+export const UpdateTopicDto = z.object({
+  title: z.string().optional(),
+  level: z.number().optional(),
+  parent_id: z.string().nullable().optional(),
+  description: z.string().nullable().optional(),
+  priority: z.number().optional(),
+  resources: z.array(ResourceDto).nullable().optional(),
+});
 
-  @IsOptional()
-  @IsNumber()
-  level?: number;
-
-  @IsOptional()
-  @IsString()
-  parent_id?: string | null;
-
-  @IsOptional()
-  @IsString()
-  description?: string | null;
-
-  @IsOptional()
-  @IsNumber()
-  priority?: number;
-
-  @IsOptional()
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => ResourceDto)
-  resources: ResourceDto[] | null;
-}
+export type UpdateTopicInput = z.infer<typeof UpdateTopicDto>;

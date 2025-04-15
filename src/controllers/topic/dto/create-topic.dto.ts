@@ -1,49 +1,19 @@
-import { Transform, Type } from "class-transformer";
-import {
-  IsString,
-  IsOptional,
-  IsArray,
-  IsNumber,
-  IsEnum,
-  ValidateNested,
-} from "class-validator";
 import { TopicType } from "src/models/topic.model";
+import { z } from "zod";
 
-export class ResourceDto {
-  @IsOptional()
-  @IsString()
-  title: string | null;
+export const ResourceDto = z.object({
+  title: z.string().nullable(),
+  type: z.nativeEnum(TopicType),
+  url: z.string().nullable(),
+});
 
-  @IsEnum(TopicType)
-  type: TopicType;
+export const CreateTopicDto = z.object({
+  title: z.string().min(1, "Title is required"),
+  level: z.number().min(1, "Level is required"),
+  priority: z.number().min(1, "Priority is required"),
+  parent_id: z.string().nullable(),
+  description: z.string().nullable(),
+  resources: z.array(ResourceDto).optional(),
+});
 
-  @IsOptional()
-  @IsString()
-  url: string | null;
-}
-
-export class CreateTopicDto {
-  @IsString()
-  title: string;
-
-  @IsNumber()
-  level: number;
-
-  @IsNumber()
-  priority: number;
-
-  @IsOptional()
-  @IsString()
-  parent_id: string | null;
-
-  @IsOptional()
-  @IsString()
-  description: string | null;
-
-  @IsOptional()
-  @IsArray()
-  @ValidateNested({ each: true })
-  @Type(() => ResourceDto)
-  @Transform(({ value }) => (value === null ? undefined : value))
-  resources?: ResourceDto[];
-}
+export type CreateTopicInput = z.infer<typeof CreateTopicDto>;

@@ -4,6 +4,7 @@ import jwt from "jsonwebtoken";
 import { ApiError, StatusCodes } from "../utils/api-error";
 import configEnv from "../config/env";
 import { JWTPayload } from "../common/types";
+import { ObjectId } from "mongodb";
 
 class UserService {
   async getUserByIdToken(idToken: string) {
@@ -12,7 +13,7 @@ class UserService {
       let user = await User.findOne({
         email: decodedToken.email,
       });
-      if (!user) {
+      if (!user && decodedToken.provider_id !== "anonymous") {
         const newUser = new User({
           name: decodedToken.name,
           email: decodedToken.email,
@@ -22,8 +23,11 @@ class UserService {
         user = await newUser.save();
       }
       const payload: JWTPayload = {
-        user_id: user._id.toString(),
-        role: user.role,
+        user_id:
+          decodedToken.provider_id === "anonymous"
+            ? new ObjectId()
+            : user?.id.toString(),
+        role: user?.role || "user",
       };
 
       const jwtToken = jwt.sign(payload, configEnv.JWT_SECRET as string, {
@@ -46,7 +50,17 @@ class UserService {
     try {
       const user = await User.findById(userId);
       if (!user) {
-        throw new ApiError(StatusCodes.NOT_FOUND, "User not found");
+        return {
+          id: userId,
+          name: "",
+          email: "",
+          phone: "",
+          password: "",
+          photo_url: "",
+          role: "user",
+          created_at: new Date(),
+          updated_at: new Date(),
+        };
       }
       return user;
     } catch (error) {

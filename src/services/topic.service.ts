@@ -1,19 +1,18 @@
 import { RootFilterQuery } from "mongoose";
-import { CreateTopicDto } from "src/controllers/topic/dto/create-topic.dto";
-import { UpdateTopicDto } from "src/controllers/topic/dto/update-topic.dto";
+import { GeneralQueryProps } from "src/common/types";
+import { CreateTopicInput } from "src/controllers/topic/dto/create-topic.dto";
+import { UpdateTopicInput } from "src/controllers/topic/dto/update-topic.dto";
 import Topic, { ITopic } from "src/models/topic.model";
 import { ApiError, StatusCodes, wrapApiError } from "src/utils/api-error";
-import { GeneralQueryProps } from "src/utils/general-query";
 
 class TopicService {
-  async create(body: CreateTopicDto) {
+  async create(body: CreateTopicInput) {
     try {
-      console.log("creato", body);
       const topic = new Topic(body);
       await topic.save();
+      console.log("Topic created successfully");
       return topic;
     } catch (error) {
-      console.log("error", error);
       throw wrapApiError(error);
     }
   }
@@ -22,7 +21,7 @@ class TopicService {
     try {
       const { offset = 0, limit = 10, key } = query;
 
-      const filter: RootFilterQuery<ITopic> = {};
+      const filter: RootFilterQuery<ITopic> = { level: 1 };
       if (key) {
         filter.title = { $regex: key, $options: "i" }; // Tìm kiếm không phân biệt chữ hoa chữ thường
       }
@@ -31,7 +30,7 @@ class TopicService {
         .limit(limit)
         .sort({ createdAt: -1 }); // Sắp xếp theo ngày tạo mới nhất trước
       const total = await Topic.countDocuments(filter);
-
+      console.log("Get topics successfully");
       return {
         data: topics,
         total: total,
@@ -52,6 +51,19 @@ class TopicService {
           true
         );
       }
+      const topicChild = await Topic.find({
+        parent_id: topic.id,
+      });
+      let parent = null;
+      if (topic.parent_id) {
+        parent = await Topic.findById(topic.parent_id);
+      }
+      console.log("Get topic successfully");
+      return {
+        topic: topic,
+        childs: topicChild,
+        parent: parent,
+      };
       return topic;
     } catch (error) {
       throw wrapApiError(error);
@@ -59,7 +71,7 @@ class TopicService {
   }
 
   // Cập nhật thông tin chủ đề
-  async update(id: string, updateTopicDto: UpdateTopicDto) {
+  async update(id: string, updateTopicDto: UpdateTopicInput) {
     try {
       const topic = await Topic.findByIdAndUpdate(id, updateTopicDto, {
         new: true,
@@ -72,6 +84,7 @@ class TopicService {
           true
         );
       }
+      console.log("Update topic successfully");
       return topic;
     } catch (error) {
       throw wrapApiError(error);
@@ -90,6 +103,7 @@ class TopicService {
           true
         );
       }
+      console.log("Topic deleted successfully");
       return {
         message: "Topic deleted successfully",
       };

@@ -1,15 +1,7 @@
-import { IsJSON, IsString } from "class-validator";
-import { UserResponse } from "./get-info.dto";
+import { z } from "zod";
 
-export class LoginUserDto {
-  @IsString()
-  id_token: string;
-}
-
-export class LoginReponse {
-  @IsString()
-  token: string;
-
-  @IsJSON()
-  data: UserResponse;
-}
+export const LoginDto = z.object({
+  body: z.object({
+    id_token: z.string().min(1, "id_token is required"),
+  }),
+});

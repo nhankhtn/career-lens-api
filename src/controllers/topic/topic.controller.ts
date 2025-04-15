@@ -1,50 +1,32 @@
-import {
-  Body,
-  Controller,
-  Delete,
-  Get,
-  HttpCode,
-  Param,
-  Post,
-  Put,
-  QueryParams,
-  Res,
-} from "routing-controllers";
-import { Response } from "express";
-import { CreateTopicDto } from "./dto/create-topic.dto";
-import topicService from "src/services/topic.service";
-import { StatusCodes } from "src/utils/api-error";
-import { UpdateTopicDto } from "./dto/update-topic.dto";
-import { OpenAPI, ResponseSchema } from "routing-controllers-openapi";
-import { GeneralQueryDto } from "src/utils/general-query";
+import { Request, Response, NextFunction } from "express";
+import topicService from "../../services/topic.service";
+import { StatusCodes } from "../../utils/api-error";
+import { GeneralQueryDto } from "src/common/types";
 
-@OpenAPI({
-  security: [{ bearerAuth: [] }],
-  tags: ["Topic"],
-})
-@Controller("/admin/topics")
-export class TopicController {
-  @Get("/api-status")
-  @OpenAPI({
-    summary: "Check the status of the API",
-    responses: {
-      "200": {
-        description: "API is running",
-        content: {
-          "application/json": {
-            schema: {
-              type: "object",
-              properties: {
-                status: { type: "string" },
-                message: { type: "string" },
-              },
-            },
-          },
-        },
-      },
-    },
-  })
-  async apiStatus(@Res() res: Response) {
+class TopicController {
+  /**
+   * @swagger
+   * /api/v1/topics/api-status:
+   *   get:
+   *     summary: Check API status
+   *     description: Returns the current status of the API
+   *     tags: [Topic]
+   *     responses:
+   *       200:
+   *         description: API is running
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 status:
+   *                   type: string
+   *                   example: OK
+   *                 message:
+   *                   type: string
+   *                   example: API is running
+   */
+  async apiStatus(_: Request, res: Response, next: NextFunction) {
     try {
       res.json({
         status: "OK",
@@ -52,180 +34,248 @@ export class TopicController {
       });
       return;
     } catch (error) {
-      throw error;
+      next(error);
     }
   }
 
-  @Post()
-  @HttpCode(StatusCodes.CREATED)
-  @OpenAPI({
-    summary: "Create a new topic",
-    requestBody: {
-      required: true,
-      content: {
-        "application/json": {
-          schema: {
-            $ref: "#/components/schemas/CreateTopicDto",
-          },
-        },
-      },
-    },
-    responses: {
-      "201": {
-        description: "Topic created successfully",
-        content: {
-          "application/json": {
-            schema: {
-              $ref: "#/components/schemas/Topic",
-            },
-          },
-        },
-      },
-    },
-  })
-  async create(@Body() body: CreateTopicDto) {
-    const topic = await topicService.create(body);
-    return topic;
+  /**
+   * @swagger
+   * /api/v1/topics:
+   *   post:
+   *     summary: Create a new topic
+   *     description: Create a new topic with the provided details
+   *     tags: [Topic]
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/CreateTopicDto'
+   *     responses:
+   *       201:
+   *         description: Topic created successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Topic'
+   *       400:
+   *         description: Bad request
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   *       401:
+   *         description: Unauthorized
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   */
+  async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      const topic = await topicService.create(req.body);
+      res.status(StatusCodes.CREATED).json(topic);
+      return;
+    } catch (error) {
+      next(error);
+    }
   }
 
-  @Get()
-  @OpenAPI({
-    summary: "Get all topics",
-    parameters: [
-      {
-        name: "page",
-        in: "query",
-        required: false,
-        schema: { type: "number", default: 1 },
-      },
-      {
-        name: "limit",
-        in: "query",
-        required: false,
-        schema: { type: "number", default: 10 },
-      },
-    ],
-    responses: {
-      "200": {
-        description: "List of topics",
-        content: {
-          "application/json": {
-            schema: {
-              type: "object",
-              properties: {
-                data: {
-                  type: "array",
-                  items: {
-                    $ref: "#/components/schemas/Topic",
-                  },
-                },
-                pagination: {
-                  type: "object",
-                  properties: {
-                    total: { type: "number" },
-                    page: { type: "number" },
-                    limit: { type: "number" },
-                  },
-                },
-              },
-            },
-          },
-        },
-      },
-    },
-  })
-  async findAll(@QueryParams() query: GeneralQueryDto) {
-    const result = await topicService.findAll(query);
-    return result;
+  /**
+   * @swagger
+   * /api/v1/topics:
+   *   get:
+   *     summary: Get all topics
+   *     description: Retrieve a list of topics with pagination
+   *     tags: [Topic]
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: query
+   *         name: offset
+   *         schema:
+   *           type: number
+   *           default: 0
+   *         description: Offset number
+   *       - in: query
+   *         name: limit
+   *         schema:
+   *           type: number
+   *           default: 10
+   *         description: Number of items per page
+   *     responses:
+   *       200:
+   *         description: List of topics
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 data:
+   *                   type: array
+   *                   items:
+   *                     $ref: '#/components/schemas/Topic'
+   *                 total:
+   *                   type: number
+   *                   description: Total number of items
+   *       401:
+   *         description: Unauthorized
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   */
+  async findAll(req: Request, res: Response, next: NextFunction) {
+    try {
+      const query = GeneralQueryDto.parse(req.query);
+      const result = await topicService.findAll(query);
+      res.json(result);
+      return;
+    } catch (error) {
+      next(error);
+    }
   }
 
-  @Get("/:id")
-  @OpenAPI({
-    summary: "Get topic by ID",
-    parameters: [
-      {
-        name: "id",
-        in: "path",
-        required: true,
-        schema: { type: "string" },
-      },
-    ],
-    responses: {
-      "200": {
-        description: "Topic details",
-        content: {
-          "application/json": {
-            schema: {
-              $ref: "#/components/schemas/Topic",
-            },
-          },
-        },
-      },
-    },
-  })
-  async findById(@Param("id") id: string) {
-    const topic = await topicService.findById(id);
-    return topic;
+  /**
+   * @swagger
+   * /api/v1/topics/{id}:
+   *   get:
+   *     summary: Get topic by ID
+   *     description: Retrieve a specific topic by its ID
+   *     tags: [Topic]
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Topic ID
+   *     responses:
+   *       200:
+   *         description: Topic details
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Topic'
+   *       401:
+   *         description: Unauthorized
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   *       404:
+   *         description: Topic not found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   */
+  async findById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const data = await topicService.findById(req.params.id);
+      res.json(data);
+      return;
+    } catch (error) {
+      next(error);
+    }
   }
 
-  @Put("/:id")
-  @OpenAPI({
-    summary: "Update topic",
-    parameters: [
-      {
-        name: "id",
-        in: "path",
-        required: true,
-        schema: { type: "string" },
-      },
-    ],
-    requestBody: {
-      required: true,
-      content: {
-        "application/json": {
-          schema: {
-            $ref: "#/components/schemas/UpdateTopicDto",
-          },
-        },
-      },
-    },
-    responses: {
-      "200": {
-        description: "Topic updated successfully",
-        content: {
-          "application/json": {
-            schema: {
-              $ref: "#/components/schemas/Topic",
-            },
-          },
-        },
-      },
-    },
-  })
-  async update(@Param("id") id: string, @Body() body: UpdateTopicDto) {
-    const topic = await topicService.update(id, body);
-    return topic;
+  /**
+   * @swagger
+   * /api/v1/topics/{id}:
+   *   put:
+   *     summary: Update topic
+   *     description: Update an existing topic
+   *     tags: [Topic]
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Topic ID
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             $ref: '#/components/schemas/UpdateTopicDto'
+   *     responses:
+   *       200:
+   *         description: Topic updated successfully
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/Topic'
+   *       401:
+   *         description: Unauthorized
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   *       404:
+   *         description: Topic not found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   */
+  async update(req: Request, res: Response, next: NextFunction) {
+    try {
+      const topic = await topicService.update(req.params.id, req.body);
+      res.json(topic);
+      return;
+    } catch (error) {
+      next(error);
+    }
   }
 
-  @Delete("/:id")
-  @OpenAPI({
-    summary: "Delete topic",
-    parameters: [
-      {
-        name: "id",
-        in: "path",
-        required: true,
-        schema: { type: "string" },
-      },
-    ],
-    responses: {
-      "204": {
-        description: "Topic deleted successfully",
-      },
-    },
-  })
-  async remove(@Param("id") id: string) {
-    await topicService.remove(id);
-    return;
+  /**
+   * @swagger
+   * /api/v1/topics/{id}:
+   *   delete:
+   *     summary: Delete topic
+   *     description: Delete a topic by its ID
+   *     tags: [Topic]
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Topic ID
+   *     responses:
+   *       204:
+   *         description: Topic deleted successfully
+   *       401:
+   *         description: Unauthorized
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   *       404:
+   *         description: Topic not found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   */
+  async remove(req: Request, res: Response, next: NextFunction) {
+    try {
+      const result = await topicService.remove(req.params.id);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
   }
 }
+
+export default new TopicController();
