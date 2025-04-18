@@ -1,7 +1,7 @@
 import { Request, Response, NextFunction } from "express";
 import topicService from "../../services/topic.service";
 import { StatusCodes } from "../../utils/api-error";
-import { GeneralQueryDto } from "src/common/types";
+import { CustomRequest, GeneralQueryDto } from "src/common/types";
 
 class TopicController {
   /**
@@ -268,9 +268,13 @@ class TopicController {
    *             schema:
    *               $ref: '#/components/schemas/ErrorResponse'
    */
-  async remove(req: Request, res: Response, next: NextFunction) {
+  async remove(req: CustomRequest, res: Response, next: NextFunction) {
     try {
-      const result = await topicService.remove(req.params.id);
+      const user = req.user;
+      const result = await topicService.remove(
+        req.params.id,
+        user?.user_id || ""
+      );
       res.json(result);
     } catch (error) {
       next(error);

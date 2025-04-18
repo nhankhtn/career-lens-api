@@ -92,9 +92,13 @@ class TopicService {
   }
 
   // Xóa chủ đề
-  async remove(id: string) {
+  async remove(id: string, delete_by: string) {
     try {
-      const topic = await Topic.findByIdAndDelete(id);
+      const topic = await Topic.findByIdAndUpdate(
+        id,
+        { deleted_at: new Date(), deleted_by: delete_by },
+        { new: true }
+      );
       if (!topic) {
         throw new ApiError(
           StatusCodes.NOT_FOUND,

@@ -3,6 +3,7 @@ import { ApiError, StatusCodes } from "../utils/api-error";
 import configEnv from "../config/env";
 import { CustomRequest } from "../common/types";
 import { IErrorLog } from "../models/error-log.model";
+import loggerService from "src/services/logger.service";
 
 export const errorHandler: ErrorRequestHandler = (
   err: Error | ApiError,
@@ -26,7 +27,7 @@ export const errorHandler: ErrorRequestHandler = (
     user_id: req["user"]?.user_id || "",
   } as Omit<IErrorLog, "_id" | "created_at">;
 
-  // loggerService.logError(errorLog);
+  loggerService.logError(errorLog);
 
   if (err instanceof ApiError) {
     res.status(err.statusCode).json({
