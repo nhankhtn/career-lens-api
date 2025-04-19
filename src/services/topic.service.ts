@@ -28,7 +28,7 @@ class TopicService {
       const topics = await Topic.find(filter)
         .skip(offset)
         .limit(limit)
-        .sort({ createdAt: -1 }); // Sắp xếp theo ngày tạo mới nhất trước
+        .sort({ created_at: -1 }); // Sắp xếp theo ngày tạo mới nhất trước
       const total = await Topic.countDocuments(filter);
       console.log("Get topics successfully");
       return {
