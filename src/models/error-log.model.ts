@@ -1,4 +1,4 @@
-import mongoose, { Document, Schema, Types } from 'mongoose';
+import mongoose, { Document, Schema, Types } from "mongoose";
 
 export interface IErrorLog extends Document {
   id: Types.ObjectId;
@@ -9,6 +9,7 @@ export interface IErrorLog extends Document {
   headers: object;
   client_ip: string;
   duration: number;
+  error: string;
   user_id: string;
   note?: string;
   created_at: Date;
@@ -22,28 +23,32 @@ const ErrorLogSchema: Schema<IErrorLog> = new mongoose.Schema(
     body: Object,
     headers: Object,
     client_ip: String,
+    error: String,
     duration: Number,
     note: String,
     user_id: String,
   },
-  { timestamps: { createdAt: 'created_at' } },
+  {
+    collection: "error_logs",
+    timestamps: { createdAt: "created_at" },
+  }
 );
 
-ErrorLogSchema.set('toJSON', {
+ErrorLogSchema.set("toJSON", {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: function (_, ret) {
     ret.id = ret._id.toString();
     delete ret._id;
   },
 });
-ErrorLogSchema.set('toObject', {
+ErrorLogSchema.set("toObject", {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: function (_, ret) {
     ret.id = ret._id.toString();
     delete ret._id;
   },
 });
-const ErrorLog = mongoose.model<IErrorLog>('ErrorLog', ErrorLogSchema);
+const ErrorLog = mongoose.model<IErrorLog>("ErrorLog", ErrorLogSchema);
 export default ErrorLog;

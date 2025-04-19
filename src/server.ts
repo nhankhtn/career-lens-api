@@ -29,7 +29,15 @@ route(app);
 
 // Swagger documentation
 const swaggerSpec = swaggerJSDoc(getSwaggerOptions(configEnv.BASE_URL));
-app.use("/api-docs", swaggerUi.serve, swaggerUi.setup(swaggerSpec));
+app.use(
+  "/api-docs",
+  swaggerUi.serve,
+  swaggerUi.setup(swaggerSpec, {
+    swaggerOptions: {
+      persistAuthorization: true,
+    },
+  })
+);
 
 app.use(errorHandler);
 

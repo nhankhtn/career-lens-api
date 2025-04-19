@@ -4,6 +4,8 @@ import configEnv from "../config/env";
 import { CustomRequest } from "../common/types";
 import { IErrorLog } from "../models/error-log.model";
 import loggerService from "src/services/logger.service";
+import { ZodError } from "zod";
+import mongoose from "mongoose";
 
 export const errorHandler: ErrorRequestHandler = (
   err: Error | ApiError,
@@ -24,6 +26,7 @@ export const errorHandler: ErrorRequestHandler = (
     headers: req.headers,
     client_ip: Array.isArray(clientIp) ? clientIp[0] : clientIp,
     duration: 0,
+    error: getErrorDetails(err),
     user_id: req["user"]?.user_id || "",
   } as Omit<IErrorLog, "_id" | "created_at">;
 
@@ -32,16 +35,48 @@ export const errorHandler: ErrorRequestHandler = (
   if (err instanceof ApiError) {
     res.status(err.statusCode).json({
       status: "error",
-      message: err.message,
+      message: getErrorDetails(err),
       ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
     });
     return;
   }
 
+  if (err instanceof ZodError) {
+    res.status(StatusCodes.BAD_REQUEST).json({
+      status: "fail",
+      message: getErrorDetails(err),
+      error: err.errors.map((error) => error.message).join(", "),
+    });
+
+    return;
+  }
   // Handle other types of errors
   res.status(StatusCodes.INTERNAL_SERVER_ERROR).json({
     status: "error",
-    message: "Internal server error",
+    message: getErrorDetails(err),
     ...(process.env.NODE_ENV === "development" && { stack: err.stack }),
   });
+};
+const getErrorDetails = (err: any): string => {
+  if (err instanceof ZodError) {
+    return err.errors
+      .map((e) => `${e.path.join(".")}: ${e.message}`)
+      .join(" | ");
+  }
+
+  if (err instanceof mongoose.Error.ValidationError) {
+    return Object.values(err.errors)
+      .map((e) => e.message)
+      .join(" | ");
+  }
+
+  if (err instanceof mongoose.Error.CastError) {
+    return `Invalid ${err.path}: ${err.value}`;
+  }
+
+  if (err instanceof ApiError) {
+    return err.message;
+  }
+
+  return err.message || "Unknown error";
 };
