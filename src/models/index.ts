@@ -1,0 +1,9 @@
+import "./career.model";
+import "./comment.model";
+import "./company.model";
+import "./experience_level.model";
+import "./forum-post.model";
+import "./job-postings.model";
+import "./skill.model";
+import "./topic.model";
+import "./user.model";
