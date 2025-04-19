@@ -14,6 +14,11 @@ const getSwaggerOptions = (url: string): swaggerJsdoc.Options => ({
         description: "Development server",
       },
     ],
+    security: [
+      {
+        bearerAuth: [],
+      },
+    ],
     components: {
       securitySchemes: {
         bearerAuth: {
@@ -283,6 +288,158 @@ const getSwaggerOptions = (url: string): swaggerJsdoc.Options => ({
                   },
                 },
               },
+              nullable: true,
+            },
+          },
+        },
+        GeneralQueryDto: {
+          type: "object",
+          properties: {
+            offset: {
+              type: "integer",
+              description: "Số bản ghi bỏ qua (pagination)",
+              minimum: 0,
+              default: 0,
+            },
+            limit: {
+              type: "integer",
+              description: "Số bản ghi trả về tối đa (pagination)",
+              minimum: 1,
+              default: 10,
+            },
+            key: {
+              type: "string",
+              description: "Từ khóa tìm kiếm",
+              nullable: true,
+            },
+          },
+        },
+        CareerQueryDto: {
+          type: "object",
+          allOf: [
+            { $ref: "#/components/schemas/GeneralQueryDto" },
+            {
+              type: "object",
+              properties: {
+                skill: {
+                  description: "Lọc theo kỹ năng (1 hoặc nhiều tên)",
+                  oneOf: [
+                    { type: "string" },
+                    { type: "array", items: { type: "string" } },
+                  ],
+                  nullable: true,
+                },
+                min_salary: {
+                  type: "integer",
+                  description: "Lọc salary >= giá trị này",
+                  minimum: 0,
+                  nullable: true,
+                },
+                max_salary: {
+                  type: "integer",
+                  description: "Lọc salary <= giá trị này",
+                  minimum: 0,
+                  nullable: true,
+                },
+                major: {
+                  type: "string",
+                  description: "Lọc theo chuyên ngành (topic_id)",
+                  nullable: true,
+                },
+                experience_level: {
+                  type: "string",
+                  description: "Lọc theo cấp độ kinh nghiệm",
+                  nullable: true,
+                },
+              },
+            },
+          ],
+        },
+        CreateCareerDto: {
+          type: "object",
+          required: ["name", "description", "average_salary", "growth_rate"],
+          properties: {
+            name: {
+              type: "string",
+              description: "Tên nghề nghiệp",
+              minLength: 1,
+            },
+            description: {
+              type: "string",
+              description: "Mô tả nghề nghiệp",
+              minLength: 1,
+            },
+            average_salary: {
+              type: "number",
+              description: "Mức lương trung bình",
+              minimum: 0,
+            },
+            growth_rate: {
+              type: "number",
+              description: "Tốc độ tăng trưởng",
+              minimum: 0,
+            },
+            topic_id: {
+              type: "string",
+              description: "ID topic chính",
+              nullable: true,
+            },
+            related_topics: {
+              type: "array",
+              description: "Danh sách ID các topic liên quan",
+              items: { type: "string" },
+              nullable: true,
+            },
+            skills: {
+              type: "array",
+              description: "Danh sách tên kỹ năng",
+              items: { type: "string" },
+              nullable: true,
+            },
+          },
+        },
+        UpdateCareerDto: {
+          type: "object",
+          properties: {
+            name: {
+              type: "string",
+              description: "Tên nghề nghiệp",
+              minLength: 1,
+              nullable: true,
+            },
+            description: {
+              type: "string",
+              description: "Mô tả nghề nghiệp",
+              minLength: 1,
+              nullable: true,
+            },
+            average_salary: {
+              type: "number",
+              description: "Mức lương trung bình",
+              minimum: 0,
+              nullable: true,
+            },
+            growth_rate: {
+              type: "number",
+              description: "Tốc độ tăng trưởng",
+              minimum: 0,
+              nullable: true,
+            },
+            topic_id: {
+              type: "string",
+              description: "ID topic chính",
+              nullable: true,
+            },
+            related_topics: {
+              type: "array",
+              description: "Danh sách ID các topic liên quan",
+              items: { type: "string" },
+              nullable: true,
+            },
+            skills: {
+              type: "array",
+              description: "Danh sách tên kỹ năng",
+              items: { type: "string" },
               nullable: true,
             },
           },

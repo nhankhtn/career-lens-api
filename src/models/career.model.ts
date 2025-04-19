@@ -1,4 +1,5 @@
-import mongoose, { Document, Schema, Types } from 'mongoose';
+import mongoose, { Document, Schema, Types } from "mongoose";
+import Skill from "./skill.model";
 
 export interface ICareer extends Document {
   id: Types.ObjectId;
@@ -10,7 +11,7 @@ export interface ICareer extends Document {
   topic_id: Types.ObjectId | null;
   related_topics: Types.ObjectId[] | null;
 
-  skills: string[];
+  skills: Types.ObjectId[];
 }
 
 const CareerSchema: Schema<ICareer> = new mongoose.Schema(
@@ -21,28 +22,28 @@ const CareerSchema: Schema<ICareer> = new mongoose.Schema(
     growth_rate: { type: Number, required: true },
     topic_id: { type: Types.ObjectId, default: null },
     related_topics: { type: [Types.ObjectId], default: null },
-    skills: [{ type: String, default: [] }],
+    skills: [{ type: Types.ObjectId, default: [], ref: "Skill" }],
   },
   {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
-  },
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
+  }
 );
-CareerSchema.set('toJSON', {
+CareerSchema.set("toJSON", {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: function (_, ret) {
     ret.id = ret._id.toString();
     delete ret._id;
   },
 });
-CareerSchema.set('toObject', {
+CareerSchema.set("toObject", {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: function (_, ret) {
     ret.id = ret._id.toString();
     delete ret._id;
   },
 });
-const Career = mongoose.model<ICareer>('Career', CareerSchema);
+const Career = mongoose.model<ICareer>("Career", CareerSchema);
 
 export default Career;

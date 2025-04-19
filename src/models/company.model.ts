@@ -1,6 +1,6 @@
-import mongoose, { Document, Schema, Types } from 'mongoose';
+import mongoose, { Document, Schema, Types } from "mongoose";
 
-export interface ICampany extends Document {
+export interface ICompany extends Document {
   id: Types.ObjectId;
   name: string;
   website_urls: {
@@ -28,7 +28,7 @@ export interface ICampany extends Document {
   size?: string;
 }
 
-const CampanySchema: Schema<ICampany> = new mongoose.Schema(
+const CompanySchema: Schema<ICompany> = new mongoose.Schema(
   {
     name: { type: String, required: true },
     website_urls: {
@@ -58,25 +58,25 @@ const CampanySchema: Schema<ICampany> = new mongoose.Schema(
     size: { type: String },
   },
   {
-    timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
-  },
+    timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
+  }
 );
-CampanySchema.set('toJSON', {
+CompanySchema.set("toJSON", {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: function (_, ret) {
     ret.id = ret._id.toString();
     delete ret._id;
   },
 });
-CampanySchema.set('toObject', {
+CompanySchema.set("toObject", {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: function (_, ret) {
     ret.id = ret._id.toString();
     delete ret._id;
   },
 });
-const Campany = mongoose.model<ICampany>('Campany', CampanySchema);
+const Company = mongoose.model<ICompany>("Company", CompanySchema);
 
-export default Campany;
+export default Company;

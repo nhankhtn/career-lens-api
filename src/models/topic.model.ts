@@ -16,7 +16,7 @@ export interface ITopic extends Document {
   level: number;
   parent_id: Types.ObjectId | null;
   description: string | null;
-  priority: number;
+  priority: number | null;
   resources:
     | {
         title: string | null;
@@ -24,6 +24,7 @@ export interface ITopic extends Document {
         url: string | null;
       }[]
     | null;
+  order: number | null;
   deleted_at: Date;
   deleted_by: Types.ObjectId | null;
 }
@@ -34,7 +35,8 @@ const TopicSchema: Schema<ITopic> = new mongoose.Schema(
     level: { type: Number, required: true },
     parent_id: { type: Types.ObjectId, default: null },
     description: { type: String },
-    priority: { type: Number, default: 1 },
+    priority: { type: Number, default: null },
+    order: { type: Number, default: null },
     resources: {
       type: [
         {
@@ -56,11 +58,20 @@ const TopicSchema: Schema<ITopic> = new mongoose.Schema(
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
   }
 );
+TopicSchema.pre("validate", function (next) {
+  if (this.priority != null && this.order != null) {
+    this.invalidate(
+      "priority",
+      "Chỉ được có một trong 'order' hoặc 'priority' khác null."
+    );
+  }
+  next();
+});
 TopicSchema.index({ title: 1, level: 1 }, { unique: true });
 TopicSchema.set("toJSON", {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: function (_, ret) {
     ret.id = ret._id.toString();
     ret.resources.forEach((element: any) => {
       element.id = element._id.toString();
@@ -72,7 +83,7 @@ TopicSchema.set("toJSON", {
 TopicSchema.set("toObject", {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
+  transform: function (_, ret) {
     ret.id = ret._id.toString();
     delete ret._id;
   },
