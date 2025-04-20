@@ -355,6 +355,49 @@ const getSwaggerOptions = (url: string): swaggerJsdoc.Options => ({
             },
           ],
         },
+        Career: {
+          type: "object",
+          required: ["name", "description", "average_salary", "growth_rate"],
+          properties: {
+            name: {
+              type: "string",
+              description: "Tên nghề nghiệp",
+              minLength: 1,
+            },
+            description: {
+              type: "string",
+              description: "Mô tả nghề nghiệp",
+              minLength: 1,
+            },
+            average_salary: {
+              type: "number",
+              description: "Mức lương trung bình",
+              minimum: 0,
+            },
+            growth_rate: {
+              type: "number",
+              description: "Tốc độ tăng trưởng",
+              minimum: 0,
+            },
+            topic_id: {
+              type: "string",
+              description: "ID topic chính",
+              nullable: true,
+            },
+            related_topics: {
+              type: "array",
+              description: "Danh sách ID các topic liên quan",
+              items: { type: "string" },
+              nullable: true,
+            },
+            skills: {
+              type: "array",
+              description: "Danh sách tên kỹ năng",
+              items: { type: "string" },
+              nullable: true,
+            },
+          },
+        },
         CreateCareerDto: {
           type: "object",
           required: ["name", "description", "average_salary", "growth_rate"],
