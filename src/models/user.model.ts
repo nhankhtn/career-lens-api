@@ -1,5 +1,7 @@
 import mongoose, { Document, Schema } from 'mongoose';
 import { Types } from 'mongoose';
+import { ISkill } from './skill.model';
+import { ITopic } from './topic.model';
 
 export interface ICourse {
   id: string;
@@ -9,11 +11,6 @@ export interface ICourse {
   progress?: number;
 }
 
-export interface ISkill {
-  name: string;
-  rating: number;
-  category?: string;
-}
 
 export interface ICertification {
   name: string;
@@ -47,7 +44,7 @@ export interface IUser extends Document {
     instagram?: string;
     other?: string;
   };
-  courses?: ICourse[];
+  courses?: ITopic[];
   skills?: ISkill[];
   certifications?: ICertification[];
   analytics?: IProfileAnalytics;
