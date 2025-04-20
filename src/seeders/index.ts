@@ -111,17 +111,20 @@ const seedJobPostings = async (
       // Find company with matching name
       const company = companies.find((c) => c.name === jobPosting.company_id);
 
-      // Use company_id directly as a string name
+      // Use company._id as ObjectId reference instead of string name
       return {
         ...jobPosting,
         position: positionObject?._id || null,
         yof: yofObject?._id || null,
-        company_id: company ? company.name : jobPosting.company_id,
+        company_id: company ? company._id : null,
         skills: skillIds,
       };
     });
 
-    const createdJobPostings = await JobPosting.insertMany(data);
+    // Filter out any entries with null company_id
+    const validData = data.filter(item => item.company_id !== null);
+
+    const createdJobPostings = await JobPosting.insertMany(validData);
     console.log(`Created ${createdJobPostings.length} new job postings`);
     return createdJobPostings;
   } catch (error) {

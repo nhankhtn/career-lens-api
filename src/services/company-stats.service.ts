@@ -20,22 +20,55 @@ class CompanyStatsService {
     try {
       console.log("Getting top companies stats");
       
-      // Get all job postings, ignore date filter for now to ensure we get data
+      // First check if we have job postings and companies
+      const jobCount = await JobPosting.countDocuments();
+      const companyCount = await Company.countDocuments();
+      console.log(`Found ${jobCount} job postings and ${companyCount} companies in the database.`);
+      
+      // List a few job postings to inspect their company_id
+      const sampleJobs = await JobPosting.find().limit(3).lean();
+      console.log("Sample job postings:", JSON.stringify(sampleJobs, null, 2));
+
+      // Modified aggregation to be more tolerant of missing company references
       const companyStats = await JobPosting.aggregate([
         {
+          // First stage of pipeline - basic grouping by company_id
           $group: {
             _id: "$company_id",
-            companyName: { $first: "$company_id" },
             postingCount: { $sum: 1 },
             avgSalary: { $avg: { $avg: ["$salary_min", { $ifNull: ["$salary_max", "$salary_min"] }] } },
             maxSalary: { $max: { $ifNull: ["$salary_max", "$salary_min"] } }
+          }
+        },
+        // Look up company names in a separate stage
+        {
+          $lookup: {
+            from: "companies", // collection name
+            localField: "_id",
+            foreignField: "_id",
+            as: "company"
+          }
+        },
+        {
+          // Project to flatten the result
+          $project: {
+            companyName: { 
+              $cond: [
+                { $gt: [{ $size: "$company" }, 0] },
+                { $arrayElemAt: ["$company.name", 0] },
+                "Unknown Company" // Fallback if no company found
+              ]
+            },
+            postingCount: 1,
+            avgSalary: 1,
+            maxSalary: 1
           }
         },
         { $sort: { postingCount: -1 } },
         { $limit: limit }
       ]);
 
-      console.log("Company stats found:", companyStats);
+      console.log("Company stats found:", JSON.stringify(companyStats, null, 2));
 
       // Transform the data into the required format
       const companies: string[] = [];
@@ -74,11 +107,18 @@ class CompanyStatsService {
         throw new Error("Company name is required");
       }
 
-      // Get job posting stats using company name directly
+      // First find the company by name to get its ID
+      const company = await Company.findOne({ name: companyName }).lean();
+      
+      if (!company) {
+        throw new Error(`Company not found: ${companyName}`);
+      }
+      
+      // Get job posting stats using company ID
       const stats = await JobPosting.aggregate([
         {
           $match: {
-            company_id: companyName
+            company_id: new mongoose.Types.ObjectId(String(company._id))
           }
         },
         {

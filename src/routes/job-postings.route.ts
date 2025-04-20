@@ -16,6 +16,12 @@ const router = express.Router();
 // Get job position statistics
 router.get("/position-stats", jobPostingsController.getPositionStats);
 
+// Get job postings by company ID
+router.get("/company/:companyId", jobPostingsController.getJobPostingsByCompany);
+
+// Get job postings by company name
+router.get("/company-name/:companyName", jobPostingsController.getJobPostingsByCompanyName);
+
 // Get job experience level statistics
 router.get("/experience-stats", jobPostingsStatsController.getJobPostingsByExperienceLevel);
 
