@@ -9,6 +9,19 @@ export interface ICourse {
   progress?: number;
 }
 
+export interface ISkill {
+  name: string;
+  rating: number;
+  category?: string;
+}
+
+export interface ICertification {
+  name: string;
+  organization: string;
+  year?: number;
+  score?: string;
+}
+
 export interface IProfileAnalytics {
   weeklyViews: { w1: number; w2: number; w3: number; w4: number };
   totalViews: number;
@@ -35,6 +48,8 @@ export interface IUser extends Document {
     other?: string;
   };
   courses?: ICourse[];
+  skills?: ISkill[];
+  certifications?: ICertification[];
   analytics?: IProfileAnalytics;
   created_at: Date;
   updated_at: Date;
@@ -46,6 +61,19 @@ const CourseSchema = new mongoose.Schema({
   description: { type: String, required: true },
   icon: { type: String },
   progress: { type: Number, default: 0 }
+});
+
+const SkillSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  rating: { type: Number, required: true, min: 1, max: 5 },
+  category: { type: String }
+});
+
+const CertificationSchema = new mongoose.Schema({
+  name: { type: String, required: true },
+  organization: { type: String, required: true },
+  year: { type: Number },
+  score: { type: String }
 });
 
 const ProfileAnalyticsSchema = new mongoose.Schema({
@@ -79,6 +107,8 @@ const UserSchema: Schema<IUser> = new mongoose.Schema(
       other: { type: String }
     },
     courses: [CourseSchema],
+    skills: [SkillSchema],
+    certifications: [CertificationSchema],
     analytics: { type: ProfileAnalyticsSchema, default: () => ({}) }
   },
   {

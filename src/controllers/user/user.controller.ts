@@ -356,39 +356,18 @@ class UserController {
   /**
    * @swagger
    * /api/v1/users/profile/courses:
-   *   post:
-   *     summary: Add or update a course
-   *     description: Add a new course or update an existing course for the authenticated user's profile
+   *   get:
+   *     summary: Get all courses user is following
+   *     description: Retrieve all topics/courses that the authenticated user is following with progress information
    *     tags:
    *       - User
    *     security:
    *       - bearerAuth: []
-   *     requestBody:
-   *       required: true
-   *       content:
-   *         application/json:
-   *           schema:
-   *             type: object
-   *             required:
-   *               - title
-   *               - description
-   *             properties:
-   *               id:
-   *                 type: string
-   *                 description: Course ID (optional for new courses)
-   *               title:
-   *                 type: string
-   *               description:
-   *                 type: string
-   *               icon:
-   *                 type: string
-   *               progress:
-   *                 type: number
    *     responses:
    *       200:
-   *         description: Course added or updated successfully
+   *         description: User courses retrieved successfully
    */
-  addOrUpdateCourse(req: CustomRequest, res: Response, next: NextFunction): void {
+  async getFollowedCourses(req: CustomRequest, res: Response, next: NextFunction): Promise<void> {
     try {
       const userId = req.user?.user_id;
       if (!userId) {
@@ -398,10 +377,68 @@ class UserController {
         return;
       }
 
-      const courseData = req.body;
-      userService.addOrUpdateCourse(userId, courseData)
-        .then(updatedProfile => res.json(updatedProfile))
-        .catch(error => next(error));
+      const courses = await userService.getUserCourses(userId);
+      res.json({ courses });
+    } catch (error) {
+      next(error);
+    }
+  }
+  
+  /**
+   * @swagger
+   * /api/v1/users/courses/recommended:
+   *   get:
+   *     summary: Get recommended courses
+   *     description: Get a list of recommended courses/topics for users to follow
+   *     tags:
+   *       - User
+   *     responses:
+   *       200:
+   *         description: Recommended courses retrieved successfully
+   */
+  async getRecommendedCourses(req: Request, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const courses = await userService.getRecommendedCourses();
+      res.json({ courses });
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @swagger
+   * /api/v1/users/profile/courses/{courseId}:
+   *   post:
+   *     summary: Follow a course/topic
+   *     description: Add a topic/course to the user's followed courses list
+   *     tags:
+   *       - User
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: courseId
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Topic/Course ID to follow
+   *     responses:
+   *       200:
+   *         description: Course followed successfully
+   */
+  async followCourse(req: CustomRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userId = req.user?.user_id;
+      if (!userId) {
+        res.status(StatusCodes.UNAUTHORIZED).json({ 
+          message: "Unauthorized" 
+        });
+        return;
+      }
+
+      const { courseId } = req.params;
+      const updatedProfile = await userService.addOrUpdateCourse(userId, courseId);
+      res.json(updatedProfile);
     } catch (error) {
       next(error);
     }
@@ -442,6 +479,218 @@ class UserController {
       userService.removeCourse(userId, courseId)
         .then(updatedProfile => res.json(updatedProfile))
         .catch(error => next(error));
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @swagger
+   * /api/v1/users/profile/skills:
+   *   post:
+   *     summary: Add or update skill
+   *     description: Add a new skill or update an existing skill for the authenticated user
+   *     tags:
+   *       - User
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - name
+   *               - rating
+   *             properties:
+   *               name:
+   *                 type: string
+   *                 description: Skill name
+   *               rating:
+   *                 type: number
+   *                 description: Skill rating (1-5)
+   *               category:
+   *                 type: string
+   *                 description: Skill category
+   *     responses:
+   *       200:
+   *         description: Skill added/updated successfully
+   */
+  async addOrUpdateSkill(req: CustomRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userId = req.user?.user_id;
+      const skillData = req.body;
+      
+      const result = await userService.addOrUpdateSkill(userId!, skillData);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @swagger
+   * /api/v1/users/profile/skills/{skillName}:
+   *   delete:
+   *     summary: Remove skill
+   *     description: Remove a skill from the authenticated user's profile
+   *     tags:
+   *       - User
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: skillName
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Name of the skill to remove
+   *     responses:
+   *       200:
+   *         description: Skill removed successfully
+   */
+  async removeSkill(req: CustomRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userId = req.user?.user_id;
+      const { skillName } = req.params;
+      
+      const result = await userService.removeSkill(userId!, skillName);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @swagger
+   * /api/v1/users/profile/certifications:
+   *   post:
+   *     summary: Add or update certification
+   *     description: Add a new certification or update an existing certification for the authenticated user
+   *     tags:
+   *       - User
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - name
+   *               - organization
+   *             properties:
+   *               name:
+   *                 type: string
+   *                 description: Certification name
+   *               organization:
+   *                 type: string
+   *                 description: Issuing organization
+   *               year:
+   *                 type: number
+   *                 description: Year obtained
+   *               score:
+   *                 type: string
+   *                 description: Score or level achieved
+   *     responses:
+   *       200:
+   *         description: Certification added/updated successfully
+   */
+  async addOrUpdateCertification(req: CustomRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userId = req.user?.user_id;
+      const certData = req.body;
+      
+      const result = await userService.addOrUpdateCertification(userId!, certData);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @swagger
+   * /api/v1/users/profile/certifications/{certId}:
+   *   delete:
+   *     summary: Remove certification
+   *     description: Remove a certification from the authenticated user's profile
+   *     tags:
+   *       - User
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: certId
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: ID of the certification to remove (name-organization format)
+   *     responses:
+   *       200:
+   *         description: Certification removed successfully
+   */
+  async removeCertification(req: CustomRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userId = req.user?.user_id;
+      const { certId } = req.params;
+      
+      const result = await userService.removeCertification(userId!, certId);
+      res.json(result);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @swagger
+   * /api/v1/users/profile/courses/{courseId}/progress:
+   *   put:
+   *     summary: Update course progress
+   *     description: Update the progress of a specific course for the authenticated user
+   *     tags:
+   *       - User
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: courseId
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Course ID
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             required:
+   *               - progress
+   *             properties:
+   *               progress:
+   *                 type: number
+   *                 description: Progress percentage (0-100)
+   *     responses:
+   *       200:
+   *         description: Course progress updated successfully
+   */
+  async updateCourseProgress(req: CustomRequest, res: Response, next: NextFunction): Promise<void> {
+    try {
+      const userId = req.user?.user_id;
+      if (!userId) {
+        res.status(StatusCodes.UNAUTHORIZED).json({ 
+          message: "Unauthorized" 
+        });
+        return;
+      }
+
+      const { courseId } = req.params;
+      const { progress } = req.body;
+      
+      const updatedCourse = await userService.updateCourseProgress(userId, courseId, progress);
+      res.json(updatedCourse);
     } catch (error) {
       next(error);
     }

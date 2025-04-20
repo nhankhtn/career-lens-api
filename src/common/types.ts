@@ -37,6 +37,17 @@ export interface ProfileResponse {
     instagram?: string;
     other?: string;
   };
+  skills?: {
+    name: string;
+    rating: number;
+    category?: string;
+  }[];
+  certifications?: {
+    name: string;
+    organization: string;
+    year?: number;
+    score?: string;
+  }[];
   courses: {
     id: string;
     title: string;
