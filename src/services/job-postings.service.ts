@@ -11,17 +11,17 @@ class JobPostingsService {
       const positionStats = await JobPosting.aggregate([
         {
           $lookup: {
-            from: "positions", // Assuming the collection name is "positions"
+            from: "careers", // Changed from "positions" to "careers"
             localField: "position",
             foreignField: "_id",
             as: "positionData"
           }
         },
-        { $unwind: "$positionData" },
+        { $unwind: { path: "$positionData", preserveNullAndEmptyArrays: true } },
         {
           $group: {
             _id: "$position",
-            positionName: { $first: "$positionData.name" },
+            positionName: { $first: { $ifNull: ["$positionData.name", "Unknown"] } },
             count: { $sum: 1 }
           }
         },
@@ -34,6 +34,7 @@ class JobPostingsService {
         count: stat.count
       }));
     } catch (error) {
+      console.error("Error getting position stats:", error);
       throw error;
     }
   }
