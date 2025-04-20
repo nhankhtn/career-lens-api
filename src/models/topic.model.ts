@@ -59,6 +59,9 @@ const TopicSchema: Schema<ITopic> = new mongoose.Schema(
   }
 );
 TopicSchema.pre("validate", function (next) {
+  if (this.level >= 2 && !this.priority && !this.order) {
+    this.invalidate("priority", "Phải có một trong 'order' hoặc 'priority'.");
+  }
   if (this.priority != null && this.order != null) {
     this.invalidate(
       "priority",
@@ -67,7 +70,7 @@ TopicSchema.pre("validate", function (next) {
   }
   next();
 });
-TopicSchema.index({ title: 1, level: 1 }, { unique: true });
+// TopicSchema.index({ title: 1, level: 1, parent_id: 1 }, { unique: true });
 TopicSchema.set("toJSON", {
   virtuals: true,
   versionKey: false,
