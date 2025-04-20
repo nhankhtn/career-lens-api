@@ -19,4 +19,7 @@ router.get("/position-stats", jobPostingsController.getPositionStats);
 // Get job experience level statistics
 router.get("/experience-stats", jobPostingsStatsController.getJobPostingsByExperienceLevel);
 
+// Get top skills demand statistics
+router.get("/skills-demand-stats", jobPostingsStatsController.getTopSkillsDemandStats);
+
 export default router; 

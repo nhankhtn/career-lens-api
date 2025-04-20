@@ -44,6 +44,50 @@ class JobPostingsStatsController {
       next(error);
     }
   }
+
+  /**
+   * @swagger
+   * /api/v1/job-postings/skills-demand-stats:
+   *   get:
+   *     summary: Lấy thống kê về kỹ năng đang được yêu cầu nhiều nhất
+   *     description: Trả về danh sách các kỹ năng phổ biến nhất trong tin tuyển dụng cùng với tỷ lệ xuất hiện trong hồ sơ ứng viên
+   *     tags: [JobPostings]
+   *     parameters:
+   *       - in: query
+   *         name: limit
+   *         schema:
+   *           type: integer
+   *           default: 5
+   *         description: Số lượng kỹ năng cần lấy
+   *     responses:
+   *       200:
+   *         description: Thống kê được lấy thành công
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: array
+   *               items:
+   *                 type: object
+   *                 properties:
+   *                   skillName:
+   *                     type: string
+   *                     example: "Computer Science"
+   *                   recruitmentDemandPercentage:
+   *                     type: integer
+   *                     example: 27
+   *                   applicantPercentage:
+   *                     type: integer
+   *                     example: 2
+   */
+  async getTopSkillsDemandStats(req: Request, res: Response, next: NextFunction) {
+    try {
+      const limit = req.query.limit ? parseInt(req.query.limit as string) : 5;
+      const stats = await jobPostingsStatsService.getTopSkillsDemandStats(limit);
+      res.json(stats);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new JobPostingsStatsController(); 
