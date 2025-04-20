@@ -3,14 +3,6 @@ import { Types } from 'mongoose';
 import { ISkill } from './skill.model';
 import { ITopic } from './topic.model';
 
-export interface ICourse {
-  id: string;
-  title: string;
-  description: string;
-  icon?: string;
-  progress?: number;
-}
-
 
 export interface ICertification {
   name: string;
