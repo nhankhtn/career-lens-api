@@ -1,8 +1,8 @@
 import express from "express";
 import { validate } from "src/middlewares/validator.middleware";
 import { z } from "zod";
-import jobPostingsController from "src/controllers/career/job-postings.controller";
-import jobPostingsStatsController from "src/controllers/career/job-postings-stats.controller";
+import jobPostingsController from "src/controllers/job-posting/job-postings.controller";
+import jobPostingsStatsController from "src/controllers/job-posting/job-postings-stats.controller";
 
 const router = express.Router();
 
