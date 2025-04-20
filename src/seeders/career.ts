@@ -99,6 +99,7 @@ export const careers = [
       "Tạo ra các ứng dụng cho các nền tảng di động như Android và iOS.",
     average_salary: 90000,
     growth_rate: 0.2,
+    
     topic_id: null,
     related_topics: null,
     skills: ["Flutter", "React Native", "Swift", "Kotlin"],

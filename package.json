@@ -5,7 +5,8 @@
   "license": "MIT",
   "scripts": {
     "start": "npx tsx --watch src/server.ts",
-    "seed": "npx tsx --env-file=.env src/seeders/index.ts"
+    "seed": "npx tsx --env-file=.env src/seeders/index.ts",
+    "seed:users": "ts-node src/seeders/user-profile.seeder.ts"
   },
   "dependencies": {
     "cors": "^2.8.5",
