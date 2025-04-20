@@ -1,5 +1,4 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
-import Skill from "./skill.model";
 
 export interface ICareer extends Document {
   id: Types.ObjectId;
