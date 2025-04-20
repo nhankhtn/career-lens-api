@@ -2,6 +2,7 @@ import express from "express";
 import { validate } from "src/middlewares/validator.middleware";
 import { z } from "zod";
 import jobPostingsController from "src/controllers/career/job-postings.controller";
+import jobPostingsStatsController from "src/controllers/career/job-postings-stats.controller";
 
 const router = express.Router();
 
@@ -14,5 +15,8 @@ const router = express.Router();
 
 // Get job position statistics
 router.get("/position-stats", jobPostingsController.getPositionStats);
+
+// Get job experience level statistics
+router.get("/experience-stats", jobPostingsStatsController.getJobPostingsByExperienceLevel);
 
 export default router; 

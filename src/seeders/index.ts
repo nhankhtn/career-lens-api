@@ -2,9 +2,9 @@ import configEnv from "src/config/env";
 import mongoose from "mongoose";
 import Skill, { ISkill } from "src/models/skill.model";
 import { skills } from "./skill";
-import Company from "src/models/company.model";
+import Company, { ICompany } from "src/models/company.model";
 import { companies } from "./company";
-import ExperienceLevel from "src/models/experience_level.model";
+import ExperienceLevel, { IExperienceLevel } from "src/models/experience_level.model";
 import { experienceLevels } from "./experience_level";
 import Career from "src/models/career.model";
 import { careers } from "./career";
@@ -107,11 +107,16 @@ const seedJobPostings = async (
       
       // Find yof from experience levels
       const yofObject = experienceLevels.find((e) => e.title === jobPosting.yof);
+      
+      // Find company with matching name
+      const company = companies.find((c) => c.name === jobPosting.company_id);
 
+      // Use company_id directly as a string name
       return {
         ...jobPosting,
         position: positionObject?._id || null,
         yof: yofObject?._id || null,
+        company_id: company ? company.name : jobPosting.company_id,
         skills: skillIds,
       };
     });

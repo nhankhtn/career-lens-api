@@ -4,6 +4,7 @@ import userRouter from "./user.route";
 import topicRouter from "./topic.route";
 import careerRouter from "./career.route";
 import jobPostingsRouter from "./job-postings.route";
+import companyRouter from "./company.route";
 import { jwtAuthMiddleware } from "src/middlewares/jwt-auth.middleware";
 
 function route(app: Express) {
@@ -12,6 +13,7 @@ function route(app: Express) {
   apiRouter.use("/topics", jwtAuthMiddleware, topicRouter);
   apiRouter.use("/careers", jwtAuthMiddleware, careerRouter);
   apiRouter.use("/job-postings", jwtAuthMiddleware, jobPostingsRouter);
+  apiRouter.use("/companies", jwtAuthMiddleware, companyRouter);
 
   app.use("/api/v1", apiRouter);
 }

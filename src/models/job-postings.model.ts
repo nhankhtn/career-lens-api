@@ -6,7 +6,7 @@ export interface IJobPosting extends Document {
   job_title: string;
   salary_min: number;
   salary_max?: number;
-  company_id: Types.ObjectId;
+  company_id: string;
   job_description: string;
   position: Types.ObjectId;
   yof: Types.ObjectId;
@@ -20,7 +20,7 @@ const JobPostingSchema: Schema<IJobPosting> = new mongoose.Schema(
     job_title: { type: String, required: true },
     salary_min: { type: Number, required: true },
     salary_max: { type: Number },
-    company_id: { type: Schema.Types.ObjectId, required: true },
+    company_id: { type: String, required: true },
     job_description: { type: String, required: true },
     position: { type: Schema.Types.ObjectId, required: true },
     yof: { type: Schema.Types.ObjectId, required: true },
