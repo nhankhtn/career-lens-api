@@ -1,6 +1,6 @@
-import { ICampany } from "src/models/campany.model";
+import { ICompany } from "src/models/company.model";
 
-const campanies: Partial<ICampany>[] = [
+export const companies: Partial<ICompany>[] = [
   {
     name: "VNG Corporation",
     website_urls: {

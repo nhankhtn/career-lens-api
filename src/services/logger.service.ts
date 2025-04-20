@@ -4,6 +4,7 @@ import ErrorLog from "src/models/error-log.model";
 class LoggerService {
   async logError(error: Omit<IErrorLog, "_id" | "created_at">) {
     try {
+      console.log("error", error);
       const errorLog = new ErrorLog({
         method: error.method,
         url: error.url,
@@ -12,6 +13,7 @@ class LoggerService {
         headers: error.headers,
         client_ip: error.client_ip,
         duration: error.duration,
+        error: error.error,
         user_id: error.user_id,
       });
       await errorLog.save();

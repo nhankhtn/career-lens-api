@@ -3,7 +3,7 @@ import { GeneralQueryProps } from "src/common/types";
 import { CreateTopicInput } from "src/controllers/topic/dto/create-topic.dto";
 import { UpdateTopicInput } from "src/controllers/topic/dto/update-topic.dto";
 import Topic, { ITopic } from "src/models/topic.model";
-import { ApiError, StatusCodes, wrapApiError } from "src/utils/api-error";
+import { ApiError, StatusCodes } from "src/utils/api-error";
 
 class TopicService {
   async create(body: CreateTopicInput) {
@@ -13,7 +13,7 @@ class TopicService {
       console.log("Topic created successfully");
       return topic;
     } catch (error) {
-      throw wrapApiError(error);
+      throw error;
     }
   }
 
@@ -21,14 +21,14 @@ class TopicService {
     try {
       const { offset = 0, limit = 10, key } = query;
 
-      const filter: RootFilterQuery<ITopic> = { level: 1 };
+      const filter: RootFilterQuery<ITopic> = { level: 1, deleted_at: null };
       if (key) {
         filter.title = { $regex: key, $options: "i" }; // Tìm kiếm không phân biệt chữ hoa chữ thường
       }
       const topics = await Topic.find(filter)
         .skip(offset)
         .limit(limit)
-        .sort({ createdAt: -1 }); // Sắp xếp theo ngày tạo mới nhất trước
+        .sort({ created_at: -1 }); // Sắp xếp theo ngày tạo mới nhất trước
       const total = await Topic.countDocuments(filter);
       console.log("Get topics successfully");
       return {
@@ -36,7 +36,7 @@ class TopicService {
         total: total,
       };
     } catch (error) {
-      throw wrapApiError(error);
+      throw error;
     }
   }
 
@@ -64,9 +64,8 @@ class TopicService {
         childs: topicChild,
         parent: parent,
       };
-      return topic;
     } catch (error) {
-      throw wrapApiError(error);
+      throw error;
     }
   }
 
@@ -87,7 +86,7 @@ class TopicService {
       console.log("Update topic successfully");
       return topic;
     } catch (error) {
-      throw wrapApiError(error);
+      throw error;
     }
   }
 
@@ -112,7 +111,7 @@ class TopicService {
         message: "Topic deleted successfully",
       };
     } catch (error) {
-      throw wrapApiError(error);
+      throw error;
     }
   }
 }
