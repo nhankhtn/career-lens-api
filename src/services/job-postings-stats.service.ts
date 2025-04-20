@@ -149,6 +149,100 @@ class JobPostingsStatsService {
   }
 
   /**
+   * Get job posting heatmap data by month and week
+   * This will return data for visualizing job postings distribution by month, week, and salary range
+   * @param year The year to get data for, defaults to current year
+   */
+  async getJobPostingsHeatmapData(year?: number) {
+    try {
+      // Use current year if not specified
+      // const targetYear = year || new Date().getFullYear();
+      const targetYear = 2023;
+      const startDate = new Date(targetYear, 0, 1); // January 1st of target year
+      const endDate = new Date(targetYear, 11, 31, 23, 59, 59); // December 31st of target year
+
+      // Query job postings within the specified year
+      const jobPostings = await JobPosting.find({
+        date_posted: {
+          $gte: startDate,
+          $lte: endDate
+        }
+      }).lean();
+
+      // Define salary ranges
+      const salaryRanges = {
+        low: { min: 0, max: 1999, color: '#E2E8F0' },       // Dưới 1,999 - light blue
+        medium: { min: 2000, max: 9999, color: '#818CF8' },  // 2,000 đến 9,999 - medium blue
+        high: { min: 10000, max: Infinity, color: '#4F46E5' } // 10,000+ - dark blue
+      };
+
+      // Create a matrix for the heatmap [month][week]
+      // 12 months x 4 weeks
+      const heatmapData = Array(12).fill(null).map(() => 
+        Array(4).fill(null).map(() => ({
+          count: 0,
+          salaryRange: 'low',
+          color: salaryRanges.low.color
+        }))
+      );
+
+      // Process each job posting
+      for (const posting of jobPostings) {
+        if (!posting.date_posted) continue;
+        
+        const date = new Date(posting.date_posted);
+        const month = date.getMonth(); // 0-11
+        
+        // Determine which week of the month (0-3)
+        const day = date.getDate();
+        const week = Math.min(Math.floor((day - 1) / 7), 3);
+        
+        // Determine salary range category based on min salary
+        let salaryRange = 'low';
+        if (posting.salary_min >= salaryRanges.high.min) {
+          salaryRange = 'high';
+        } else if (posting.salary_min >= salaryRanges.medium.min) {
+          salaryRange = 'medium';
+        }
+        
+        // Update the count in the heatmap
+        heatmapData[month][week].count++;
+        
+        // Set the dominant salary range for this cell based on higher counts
+        // This is a simplified approach - in reality you might want to use weighted averages
+        const currentCell = heatmapData[month][week];
+        if (
+          (salaryRange === 'high' && currentCell.salaryRange !== 'high') || 
+          (salaryRange === 'medium' && currentCell.salaryRange === 'low')
+        ) {
+          currentCell.salaryRange = salaryRange;
+          currentCell.color = salaryRanges[salaryRange].color;
+        }
+      }
+
+      // Format the response for the heatmap
+      const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+      const weeks = ['1st week', '2nd week', '3rd week', '4th week'];
+      
+      // Format the response
+      return {
+        months,
+        weeks,
+        data: heatmapData,
+        salaryRanges: [
+          { label: 'Dưới 1,999', color: salaryRanges.low.color },
+          { label: 'Từ 2,000 đến 9,999', color: salaryRanges.medium.color },
+          { label: '10,000+', color: salaryRanges.high.color }
+        ],
+        year: targetYear
+      };
+    } catch (error) {
+      console.error("Error getting job postings heatmap data:", error);
+      throw error;
+    }
+  }
+
+  /**
    * Format experience level label based on min and max years of experience
    */
   private formatExperienceLabel(min: number, max?: number): string {

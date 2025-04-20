@@ -22,4 +22,7 @@ router.get("/experience-stats", jobPostingsStatsController.getJobPostingsByExper
 // Get top skills demand statistics
 router.get("/skills-demand-stats", jobPostingsStatsController.getTopSkillsDemandStats);
 
+// Get job postings heatmap data
+router.get("/heatmap", jobPostingsStatsController.getJobPostingsHeatmap);
+
 export default router; 

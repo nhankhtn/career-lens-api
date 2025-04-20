@@ -88,6 +88,78 @@ class JobPostingsStatsController {
       next(error);
     }
   }
+
+  /**
+   * @swagger
+   * /api/v1/job-postings/heatmap:
+   *   get:
+   *     summary: Lấy dữ liệu biểu đồ nhiệt cho tin tuyển dụng
+   *     description: Trả về dữ liệu để hiển thị biểu đồ nhiệt tin tuyển dụng theo tháng, tuần và khoảng lương
+   *     tags: [JobPostings]
+   *     parameters:
+   *       - in: query
+   *         name: year
+   *         schema:
+   *           type: integer
+   *         description: Năm cần lấy dữ liệu (mặc định là năm hiện tại)
+   *     responses:
+   *       200:
+   *         description: Dữ liệu biểu đồ nhiệt được lấy thành công
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 months:
+   *                   type: array
+   *                   items:
+   *                     type: string
+   *                   example: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"]
+   *                 weeks:
+   *                   type: array
+   *                   items:
+   *                     type: string
+   *                   example: ["1st week", "2nd week", "3rd week", "4th week"]
+   *                 data:
+   *                   type: array
+   *                   items:
+   *                     type: array
+   *                     items:
+   *                       type: object
+   *                       properties:
+   *                         count:
+   *                           type: integer
+   *                           example: 5
+   *                         salaryRange:
+   *                           type: string
+   *                           example: "medium"
+   *                         color:
+   *                           type: string
+   *                           example: "#818CF8"
+   *                 salaryRanges:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       label:
+   *                         type: string
+   *                         example: "Dưới 1,999"
+   *                       color:
+   *                         type: string
+   *                         example: "#E2E8F0"
+   *                 year:
+   *                   type: integer
+   *                   example: 2023
+   */
+  async getJobPostingsHeatmap(req: Request, res: Response, next: NextFunction) {
+    try {
+      const year = req.query.year ? parseInt(req.query.year as string) : undefined;
+      const heatmapData = await jobPostingsStatsService.getJobPostingsHeatmapData(year);
+      res.json(heatmapData);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new JobPostingsStatsController(); 
