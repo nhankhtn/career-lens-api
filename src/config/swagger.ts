@@ -70,6 +70,97 @@ const getSwaggerOptions = (url: string): swaggerJsdoc.Options => ({
             },
           },
         },
+        UserProfile: {
+          type: "object",
+          properties: {
+            id: {
+              type: "string",
+              description: "User ID",
+            },
+            name: {
+              type: "string",
+              description: "User's full name",
+            },
+            email: {
+              type: "string",
+              description: "User's email address",
+            },
+            phone: {
+              type: "string",
+              description: "User's phone number",
+              nullable: true,
+            },
+            photo_url: {
+              type: "string",
+              description: "URL to user's profile photo",
+              nullable: true,
+            },
+            bio: {
+              type: "string",
+              description: "User's biography",
+              nullable: true,
+            },
+            address: {
+              type: "string",
+              description: "User's address",
+              nullable: true,
+            },
+            year: {
+              type: "number",
+              description: "User's year (e.g., graduation year)",
+              nullable: true,
+            },
+            school: {
+              type: "string",
+              description: "User's school",
+              nullable: true,
+            },
+            quote: {
+              type: "string",
+              description: "User's quote",
+              nullable: true,
+            },
+            analytics: {
+              type: "object",
+              properties: {
+                weeklyViews: {
+                  type: "object",
+                  properties: {
+                    w1: { type: "number" },
+                    w2: { type: "number" },
+                    w3: { type: "number" },
+                    w4: { type: "number" },
+                  },
+                },
+                totalViews: { type: "number" },
+                totalStars: { type: "number" },
+                totalSearches: { type: "number" },
+              },
+            },
+            social_media: {
+              type: "object",
+              nullable: true,
+              properties: {
+                facebook: { type: "string", nullable: true },
+                instagram: { type: "string", nullable: true },
+                other: { type: "string", nullable: true },
+              },
+            },
+            courses: {
+              type: "array",
+              items: {
+                type: "object",
+                properties: {
+                  id: { type: "string" },
+                  title: { type: "string" },
+                  description: { type: "string" },
+                  icon: { type: "string", nullable: true },
+                  progress: { type: "number", nullable: true },
+                },
+              },
+            },
+          },
+        },
         ErrorResponse: {
           type: "object",
           properties: {

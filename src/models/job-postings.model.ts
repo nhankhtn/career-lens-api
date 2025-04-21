@@ -20,7 +20,7 @@ const JobPostingSchema: Schema<IJobPosting> = new mongoose.Schema(
     job_title: { type: String, required: true },
     salary_min: { type: Number, required: true },
     salary_max: { type: Number },
-    company_id: { type: Schema.Types.ObjectId, required: true },
+    company_id: { type: Schema.Types.ObjectId, ref: "Company", required: true },
     job_description: { type: String, required: true },
     position: { type: Schema.Types.ObjectId, required: true },
     yof: { type: Schema.Types.ObjectId, required: true },

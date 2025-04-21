@@ -2,12 +2,14 @@ import configEnv from "src/config/env";
 import mongoose from "mongoose";
 import Skill, { ISkill } from "src/models/skill.model";
 import { skills } from "./skill";
-import Company from "src/models/company.model";
+import Company, { ICompany } from "src/models/company.model";
 import { companies } from "./company";
-import ExperienceLevel from "src/models/experience_level.model";
+import ExperienceLevel, { IExperienceLevel } from "src/models/experience_level.model";
 import { experienceLevels } from "./experience_level";
 import Career from "src/models/career.model";
 import { careers } from "./career";
+import JobPosting from "src/models/job-postings.model";
+import { jobPostings } from "./job-postings";
 
 const seedSkill = async () => {
   try {
@@ -77,15 +79,70 @@ const seedCareers = async (skills: Omit<ISkill, "id">[]) => {
   }
 };
 
+const seedJobPostings = async (
+  skills: Omit<ISkill, "id">[],
+  companies: any[],
+  experienceLevels: any[]
+) => {
+  try {
+    await JobPosting.deleteMany({});
+    console.log("Deleted existing job postings");
+
+    // First fetch all careers from the database to match against position names
+    const dbCareers = await Career.find({});
+    
+    const data = jobPostings.map((jobPosting) => {
+      // Map skill names to real skill IDs from the database
+      const skillIds = jobPosting.skills
+        ? jobPosting.skills.map((skillName: string) => {
+            // Find the actual skill ID from the database
+            const skill = skills.find((s) => s.name === skillName);
+            return skill ? skill._id : null;
+          })
+          .filter(Boolean)
+        : [];
+
+      // Find position from careers in database
+      const positionObject = dbCareers.find((c) => c.name === jobPosting.position);
+      
+      // Find yof from experience levels
+      const yofObject = experienceLevels.find((e) => e.title === jobPosting.yof);
+      
+      // Find company with matching name
+      const company = companies.find((c) => c.name === jobPosting.company_id);
+
+      // Use company._id as ObjectId reference instead of string name
+      return {
+        ...jobPosting,
+        position: positionObject?._id || null,
+        yof: yofObject?._id || null,
+        company_id: company ? company._id : null,
+        skills: skillIds,
+      };
+    });
+
+    // Filter out any entries with null company_id
+    const validData = data.filter(item => item.company_id !== null);
+
+    const createdJobPostings = await JobPosting.insertMany(validData);
+    console.log(`Created ${createdJobPostings.length} new job postings`);
+    return createdJobPostings;
+  } catch (error) {
+    console.error("Error seeding job postings:", error);
+    return null;
+  }
+};
+
 const seedAll = async () => {
   try {
     await mongoose.connect(configEnv.DATABASE_URL);
     console.log("Connected to MongoDB");
 
     const skills = await seedSkill();
-    await seedCompany();
-    await seedExperienceLevel();
+    const companies = await seedCompany();
+    const experienceLevels = await seedExperienceLevel();
     await seedCareers(skills || []);
+    await seedJobPostings(skills || [], companies || [], experienceLevels || []);
   } catch (error) {
     console.error("Error seeding database:", error);
   } finally {
