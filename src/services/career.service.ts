@@ -7,6 +7,7 @@ import { ApiError, StatusCodes } from "src/utils/api-error";
 
 // Import models in the correct order
 import Career, { ICareer } from "src/models/career.model"; // Then import Career model
+import Topic from "src/models/topic.model";
 
 class CareerService {
   async create(body: CreateCareerInput) {
@@ -30,7 +31,6 @@ class CareerService {
         max_salary,
         skill,
         major,
-        experience_level,
       } = query;
       console.log("query", query);
       const filter: RootFilterQuery<ICareer> = {};
@@ -56,13 +56,37 @@ class CareerService {
           path: "skills",
           select: "name",
         })
+        .populate({
+          path: "topic_id",
+          select: "title",
+        })
         .skip(offset)
         .limit(limit)
-        .sort({ created_at: -1 }); // Sắp xếp theo ngày tạo mới nhất trước
+        .sort({ growth_rate: -1 }); // Sắp xếp theo ngày tạo mới nhất trước
       const total = await Career.countDocuments(filter);
       console.log("Get careers successfully");
+
+      const results = await Promise.all(
+        careers.map(async (career) => {
+          let childrenCount = 0;
+
+          if (career.topic_id) {
+            childrenCount = await Topic.countDocuments({
+              parent_id: career.topic_id._id,
+              deleted_at: null,
+            });
+          }
+
+          return {
+            ...career.toObject(),
+            topic: career.topic_id,
+            topic_children_count: childrenCount,
+          };
+        })
+      );
+
       return {
-        data: careers,
+        data: results,
         total: total,
       };
     } catch (error) {

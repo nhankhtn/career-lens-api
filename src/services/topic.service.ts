@@ -53,7 +53,7 @@ class TopicService {
       }
       const topicChild = await Topic.find({
         parent_id: topic.id,
-        delete_at: null,
+        deleted_at: null,
       });
       let parent = null;
       if (topic.parent_id) {

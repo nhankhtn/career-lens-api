@@ -24,6 +24,6 @@ export const CareerQueryDto = GeneralQueryDto.extend({
     .transform((val) => (val ? parseInt(val) : undefined)),
 
   major: z.string().optional(),
-  experience_level: z.string().optional(),
+  // experience_level: z.string().optional(),
 });
 export type CareerQueryInput = z.infer<typeof CareerQueryDto>;
