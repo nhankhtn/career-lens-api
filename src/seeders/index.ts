@@ -4,7 +4,9 @@ import Skill, { ISkill } from "src/models/skill.model";
 import { skills } from "./skill";
 import Company, { ICompany } from "src/models/company.model";
 import { companies } from "./company";
-import ExperienceLevel, { IExperienceLevel } from "src/models/experience_level.model";
+import ExperienceLevel, {
+  IExperienceLevel,
+} from "src/models/experience_level.model";
 import { experienceLevels } from "./experience_level";
 import Career from "src/models/career.model";
 import { careers } from "./career";
@@ -70,9 +72,9 @@ const seedCareers = async (skills: Omit<ISkill, "id">[]) => {
       };
     });
 
-    const createdCompanies = await Career.insertMany(data);
-    console.log(`Created ${createdCompanies.length} new careers`);
-    return createdCompanies;
+    const careersCreated = await Career.insertMany(data);
+    console.log(`Created ${careersCreated.length} new careers`);
+    return careersCreated;
   } catch (error) {
     console.error("Error seeding careers:", error);
     return null;
@@ -82,32 +84,35 @@ const seedCareers = async (skills: Omit<ISkill, "id">[]) => {
 const seedJobPostings = async (
   skills: Omit<ISkill, "id">[],
   companies: any[],
-  experienceLevels: any[]
+  experienceLevels: any[],
+  careers: any[]
 ) => {
   try {
     await JobPosting.deleteMany({});
     console.log("Deleted existing job postings");
 
-    // First fetch all careers from the database to match against position names
-    const dbCareers = await Career.find({});
-    
     const data = jobPostings.map((jobPosting) => {
       // Map skill names to real skill IDs from the database
       const skillIds = jobPosting.skills
-        ? jobPosting.skills.map((skillName: string) => {
-            // Find the actual skill ID from the database
-            const skill = skills.find((s) => s.name === skillName);
-            return skill ? skill._id : null;
-          })
-          .filter(Boolean)
+        ? jobPosting.skills
+            .map((skillName: string) => {
+              // Find the actual skill ID from the database
+              const skill = skills.find((s) => s.name === skillName);
+              return skill ? skill._id : null;
+            })
+            .filter(Boolean)
         : [];
 
       // Find position from careers in database
-      const positionObject = dbCareers.find((c) => c.name === jobPosting.position);
-      
+      const positionObject = careers.find(
+        (c) => c.name === jobPosting.position
+      );
+
       // Find yof from experience levels
-      const yofObject = experienceLevels.find((e) => e.title === jobPosting.yof);
-      
+      const yofObject = experienceLevels.find(
+        (e) => e.title === jobPosting.yof
+      );
+
       // Find company with matching name
       const company = companies.find((c) => c.name === jobPosting.company_id);
 
@@ -122,7 +127,7 @@ const seedJobPostings = async (
     });
 
     // Filter out any entries with null company_id
-    const validData = data.filter(item => item.company_id !== null);
+    const validData = data.filter((item) => item.company_id !== null);
 
     const createdJobPostings = await JobPosting.insertMany(validData);
     console.log(`Created ${createdJobPostings.length} new job postings`);
@@ -141,8 +146,13 @@ const seedAll = async () => {
     const skills = await seedSkill();
     const companies = await seedCompany();
     const experienceLevels = await seedExperienceLevel();
-    await seedCareers(skills || []);
-    await seedJobPostings(skills || [], companies || [], experienceLevels || []);
+    const careers = await seedCareers(skills || []);
+    await seedJobPostings(
+      skills || [],
+      companies || [],
+      experienceLevels || [],
+      careers || []
+    );
   } catch (error) {
     console.error("Error seeding database:", error);
   } finally {

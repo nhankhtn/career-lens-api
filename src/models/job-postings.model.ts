@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
 import { ISkill } from "./skill.model";
+import { applyBaseSchemaOptions } from "src/utils/mongoose-helper";
 
 export interface IJobPosting extends Document {
   id: Types.ObjectId;
@@ -32,22 +33,8 @@ const JobPostingSchema: Schema<IJobPosting> = new mongoose.Schema(
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
   }
 );
-JobPostingSchema.set("toJSON", {
-  virtuals: true,
-  versionKey: false,
-  transform: function (_, ret) {
-    ret.id = ret._id.toString();
-    delete ret._id;
-  },
-});
-JobPostingSchema.set("toObject", {
-  virtuals: true,
-  versionKey: false,
-  transform: function (_, ret) {
-    ret.id = ret._id.toString();
-    delete ret._id;
-  },
-});
+
+applyBaseSchemaOptions(JobPostingSchema);
 const JobPosting = mongoose.model<IJobPosting>("JobPosting", JobPostingSchema);
 
 export default JobPosting;

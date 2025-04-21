@@ -1,8 +1,5 @@
 import express from "express";
-import { validate } from "src/middlewares/validator.middleware";
-import { z } from "zod";
 import jobPostingsController from "src/controllers/job-posting/job-postings.controller";
-import jobPostingsStatsController from "src/controllers/job-posting/job-postings-stats.controller";
 
 const router = express.Router();
 
@@ -16,19 +13,22 @@ const router = express.Router();
 // Get job position statistics
 router.get("/position-stats", jobPostingsController.getPositionStats);
 
-// Get job postings by company ID
-router.get("/company/:companyId", jobPostingsController.getJobPostingsByCompany);
-
-// Get job postings by company name
-router.get("/company-name/:companyName", jobPostingsController.getJobPostingsByCompanyName);
+// Get job postings by company
+router.get("/company", jobPostingsController.getTopCompaniesByJobPostings);
 
 // Get job experience level statistics
-router.get("/experience-stats", jobPostingsStatsController.getJobPostingsByExperienceLevel);
+router.get(
+  "/experience-stats",
+  jobPostingsController.getJobPostingsByExperienceLevel
+);
 
 // Get top skills demand statistics
-router.get("/skills-demand-stats", jobPostingsStatsController.getTopSkillsDemandStats);
+router.get(
+  "/skills-demand-stats",
+  jobPostingsController.getTopSkillsDemandStats
+);
 
 // Get job postings heatmap data
-router.get("/heatmap", jobPostingsStatsController.getJobPostingsHeatmap);
+router.get("/heatmap", jobPostingsController.getJobPostingsHeatmap);
 
-export default router; 
+export default router;
