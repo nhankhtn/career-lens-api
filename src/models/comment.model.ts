@@ -19,6 +19,7 @@ const CommentSchema: Schema<IComment> = new mongoose.Schema(
     user_id: { type: Schema.Types.ObjectId, ref: 'User', required: true },
     content: { type: String, required: true },
     image_url: [{ type: [String], default: [] }],
+    post_id: { type: Schema.Types.ObjectId, ref: 'ForumPost', required: true }, // Thêm trường post_id
     deleted_at: { type: Date },
     deleted_by: { type: Schema.Types.ObjectId, ref: 'User' },
   },
@@ -26,6 +27,7 @@ const CommentSchema: Schema<IComment> = new mongoose.Schema(
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
   },
 );
+
 CommentSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
@@ -34,6 +36,7 @@ CommentSchema.set('toJSON', {
     delete ret._id;
   },
 });
+
 CommentSchema.set('toObject', {
   virtuals: true,
   versionKey: false,
@@ -42,6 +45,7 @@ CommentSchema.set('toObject', {
     delete ret._id;
   },
 });
+
 const Comment = mongoose.model<IComment>('Comment', CommentSchema);
 
 export default Comment;

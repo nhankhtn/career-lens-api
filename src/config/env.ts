@@ -5,6 +5,7 @@ interface IConfigEnv {
   JWT_SECRET: string;
   JWT_EXPIRE_IN: string;
   DATABASE_URL: string;
+  CLIENT_URL?: string;
 }
 
 const configEnv: IConfigEnv = {
@@ -16,6 +17,7 @@ const configEnv: IConfigEnv = {
   JWT_EXPIRE_IN: process.env.JWT_EXPIRE_IN || "1d",
 
   DATABASE_URL: process.env.DATABASE_URL || "",
+  CLIENT_URL: process.env.CLIEND_URL || "http://localhost:3000",
 };
 
 export default configEnv;

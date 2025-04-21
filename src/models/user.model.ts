@@ -9,6 +9,9 @@ export interface IUser extends Document {
   phone?: string;
   photo_url?: string;
   role: string;
+  company?: string; // Thêm trường công ty
+  location?: string; // Thêm trường vị trí
+  position?: string; // Thêm trường chức vụ
   created_at: Date;
   updated_at: Date;
 }
@@ -21,11 +24,15 @@ const UserSchema: Schema<IUser> = new mongoose.Schema(
     phone: { type: String },
     photo_url: { type: String },
     role: { type: String, required: true, default: 'user' },
+    company: { type: String }, // Thêm trường công ty
+    location: { type: String }, // Thêm trường vị trí
+    position: { type: String }, // Thêm trường chức vụ
   },
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
   },
 );
+
 UserSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
@@ -34,6 +41,7 @@ UserSchema.set('toJSON', {
     delete ret._id;
   },
 });
+
 UserSchema.set('toObject', {
   virtuals: true,
   versionKey: false,
@@ -42,6 +50,7 @@ UserSchema.set('toObject', {
     delete ret._id;
   },
 });
+
 const User = mongoose.model<IUser>('User', UserSchema);
 
 export default User;
