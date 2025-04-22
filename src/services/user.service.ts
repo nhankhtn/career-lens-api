@@ -12,6 +12,8 @@ import UserOnboarding from "src/models/user-onboarding";
 import { JWTPayload } from "src/common/types";
 import { ObjectId } from "mongodb";
 import { CreateUserTopicProgressInput } from "src/controllers/user/dto/create-user-topic-progress.dto";
+import { UserOnboardingInput } from "src/controllers/user/dto/user-onboarding.dto";
+import Skill from "src/models/skill.model";
 
 class UserService {
   async getUserByIdToken(idToken: string) {
@@ -61,6 +63,12 @@ class UserService {
           id: userId,
           name: "",
           email: "",
+          phone: "",
+          photo_url: "",
+          role: "",
+          year: null,
+          school: null,
+          address: null,
         };
       }
       return user;
@@ -276,6 +284,50 @@ class UserService {
       }
       console.log("Remove skill user succsesfully");
       return user;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async createOnboarding(userId: string, body: Partial<UserOnboardingInput>) {
+    try {
+      const { skills_have, ...rest } = body;
+
+      const skillNames = (skills_have || []).map((s) => s.name.trim());
+
+      const existingSkills = await Skill.find({
+        name: { $in: skillNames },
+      });
+
+      const existingSkillMap = new Map(
+        existingSkills.map((s) => [s.name.trim(), s])
+      );
+
+      const newSkillsToCreate = skillNames.filter(
+        (name) => !existingSkillMap.has(name)
+      );
+
+      const createdSkills = await Skill.insertMany(
+        newSkillsToCreate.map((name) => ({ name }))
+      );
+
+      const allSkills = [...existingSkills, ...createdSkills];
+
+      const onboarding = new UserOnboarding({
+        user_id: userId,
+        ...rest,
+        skills_have: allSkills.map((skill) => new ObjectId(skill.id)),
+      });
+      await onboarding.save();
+
+      await User.findByIdAndUpdate(userId, {
+        onboarding_completed: true,
+      });
+      console.log("Onboarding created successfully");
+
+      return {
+        message: "Onboarding created successfully",
+      };
     } catch (error) {
       throw error;
     }

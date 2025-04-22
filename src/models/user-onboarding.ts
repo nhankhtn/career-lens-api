@@ -14,8 +14,6 @@ export interface IUserOnboarding extends Document {
   school: string | null;
 
   current_goal: string | null;
-  short_term_goal: string | null;
-  long_term_goal: string | null;
 
   skills_have: Types.ObjectId[];
 
@@ -24,8 +22,6 @@ export interface IUserOnboarding extends Document {
     field: string;
     years: number;
   }[];
-
-  career_orientation_result: string | null;
 
   created_at: Date;
   updated_at: Date;
@@ -49,10 +45,8 @@ const UserOnboardingSchema = new Schema<IUserOnboarding>(
     school: { type: String },
 
     current_goal: { type: String },
-    short_term_goal: { type: String },
-    long_term_goal: { type: String },
 
-    skills_have: [{ type: [Schema.Types.ObjectId], ref: "Skill", default: [] }],
+    skills_have: { type: [Schema.Types.ObjectId], ref: "Skill", default: [] },
 
     experience: [
       {
@@ -61,10 +55,9 @@ const UserOnboardingSchema = new Schema<IUserOnboarding>(
         years: Number,
       },
     ],
-
-    career_orientation_result: { type: String },
   },
   {
+    collection: "user_onboarding",
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
   }
 );

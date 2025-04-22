@@ -85,12 +85,6 @@ class CareerService {
           let matchPercentage = 0;
 
           if (career.topic_id) {
-            // Count all children topics
-            childrenCount = await Topic.countDocuments({
-              parent_id: career.topic_id._id,
-              deleted_at: null,
-            });
-
             // Count level 2 topics specifically
             level2Count = await Topic.countDocuments({
               parent_id: career.topic_id._id,
@@ -114,7 +108,6 @@ class CareerService {
           return {
             ...career.toObject(),
             topic: career.topic_id,
-            topic_children_count: childrenCount,
             topic_count: level2Count + getRandomInt(0, 20),
             skill_match_percentage: matchPercentage,
           };
@@ -127,6 +120,7 @@ class CareerService {
       );
 
       console.log("Get careers successfully");
+      console.log("results", results);
       return {
         data: results,
         total: total,

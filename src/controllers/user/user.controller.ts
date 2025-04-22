@@ -405,6 +405,62 @@ class UserController {
       next(error);
     }
   }
+
+  /**
+   * @swagger
+   * /api/v1/users/onboarding:
+   *   post:
+   *     summary: Create user onboarding
+   *     description: Create onboarding data for a user
+   *     tags:
+   *       - User
+   *     security:
+   *       - bearerAuth: []
+   *     requestBody:
+   *       required: true
+   *       content:
+   *         application/json:
+   *           schema:
+   *             type: object
+   *             properties:
+   *               skills_have:
+   *                 type: array
+   *                 items:
+   *                   type: string
+   *               skills_want:
+   *                 type: array
+   *                 items:
+   *                   type: string
+   *               career_goals:
+   *                 type: array
+   *                 items:
+   *                   type: string
+   *               learning_preferences:
+   *                 type: array
+   *                 items:
+   *                   type: string
+   *     responses:
+   *       200:
+   *         description: Onboarding created successfully
+   *       500:
+   *         description: Internal server error
+   */
+  async createOnboarding(
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const user = req.user;
+      const onboarding = await userService.createOnboarding(
+        user?.user_id!,
+        req.body
+      );
+      res.json(onboarding);
+    } catch (error) {
+      next(error);
+    }
+  }
 }
 
 export default new UserController();

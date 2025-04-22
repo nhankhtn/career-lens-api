@@ -1,5 +1,6 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
 import { IUser } from "./user.model";
+import { applyBaseSchemaOptions } from "src/utils/mongoose-helper";
 
 export interface IForumPost extends Document {
   id: Types.ObjectId;
@@ -51,22 +52,8 @@ const ForumPostSchema: Schema<IForumPost> = new mongoose.Schema(
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
   }
 );
-ForumPostSchema.set("toJSON", {
-  virtuals: true,
-  versionKey: false,
-  transform: function (_, ret) {
-    ret.id = ret._id.toString();
-    delete ret._id;
-  },
-});
-ForumPostSchema.set("toObject", {
-  virtuals: true,
-  versionKey: false,
-  transform: function (_, ret) {
-    ret.id = ret._id.toString();
-    delete ret._id;
-  },
-});
+
+applyBaseSchemaOptions(ForumPostSchema);
 const ForumPost = mongoose.model<IForumPost>("ForumPost", ForumPostSchema);
 
 export { PostLike, PostShare };
