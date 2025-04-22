@@ -36,7 +36,10 @@ class UserService {
           decodedToken.provider_id === "anonymous"
             ? new ObjectId()
             : user?.id.toString(),
-        role: user?.role || "user",
+        role:
+          decodedToken.provider_id === "anonymous"
+            ? "anonymous"
+            : user?.role || "user",
       };
 
       const jwtToken = jwt.sign(payload, configEnv.JWT_SECRET as string, {

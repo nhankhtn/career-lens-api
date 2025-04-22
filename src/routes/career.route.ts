@@ -5,7 +5,9 @@ import careerController from "src/controllers/career/career.controller";
 import { CreateCareerDto } from "src/controllers/career/dto/create-career.dto";
 import { CareerQueryDto } from "src/controllers/career/dto/career-query.dto";
 import { UpdateCareerDto } from "src/controllers/career/dto/update-career.dto";
-
+import { jwtAuthMiddleware } from "src/middlewares/jwt-auth.middleware";
+import { checkAdminMiddleware } from "src/middlewares/check-admin.middleware";
+import { checkUserMiddleware } from "src/middlewares/check-user.middleware";
 const router = express.Router();
 
 router.get("/api-status", careerController.apiStatus);
@@ -18,6 +20,8 @@ router.post(
       body: CreateCareerDto,
     })
   ),
+  jwtAuthMiddleware,
+  checkAdminMiddleware,
   careerController.create
 );
 router.get(
@@ -27,6 +31,8 @@ router.get(
       query: CareerQueryDto,
     })
   ),
+  jwtAuthMiddleware,
+  checkUserMiddleware,
   careerController.findAll
 );
 router.put(
@@ -39,6 +45,8 @@ router.put(
       }),
     })
   ),
+  jwtAuthMiddleware,
+  checkAdminMiddleware,
   careerController.update
 );
 router.delete(
@@ -50,6 +58,8 @@ router.delete(
       }),
     })
   ),
+  jwtAuthMiddleware,
+  checkAdminMiddleware,
   careerController.remove
 );
 router.get(
@@ -61,6 +71,8 @@ router.get(
       }),
     })
   ),
+  jwtAuthMiddleware,
+  checkUserMiddleware,
   careerController.findById
 );
 

@@ -39,6 +39,8 @@ export const ErrorMessages = {
   UNAUTHORIZED: "Unauthorized access",
   FORBIDDEN: "Access forbidden",
   INTERNAL_ERROR: "Internal server error",
+  REQUIRE_LOGIN: "Login required",
+  NOT_ROLE_ADMIN: "Admin role required",
 } as const;
 
 export const wrapApiError = (error: any) => {
