@@ -97,7 +97,7 @@ class UserService {
   }
 
   // Update to get course data from Topic model
-  async getUserTopic(userId: string) {
+  async getUserTopics(userId: string) {
     try {
       // Get all topics with their progress
       const topics = await Topic.find({ deleted_at: null }).sort({
@@ -140,6 +140,36 @@ class UserService {
       });
       console.log("Get user topic progress successfully");
       return topicsWithProgress;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getUserTopicProgressByTopicId(userId: string, topicId: string) {
+    try {
+      const userProgress = await UserTopicProgress.find({
+        user_id: userId,
+        topic_id: topicId,
+      });
+
+      // Get topic level 2 progress
+      const topic = await Topic.findById(topicId);
+      if (topic && topic.level === 1) {
+        const level2Topics = await Topic.find({
+          level: 2,
+          parent_id: topicId,
+          deleted_at: null,
+        });
+
+        const level2Progress = await UserTopicProgress.find({
+          user_id: userId,
+          topic_id: { $in: level2Topics.map((t) => t._id) },
+        });
+
+        return [userProgress, ...level2Progress];
+      }
+
+      return userProgress;
     } catch (error) {
       throw error;
     }

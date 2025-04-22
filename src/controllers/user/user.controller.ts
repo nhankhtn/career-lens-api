@@ -211,7 +211,7 @@ class UserController {
   async getUserTopics(req: CustomRequest, res: Response, next: NextFunction) {
     try {
       const user = req.user;
-      const topics = await userService.getUserTopic(user?.user_id!);
+      const topics = await userService.getUserTopics(user?.user_id!);
       res.json(topics);
     } catch (error) {
       next(error);
@@ -270,6 +270,48 @@ class UserController {
         user?.user_id!,
         topicId,
         req.body
+      );
+      res.json(progress);
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @swagger
+   * /api/v1/users/topics/{topicId}/progress:
+   *   get:
+   *     summary: Get user topic progress by topic ID
+   *     description: Get progress for a specific topic including level 2 topics if applicable
+   *     tags:
+   *       - User
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: topicId
+   *         required: true
+   *         schema:
+   *           type: string
+   *     responses:
+   *       200:
+   *         description: Progress retrieved successfully
+   *       404:
+   *         description: Topic not found
+   *       500:
+   *         description: Internal server error
+   */
+  async getTopicProgressByTopicId(
+    req: CustomRequest,
+    res: Response,
+    next: NextFunction
+  ) {
+    try {
+      const user = req.user;
+      const { topicId } = req.params;
+      const progress = await userService.getUserTopicProgressByTopicId(
+        user?.user_id!,
+        topicId
       );
       res.json(progress);
     } catch (error) {
