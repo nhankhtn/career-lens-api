@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
+import { applyBaseSchemaOptions } from "src/utils/mongoose-helper";
 
 export enum TopicType {
   course = "Course",
@@ -27,6 +28,7 @@ export interface ITopic extends Document {
   order: number | null;
   deleted_at: Date;
   deleted_by: Types.ObjectId | null;
+  skills: Types.ObjectId[] | null;
 }
 
 const TopicSchema: Schema<ITopic> = new mongoose.Schema(
@@ -53,6 +55,7 @@ const TopicSchema: Schema<ITopic> = new mongoose.Schema(
     },
     deleted_at: { type: Date, default: null },
     deleted_by: { type: Types.ObjectId, default: null },
+    skills: { type: [Types.ObjectId], default: null, ref: "Skill" },
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
@@ -71,26 +74,8 @@ TopicSchema.pre("validate", function (next) {
   next();
 });
 // TopicSchema.index({ title: 1, level: 1, parent_id: 1 }, { unique: true });
-TopicSchema.set("toJSON", {
-  virtuals: true,
-  versionKey: false,
-  transform: function (_, ret) {
-    ret.id = ret._id.toString();
-    ret.resources.forEach((element: any) => {
-      element.id = element._id.toString();
-      delete element._id;
-    });
-    delete ret._id;
-  },
-});
-TopicSchema.set("toObject", {
-  virtuals: true,
-  versionKey: false,
-  transform: function (_, ret) {
-    ret.id = ret._id.toString();
-    delete ret._id;
-  },
-});
+applyBaseSchemaOptions(TopicSchema);
+
 const Topic = mongoose.model<ITopic>("Topic", TopicSchema);
 
 export default Topic;

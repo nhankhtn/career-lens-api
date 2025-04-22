@@ -9,6 +9,8 @@ import { UpdateCareerDto } from "src/controllers/career/dto/update-career.dto";
 const router = express.Router();
 
 router.get("/api-status", careerController.apiStatus);
+
+// Career Routes
 router.post(
   "/",
   validate(

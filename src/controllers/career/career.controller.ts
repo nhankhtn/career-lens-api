@@ -122,10 +122,11 @@ class CareerController {
    *             schema:
    *               $ref: '#/components/schemas/ErrorResponse'
    */
-  async findAll(req: Request, res: Response, next: NextFunction) {
+  async findAll(req: CustomRequest, res: Response, next: NextFunction) {
     try {
+      const user = req.user;
       const query = CareerQueryDto.parse(req.query);
-      const result = await careerService.findAll(query);
+      const result = await careerService.findAll(query, user?.user_id!);
       res.json(result);
       return;
     } catch (error) {
@@ -169,9 +170,10 @@ class CareerController {
    *             schema:
    *               $ref: '#/components/schemas/ErrorResponse'
    */
-  async findById(req: Request, res: Response, next: NextFunction) {
+  async findById(req: CustomRequest, res: Response, next: NextFunction) {
     try {
-      const data = await careerService.findById(req.params.id);
+      const user = req.user;
+      const data = await careerService.findById(req.params.id, user?.user_id!);
       res.json(data);
       return;
     } catch (error) {
