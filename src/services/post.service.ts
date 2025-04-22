@@ -1,3 +1,4 @@
+import { Types } from "mongoose";
 import ForumPost from "src/models/forum-post.model";
 import { PostLike, PostSave } from "src/models/forum-post.model";
 import { PostQueryInput } from "src/controllers/forum/post/dto/post-query.dto";
@@ -5,14 +6,18 @@ import { CreatePostInput } from "src/controllers/forum/post/dto/create-post.dto"
 import { UpdatePostInput } from "src/controllers/forum/post/dto/update-post.dto";
 import { ApiError, StatusCodes } from "src/utils/api-error";
 import Connection from "src/models/connection.model";
-import mongoose from "mongoose";
-import { io } from "src/server"; // Import Socket.IO để gửi thông báo realtime
-import notificationService from "./notification.service"; // Import NotificationService
-import { NotificationType } from "src/models/notification.model"; // Import NotificationType
-import User from "src/models/user.model"; // Import User để lấy thông tin người dùng
+import { io } from "src/server";
+import notificationService from "./notification.service";
+import { NotificationType } from "src/models/notification.model";
+import User from "src/models/user.model";
 
 class PostService {
   async create(data: CreatePostInput & { user_id: string }) {
+    const user = await User.findById(data.user_id);
+    if (!user) {
+      throw new ApiError(StatusCodes.NOT_FOUND, "User not found");
+    }
+
     const post = await ForumPost.create({
       user_id: data.user_id,
       content: data.content,
@@ -21,27 +26,31 @@ class PostService {
       comment_count: 0,
     });
 
-    // Populate dữ liệu để gửi thông báo
     const populatedPost = await ForumPost.findById(post._id).populate(
       "user_id",
       "name photo_url company location"
     );
 
-    // Tìm những người follow người đăng bài
+    if (!populatedPost) {
+      throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Failed to populate post");
+    }
+
+    if (!populatedPost.user_id) {
+      throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Post has invalid user_id after population");
+    }
+
     const followers = await Connection.find({ target_user_id: data.user_id }).select("user_id");
     const followerIds = followers.map((follower) => follower.user_id.toString());
 
-    // Gửi thông báo realtime đến tất cả người follow
     io.to(followerIds).emit("newPost", populatedPost);
 
-    // Tạo thông báo cho từng người follow
     for (const followerId of followerIds) {
       await notificationService.create({
         user_id: followerId,
         sender_id: data.user_id,
-        post_id: (post._id as mongoose.Types.ObjectId).toString(),
+        post_id: (post._id as Types.ObjectId).toString(),
         type: NotificationType.NEW_POST,
-        message: `${populatedPost.user_id.name} vừa đăng một bài viết mới`,
+        message: `${populatedPost.user_id.name || "Unknown"} vừa đăng một bài viết mới`,
       });
     }
 
@@ -72,7 +81,9 @@ class PostService {
       ForumPost.countDocuments(filter),
     ]);
 
-    return { data: posts, total };
+    const validPosts = posts.filter((post) => post.user_id);
+
+    return { data: validPosts, total };
   }
 
   async findById(id: string) {
@@ -83,9 +94,15 @@ class PostService {
         match: { deleted_at: null },
         populate: { path: "user_id", select: "name photo_url company location" },
       });
+
     if (!post || post.deleted_at) {
       throw new ApiError(StatusCodes.NOT_FOUND, "Post not found");
     }
+
+    if (!post.user_id) {
+      throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Post has invalid user_id");
+    }
+
     return post;
   }
 
@@ -94,7 +111,7 @@ class PostService {
     if (!post || post.deleted_at) {
       throw new ApiError(StatusCodes.NOT_FOUND, "Post not found");
     }
-    if ((post.user_id as mongoose.Types.ObjectId).toString() !== userId) {
+    if ((post.user_id as Types.ObjectId).toString() !== userId) {
       throw new ApiError(StatusCodes.FORBIDDEN, "You are not authorized to update this post");
     }
     const updatedPost = await ForumPost.findByIdAndUpdate(id, data, { new: true })
@@ -104,6 +121,15 @@ class PostService {
         match: { deleted_at: null },
         populate: { path: "user_id", select: "name photo_url company location" },
       });
+
+    if (!updatedPost) {
+      throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Failed to update post");
+    }
+
+    if (!updatedPost.user_id) {
+      throw new ApiError(StatusCodes.INTERNAL_SERVER_ERROR, "Updated post has invalid user_id");
+    }
+
     return updatedPost;
   }
 
@@ -112,7 +138,7 @@ class PostService {
     if (!post || post.deleted_at) {
       throw new ApiError(StatusCodes.NOT_FOUND, "Post not found");
     }
-    if ((post.user_id as mongoose.Types.ObjectId).toString() !== userId) {
+    if ((post.user_id as Types.ObjectId).toString() !== userId) {
       throw new ApiError(StatusCodes.FORBIDDEN, "You are not authorized to delete this post");
     }
     await ForumPost.findByIdAndUpdate(id, { deleted_at: new Date(), deleted_by: userId });
@@ -144,7 +170,9 @@ class PostService {
       .sort({ created_at: -1 });
 
     const total = await PostSave.countDocuments(filter);
-    const posts = savedPosts.filter((save) => save.post_id).map((save) => save.post_id);
+    const posts = savedPosts
+      .filter((save) => save.post_id && save.post_id.user_id)
+      .map((save) => save.post_id);
 
     return { data: posts, total };
   }
@@ -157,6 +185,10 @@ class PostService {
     }).select("target_user_id");
 
     const followedUserIds = connections.map((conn) => conn.target_user_id);
+
+    if (!followedUserIds.length) {
+      return { data: [], total: 0 };
+    }
 
     const filter: any = { user_id: { $in: followedUserIds }, deleted_at: null };
     if (key) {
@@ -177,7 +209,9 @@ class PostService {
       ForumPost.countDocuments(filter),
     ]);
 
-    return { data: posts, total };
+    const validPosts = posts.filter((post) => post.user_id);
+
+    return { data: validPosts, total };
   }
 
   async likePost(postId: string, userId: string) {
@@ -194,18 +228,19 @@ class PostService {
     await PostLike.create({ user_id: userId, post_id: postId });
     await ForumPost.findByIdAndUpdate(postId, { $inc: { like_count: 1 } });
 
-    // Gửi thông báo realtime đến tất cả người dùng đang xem bài viết
     io.to(postId).emit("postLiked", { postId, like_count: post.like_count + 1 });
 
-    // Gửi thông báo cho tác giả bài viết (nếu không phải là người thích)
-    if ((post.user_id as mongoose.Types.ObjectId).toString() !== userId) {
+    if ((post.user_id as Types.ObjectId).toString() !== userId) {
       const sender = await User.findById(userId).select("name");
+      if (!sender) {
+        throw new ApiError(StatusCodes.NOT_FOUND, "Sender not found");
+      }
       await notificationService.create({
-        user_id: (post.user_id as mongoose.Types.ObjectId).toString(),
+        user_id: (post.user_id as Types.ObjectId).toString(),
         sender_id: userId,
         post_id: postId,
         type: NotificationType.NEW_LIKE,
-        message: `${sender.name} đã thích bài viết của bạn`,
+        message: `${sender.name || "Unknown"} đã thích bài viết của bạn`,
       });
     }
 
@@ -225,7 +260,6 @@ class PostService {
 
     await ForumPost.findByIdAndUpdate(postId, { $inc: { like_count: -1 } });
 
-    // Gửi thông báo realtime đến tất cả người dùng đang xem bài viết
     io.to(postId).emit("postUnliked", { postId, like_count: post.like_count - 1 });
 
     return { message: "Post unliked successfully" };

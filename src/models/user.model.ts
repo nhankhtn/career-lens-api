@@ -9,9 +9,9 @@ export interface IUser extends Document {
   phone?: string;
   photo_url?: string;
   role: string;
-  company?: string; // Thêm trường công ty
-  location?: string; // Thêm trường vị trí
-  position?: string; // Thêm trường chức vụ
+  company?: string;
+  location?: string;
+  position?: string;
   created_at: Date;
   updated_at: Date;
 }
@@ -19,14 +19,14 @@ export interface IUser extends Document {
 const UserSchema: Schema<IUser> = new mongoose.Schema(
   {
     name: { type: String, required: true },
-    email: { type: String, unique: true },
+    email: { type: String, required: true, unique: true }, // Đảm bảo email là bắt buộc
     password: { type: String },
     phone: { type: String },
     photo_url: { type: String },
     role: { type: String, required: true, default: 'user' },
-    company: { type: String }, // Thêm trường công ty
-    location: { type: String }, // Thêm trường vị trí
-    position: { type: String }, // Thêm trường chức vụ
+    company: { type: String },
+    location: { type: String },
+    position: { type: String },
   },
   {
     timestamps: { createdAt: 'created_at', updatedAt: 'updated_at' },
@@ -36,18 +36,58 @@ const UserSchema: Schema<IUser> = new mongoose.Schema(
 UserSchema.set('toJSON', {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
-    ret.id = ret._id.toString();
+  transform: function (doc: Document, ret: any) {
+    // Kiểm tra ret có tồn tại và là object không
+    if (!ret || typeof ret !== 'object') return {};
+
+    // Xử lý an toàn cho các trường
+    ret.id = ret._id ? ret._id.toString() : null;
+    ret.name = ret.name ? String(ret.name) : null;
+    ret.email = ret.email ? String(ret.email) : null;
+    ret.phone = ret.phone ? String(ret.phone) : null;
+    ret.photo_url = ret.photo_url ? String(ret.photo_url) : null;
+    ret.role = ret.role ? String(ret.role) : 'user';
+    ret.company = ret.company ? String(ret.company) : null;
+    ret.location = ret.location ? String(ret.location) : null;
+    ret.position = ret.position ? String(ret.position) : null;
+    ret.created_at = ret.created_at ? ret.created_at.toISOString() : null;
+    ret.updated_at = ret.updated_at ? ret.updated_at.toISOString() : null;
+
+    // Xóa các trường không cần thiết
     delete ret._id;
+    delete ret.__v;
+    delete ret.password; // Không trả về mật khẩu
+
+    return ret;
   },
 });
 
 UserSchema.set('toObject', {
   virtuals: true,
   versionKey: false,
-  transform: function (doc, ret) {
-    ret.id = ret._id.toString();
+  transform: function (doc: Document, ret: any) {
+    // Kiểm tra ret có tồn tại và là object không
+    if (!ret || typeof ret !== 'object') return {};
+
+    // Xử lý an toàn cho các trường
+    ret.id = ret._id ? ret._id.toString() : null;
+    ret.name = ret.name ? String(ret.name) : null;
+    ret.email = ret.email ? String(ret.email) : null;
+    ret.phone = ret.phone ? String(ret.phone) : null;
+    ret.photo_url = ret.photo_url ? String(ret.photo_url) : null;
+    ret.role = ret.role ? String(ret.role) : 'user';
+    ret.company = ret.company ? String(ret.company) : null;
+    ret.location = ret.location ? String(ret.location) : null;
+    ret.position = ret.position ? String(ret.position) : null;
+    ret.created_at = ret.created_at ? ret.created_at.toISOString() : null;
+    ret.updated_at = ret.updated_at ? ret.updated_at.toISOString() : null;
+
+    // Xóa các trường không cần thiết
     delete ret._id;
+    delete ret.__v;
+    delete ret.password; // Không trả về mật khẩu
+
+    return ret;
   },
 });
 
