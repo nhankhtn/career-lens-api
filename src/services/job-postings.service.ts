@@ -1,14 +1,35 @@
 import JobPosting from "src/models/job-postings.model";
 import ExperienceLevel from "src/models/experience_level.model";
-
+import { PipelineStage } from "mongoose";
+import { regionMap } from "src/common/region";
+import { JobPostingsQueryInput } from "src/controllers/job-posting/dto/job-postings-query.dto";
 class JobPostingsService {
-  async getPositionStats(limit = 5) {
+  async getPositionStats(query: JobPostingsQueryInput, limit = 5) {
     try {
-      // Aggregate to count job postings by position
-      const positionStats = await JobPosting.aggregate([
+      const { date_from, date_to, region } = query;
+      const matchStage: any = {};
+
+      if (date_from || date_to) {
+        matchStage.date_posted = {};
+        if (date_from) matchStage.date_posted.$gte = date_from;
+        if (date_to) matchStage.date_posted.$lte = date_to;
+      }
+
+      if (region) {
+        matchStage.$or = [
+          {
+            location: {
+              $regex: new RegExp(regionMap[region].join("|"), "i"),
+            },
+          },
+        ];
+      }
+
+      const pipeline: PipelineStage[] = [
+        ...(Object.keys(matchStage).length ? [{ $match: matchStage }] : []),
         {
           $lookup: {
-            from: "careers", // Changed from "positions" to "careers"
+            from: "careers",
             localField: "position",
             foreignField: "_id",
             as: "positionData",
@@ -28,10 +49,12 @@ class JobPostingsService {
         },
         { $sort: { count: -1 } },
         { $limit: limit },
-      ]);
+      ];
+
+      const positionStats = await JobPosting.aggregate(pipeline);
 
       return positionStats.map((stat) => ({
-        name: stat.positionName,
+        position: stat.positionName,
         count: stat.count,
       }));
     } catch (error) {
@@ -40,10 +63,29 @@ class JobPostingsService {
     }
   }
 
-  async getTopCompaniesByJobPostings(limit = 5) {
+  async getTopCompaniesByJobPostings(query: JobPostingsQueryInput, limit = 5) {
     try {
-      // Aggregate to count job postings by company and get company details
-      const topCompanies = await JobPosting.aggregate([
+      const { date_from, date_to, region } = query;
+      const matchStage: any = {};
+
+      if (date_from || date_to) {
+        matchStage.date_posted = {};
+        if (date_from) matchStage.date_posted.$gte = date_from;
+        if (date_to) matchStage.date_posted.$lte = date_to;
+      }
+
+      if (region) {
+        matchStage.$or = [
+          {
+            location: {
+              $regex: new RegExp(regionMap[region].join("|"), "i"),
+            },
+          },
+        ];
+      }
+
+      const pipeline: PipelineStage[] = [
+        ...(Object.keys(matchStage).length ? [{ $match: matchStage }] : []),
         {
           $group: {
             _id: "$company_id",
@@ -59,7 +101,10 @@ class JobPostingsService {
           },
         },
         {
-          $unwind: "$companyData",
+          $unwind: {
+            path: "$companyData",
+            preserveNullAndEmptyArrays: true,
+          },
         },
         {
           $project: {
@@ -75,17 +120,15 @@ class JobPostingsService {
         },
         { $sort: { jobCount: -1 } },
         { $limit: limit },
-      ]);
+      ];
+
+      const topCompanies = await JobPosting.aggregate(pipeline);
 
       return topCompanies.map((company) => ({
-        id: company._id,
         name: company.name,
+        average_salary: company.average_salary,
+        average_it_count: company.average_it_count,
         job_count: company.jobCount,
-        industry: company.industry,
-        location: company.location,
-        photo_url: company.photo_url,
-        website_urls: company.website_urls,
-        size: company.size,
       }));
     } catch (error) {
       console.error("Error getting top companies by job postings:", error);
@@ -93,15 +136,33 @@ class JobPostingsService {
     }
   }
 
-  async getJobPostingsByExperienceLevelStats() {
+  async getJobPostingsByExperienceLevelStats(query: JobPostingsQueryInput) {
     try {
-      // First get all experience levels to use for categorization
+      const { date_from, date_to, region } = query;
       const experienceLevels = await ExperienceLevel.find()
         .sort({ yof_min: 1 })
         .lean();
 
-      // Lookup job postings with their experience level data
-      const jobPostings = await JobPosting.aggregate([
+      const matchStage: any = {};
+
+      if (date_from || date_to) {
+        matchStage.date_posted = {};
+        if (date_from) matchStage.date_posted.$gte = date_from;
+        if (date_to) matchStage.date_posted.$lte = date_to;
+      }
+
+      if (region) {
+        matchStage.$or = [
+          {
+            location: {
+              $regex: new RegExp(regionMap[region].join("|"), "i"),
+            },
+          },
+        ];
+      }
+
+      const pipeline = [
+        ...(Object.keys(matchStage).length ? [{ $match: matchStage }] : []),
         {
           $lookup: {
             from: "experience_levels",
@@ -116,8 +177,8 @@ class JobPostingsService {
             preserveNullAndEmptyArrays: true,
           },
         },
-      ]);
-
+      ];
+      const jobPostings = await JobPosting.aggregate(pipeline);
       const experienceCategories = experienceLevels.map((level) => ({
         id: level._id,
         label: this.formatExperienceLabel(level.yof_min, level.yof_max),
@@ -136,31 +197,42 @@ class JobPostingsService {
         }
       }
 
-      const totalJobs = experienceCategories.reduce(
-        (sum, category) => sum + category.count,
-        0
-      );
-
-      // Format the response for the chart
-      return {
-        labels: experienceCategories.map((category) => category.label),
-        data: experienceCategories.map((category) => category.count),
-        total_jobs: totalJobs,
-      };
+      return experienceCategories.map((category) => ({
+        label: category.label,
+        value: category.count,
+      }));
     } catch (error) {
       console.error("Error getting experience level stats:", error);
       throw error;
     }
   }
 
-  async getTopSkillsDemandStats(limit = 5) {
+  async getTopSkillsDemandStats(query: JobPostingsQueryInput, limit = 5) {
     try {
-      // Get total job posting count for percentage calculation
-      const totalJobPostings = await JobPosting.countDocuments();
+      const { date_from, date_to, region } = query;
+      const matchStage: any = {};
 
-      // Aggregate to get skill counts in job postings
-      const skillDemandInJobs = await JobPosting.aggregate([
-        { $unwind: "$skills" },
+      if (date_from || date_to) {
+        matchStage.date_posted = {};
+        if (date_from) matchStage.date_posted.$gte = date_from;
+        if (date_to) matchStage.date_posted.$lte = date_to;
+      }
+
+      if (region) {
+        matchStage.$or = [
+          {
+            location: {
+              $regex: new RegExp(regionMap[region].join("|"), "i"),
+            },
+          },
+        ];
+      }
+
+      const totalJobPostings = await JobPosting.countDocuments(matchStage);
+
+      const pipeline: PipelineStage[] = [
+        ...(Object.keys(matchStage).length ? [{ $match: matchStage }] : []),
+        { $unwind: { path: "$skills" } },
         {
           $lookup: {
             from: "skills",
@@ -169,7 +241,7 @@ class JobPostingsService {
             as: "skillData",
           },
         },
-        { $unwind: "$skillData" },
+        { $unwind: { path: "$skillData" } },
         {
           $group: {
             _id: "$skillData._id",
@@ -189,15 +261,17 @@ class JobPostingsService {
         },
         { $sort: { percentage: -1 } },
         { $limit: limit },
-      ]);
+      ];
+
+      const skillDemandInJobs = await JobPosting.aggregate(pipeline);
 
       const skillStats = skillDemandInJobs.map((skill) => {
         const applicantPercentage = Math.floor(Math.random() * 20) + 1;
 
         return {
-          skillName: skill.skillName,
-          recruitmentDemandPercentage: Math.round(skill.percentage),
-          applicantPercentage: applicantPercentage,
+          name: skill.skillName,
+          recruitment_demand: Math.round(skill.percentage),
+          applicant_percentage: applicantPercentage,
         };
       });
 
@@ -208,19 +282,28 @@ class JobPostingsService {
     }
   }
 
-  async getJobPostingsHeatmapData(year?: number) {
+  async getJobPostingsHeatmapData(query: JobPostingsQueryInput) {
     try {
-      const targetYear = year || new Date().getFullYear();
+      const { date_to, region } = query;
+      const targetYear = date_to
+        ? new Date(date_to).getFullYear()
+        : new Date().getFullYear();
       const startDate = new Date(targetYear, 0, 1); // January 1st of target year
       const endDate = new Date(targetYear, 11, 31, 23, 59, 59); // December 31st of target year
 
-      // Query job postings within the specified year
-      const jobPostings = await JobPosting.find({
+      const queryJobPostings: any = {
         date_posted: {
           $gte: startDate,
           $lte: endDate,
         },
-      }).lean();
+      };
+
+      if (region && regionMap[region]) {
+        queryJobPostings.location = { $in: regionMap[region] };
+      }
+
+      // Query job postings within the specified year and region
+      const jobPostings = await JobPosting.find(queryJobPostings).lean();
 
       const result = Array(4)
         .fill(0)
