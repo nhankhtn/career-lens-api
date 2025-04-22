@@ -20,7 +20,11 @@ router.get("/info", jwtAuthMiddleware, (req, res, next) => {
 });
 
 router.get("/topics", jwtAuthMiddleware, (req, res, next) => {
-  userController.getInfo(req as CustomRequest, res, next);
+  userController.getUserTopics(req as CustomRequest, res, next);
+});
+
+router.get("/topics/:topicId/progress", jwtAuthMiddleware, (req, res, next) => {
+  userController.getTopicProgressByTopicId(req as CustomRequest, res, next);
 });
 
 router.put(
@@ -32,7 +36,7 @@ router.put(
   ),
   jwtAuthMiddleware,
   (req, res, next) => {
-    userController.getInfo(req as CustomRequest, res, next);
+    userController.createTopicProgress(req as CustomRequest, res, next);
   }
 );
 
@@ -40,7 +44,7 @@ router.delete(
   "/topics/:topicId/progress",
   jwtAuthMiddleware,
   (req, res, next) => {
-    userController.getInfo(req as CustomRequest, res, next);
+    userController.deleteTopicProgress(req as CustomRequest, res, next);
   }
 );
 

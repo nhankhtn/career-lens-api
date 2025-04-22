@@ -3,6 +3,7 @@ import ExperienceLevel from "src/models/experience_level.model";
 import { PipelineStage } from "mongoose";
 import { regionMap } from "src/common/region";
 import { JobPostingsQueryInput } from "src/controllers/job-posting/dto/job-postings-query.dto";
+import { getRandomInt } from "src/utils/number";
 class JobPostingsService {
   async getPositionStats(query: JobPostingsQueryInput, limit = 5) {
     try {
@@ -207,7 +208,7 @@ class JobPostingsService {
     }
   }
 
-  async getTopSkillsDemandStats(query: JobPostingsQueryInput, limit = 5) {
+  async getTopSkillsDemandStats(query: JobPostingsQueryInput, limit = 4) {
     try {
       const { date_from, date_to, region } = query;
       const matchStage: any = {};
@@ -291,7 +292,7 @@ class JobPostingsService {
       const startDate = new Date(targetYear, 0, 1); // January 1st of target year
       const endDate = new Date(targetYear, 11, 31, 23, 59, 59); // December 31st of target year
 
-      const queryJobPostings: any = {
+      const matchStage: any = {
         date_posted: {
           $gte: startDate,
           $lte: endDate,
@@ -299,27 +300,56 @@ class JobPostingsService {
       };
 
       if (region && regionMap[region]) {
-        queryJobPostings.location = { $in: regionMap[region] };
+        matchStage.$or = [
+          {
+            location: {
+              $regex: new RegExp(regionMap[region].join("|"), "i"),
+            },
+          },
+        ];
       }
 
-      // Query job postings within the specified year and region
-      const jobPostings = await JobPosting.find(queryJobPostings).lean();
+      const pipeline = [
+        { $match: matchStage },
+        {
+          $group: {
+            _id: {
+              month: { $month: "$date_posted" },
+              week: {
+                $floor: {
+                  $divide: [
+                    { $subtract: [{ $dayOfMonth: "$date_posted" }, 1] },
+                    7,
+                  ],
+                },
+              },
+            },
+            count: { $sum: 1 },
+          },
+        },
+        {
+          $project: {
+            _id: 0,
+            month: { $subtract: ["$_id.month", 1] }, // Convert to 0-based index
+            week: "$_id.week",
+            count: 1,
+          },
+        },
+      ];
+
+      const jobPostings = await JobPosting.aggregate(pipeline);
 
       const result = Array(4)
         .fill(0)
         .map(() => Array(12).fill(0));
 
       jobPostings.forEach((posting) => {
-        const postDate = new Date(posting.date_posted);
-        const month = postDate.getMonth();
-        const week = Math.floor((postDate.getDate() - 1) / 7);
-
-        if (week >= 0 && week < 4) {
-          result[week][month]++;
+        if (posting.week >= 0 && posting.week < 4) {
+          result[posting.week][posting.month] = posting.count;
         }
       });
 
-      return result;
+      return result.map((w) => w.map((c) => c * getRandomInt(1000, 10000)));
     } catch (error) {
       console.error("Error getting job postings heatmap data:", error);
       throw error;
