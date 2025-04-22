@@ -12,6 +12,9 @@ import Career from "src/models/career.model";
 import { careers } from "./career";
 import JobPosting from "src/models/job-postings.model";
 import { jobPostings } from "./job-postings";
+import Topic from "src/models/topic.model";
+import { ObjectId } from "mongodb";
+import { topics } from "./topics";
 
 const seedSkill = async () => {
   try {
@@ -53,7 +56,7 @@ const seedExperienceLevel = async () => {
   }
 };
 
-const seedCareers = async (skills: Omit<ISkill, "id">[]) => {
+const seedCareers = async (skills: Omit<ISkill, "id">[], topics: any[]) => {
   try {
     await Career.deleteMany({});
     console.log("Deleted existing careers");
@@ -66,8 +69,11 @@ const seedCareers = async (skills: Omit<ISkill, "id">[]) => {
         })
         .filter(Boolean);
 
+      const topicId = topics.find((topic) => topic.title === career.name)?._id;
+
       return {
         ...career,
+        topic_id: topicId,
         skills: skillIds,
       };
     });
@@ -138,6 +144,47 @@ const seedJobPostings = async (
   }
 };
 
+const seedTopics = async (skills: any[]) => {
+  try {
+    await Topic.deleteMany({});
+    console.log("Deleted existing topics");
+
+    const data = topics.map((topic) => {
+      // const newData = {
+      //   ...topic,
+      //   created_at: new Date(topic.created_at.$date),
+      //   updated_at: new Date(topic.updated_at.$date),
+      //   deleted_at: topic.deleted_at ? new Date(topic.deleted_at.$date) : null,
+      //   _id: new ObjectId(topic._id.$oid),
+      //   parent_id: topic.parent_id ? new ObjectId(topic.parent_id?.$oid) : null,
+      //   resources: topic.resources.map((r) => ({
+      //     ...r,
+      //     _id: new ObjectId(r._id.$oid),
+      //   })),
+      //   deleted_by: topic.deleted_by
+      //     ? new ObjectId(topic.deleted_by.$oid)
+      //     : null,
+      // };
+      if (topic.level !== 1) {
+        return topic;
+      }
+      const skillIds = skills
+        .map((s) => skills.find((skill) => skill.name === s)?._id)
+        .filter(Boolean);
+      return {
+        ...topic,
+        skills: skillIds,
+      };
+    });
+    const topicCreated = await Topic.insertMany(data);
+    console.log(`Created ${topicCreated.length} new topic`);
+    return topicCreated;
+  } catch (error) {
+    console.error("Error seeding topics:", error);
+    return null;
+  }
+};
+
 const seedAll = async () => {
   try {
     await mongoose.connect(configEnv.DATABASE_URL);
@@ -146,7 +193,8 @@ const seedAll = async () => {
     const skills = await seedSkill();
     const companies = await seedCompany();
     const experienceLevels = await seedExperienceLevel();
-    const careers = await seedCareers(skills || []);
+    const topics = await seedTopics(skills || []);
+    const careers = await seedCareers(skills || [], topics || []);
     await seedJobPostings(
       skills || [],
       companies || [],
