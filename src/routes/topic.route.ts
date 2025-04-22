@@ -5,12 +5,16 @@ import topicController from "src/controllers/topic/topic.controller";
 import { CreateTopicDto } from "src/controllers/topic/dto/create-topic.dto";
 import { UpdateTopicDto } from "src/controllers/topic/dto/update-topic.dto";
 import { z } from "zod";
-
+import { jwtAuthMiddleware } from "src/middlewares/jwt-auth.middleware";
+import { checkAdminMiddleware } from "src/middlewares/check-admin.middleware";
+import { checkUserMiddleware } from "src/middlewares/check-user.middleware";
 const router = express.Router();
 
 router.get("/api-status", topicController.apiStatus);
 router.post(
   "/",
+  jwtAuthMiddleware,
+  checkAdminMiddleware,
   validate(
     z.object({
       body: CreateTopicDto,
@@ -20,6 +24,7 @@ router.post(
 );
 router.get(
   "/",
+  jwtAuthMiddleware,
   validate(
     z.object({
       query: GeneralQueryDto,
@@ -29,6 +34,8 @@ router.get(
 );
 router.put(
   "/:id",
+  jwtAuthMiddleware,
+  checkAdminMiddleware,
   validate(
     z.object({
       body: UpdateTopicDto,
@@ -41,6 +48,8 @@ router.put(
 );
 router.delete(
   "/:id",
+  jwtAuthMiddleware,
+  checkAdminMiddleware,
   validate(
     z.object({
       params: z.object({
@@ -52,6 +61,7 @@ router.delete(
 );
 router.get(
   "/:id",
+  jwtAuthMiddleware,
   validate(
     z.object({
       params: z.object({

@@ -9,6 +9,7 @@ import { UpdateProfileDto } from "src/controllers/user/dto/update-profile.dto";
 import { CreateUserTopicProgressDto } from "src/controllers/user/dto/create-user-topic-progress.dto";
 import { UpdateUserSkillDto } from "src/controllers/user/dto/user-skill.dto";
 import { UserOnboardingDto } from "src/controllers/user/dto/user-onboarding.dto";
+import { checkUserMiddleware } from "src/middlewares/check-user.middleware";
 
 const router = express.Router();
 
@@ -19,13 +20,23 @@ router.get("/info", jwtAuthMiddleware, (req, res, next) => {
   userController.getInfo(req as CustomRequest, res, next);
 });
 
-router.get("/topics", jwtAuthMiddleware, (req, res, next) => {
-  userController.getUserTopics(req as CustomRequest, res, next);
-});
+router.get(
+  "/topics",
+  jwtAuthMiddleware,
+  checkUserMiddleware,
+  (req, res, next) => {
+    userController.getUserTopics(req as CustomRequest, res, next);
+  }
+);
 
-router.get("/topics/:topicId/progress", jwtAuthMiddleware, (req, res, next) => {
-  userController.getTopicProgressByTopicId(req as CustomRequest, res, next);
-});
+router.get(
+  "/topics/:topicId/progress",
+  jwtAuthMiddleware,
+  checkUserMiddleware,
+  (req, res, next) => {
+    userController.getTopicProgressByTopicId(req as CustomRequest, res, next);
+  }
+);
 
 router.put(
   "/topics/:topicId/progress",
@@ -35,6 +46,7 @@ router.put(
     })
   ),
   jwtAuthMiddleware,
+  checkUserMiddleware,
   (req, res, next) => {
     userController.createTopicProgress(req as CustomRequest, res, next);
   }
@@ -43,6 +55,7 @@ router.put(
 router.delete(
   "/topics/:topicId/progress",
   jwtAuthMiddleware,
+  checkUserMiddleware,
   (req, res, next) => {
     userController.deleteTopicProgress(req as CustomRequest, res, next);
   }
@@ -52,6 +65,7 @@ router.delete(
 router.put(
   "/info",
   jwtAuthMiddleware,
+  checkUserMiddleware,
   validate(
     z.object({
       body: UpdateProfileDto,
@@ -71,6 +85,7 @@ router.put(
     })
   ),
   jwtAuthMiddleware,
+  checkUserMiddleware,
   (req, res, next) => {
     userController.addOrUpdateSkills(req as CustomRequest, res, next);
   }
@@ -83,6 +98,7 @@ router.delete(
     })
   ),
   jwtAuthMiddleware,
+  checkUserMiddleware,
   (req, res, next) => {
     userController.removeSkills(req as CustomRequest, res, next);
   }
@@ -91,6 +107,7 @@ router.delete(
 router.post(
   "/onboarding",
   jwtAuthMiddleware,
+  checkUserMiddleware,
   validate(
     z.object({
       body: UserOnboardingDto,
