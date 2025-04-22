@@ -7,12 +7,18 @@ export const companies: Partial<ICompany>[] = [
       main: "https://www.vng.com.vn",
     },
     industry: "Technology, Information and Internet",
-    location: ["Ho Chi Minh, Ho Chi Minh City"],
+    location: [
+      "Ho Chi Minh City, Vietnam",
+      "Hanoi, Vietnam",
+      "Da Nang, Vietnam",
+    ],
     phone: "028 3962 3888",
     photo_url:
       "https://media.licdn.com/dms/image/v2/D560BAQHAXIerkfY1BQ/company-logo_200_200/company-logo_200_200/0/1728274107129?e=1749686400&v=beta&t=rVl8QFoYZvK5zvQuDMwjthhfF0cAOmE0zh_qIHNVzKg",
     founded_at: 2004,
     size: "1,001-5,000 employees",
+    average_salary: 1500,
+    average_it_count: 2000,
   },
   {
     name: "W3Schools.com",
@@ -20,32 +26,32 @@ export const companies: Partial<ICompany>[] = [
       main: "http://www.w3schools.com",
     },
     industry: "E-Learning Providers",
+    location: ["Oslo, Norway"],
     photo_url:
       "https://media.licdn.com/dms/image/v2/D4D0BAQEKiW5_y2z8Pw/company-logo_200_200/company-logo_200_200/0/1730289620977/w3schoolscom_logo?e=1749686400&v=beta&t=YfqBw3bP7A7osA609r1BFdHZdX_ObHkpbrigvYQAP_0",
     founded_at: 1998,
     size: "11-50 employees",
-  },
-  {
-    name: "VNG Corporation",
-    website_urls: {
-      main: "https://www.vng.com.vn",
-    },
-    industry: "Technology, Information and Internet",
-    photo_url:
-      "https://media.licdn.com/dms/image/v2/D4D0BAQEKiW5_y2z8Pw/company-logo_200_200/company-logo_200_200/0/1730289620977/w3schoolscom_logo?e=1749686400&v=beta&t=YfqBw3bP7A7osA609r1BFdHZdX_ObHkpbrigvYQAP_0",
-    founded_at: 1998,
-    size: "11-50 employees",
+    average_salary: 2000,
+    average_it_count: 30,
   },
   {
     name: "Google",
     website_urls: {
       main: "https://goo.gle/3DLEokh",
     },
-    location: ["Mountain View, CA"],
+    location: [
+      "Mountain View, California, USA",
+      "New York, New York, USA",
+      "London, UK",
+      "Tokyo, Japan",
+      "Singapore",
+    ],
     industry: "Software Development",
     photo_url:
       "https://media.licdn.com/dms/image/v2/C4D0BAQHiNSL4Or29cg/company-logo_200_200/company-logo_200_200/0/1631311446380?e=1749686400&v=beta&t=w0J_UCDYyy1UupwDpqqCsnEcKay83KoGO4XtEgMzmmo",
     size: "10,001+ employees",
+    average_salary: 12000,
+    average_it_count: 50000,
   },
   {
     name: "KMS Technology - Mexico",
@@ -53,11 +59,17 @@ export const companies: Partial<ICompany>[] = [
       main: "https://kms-technology.com",
     },
     industry: "Software Development",
-    location: ["Guadalajara, Jalisco"],
+    location: [
+      "Guadalajara, Jalisco, Mexico",
+      "Ho Chi Minh City, Vietnam",
+      "Hanoi, Vietnam",
+    ],
     photo_url:
       "https://media.licdn.com/dms/image/v2/D560BAQFpAeFYXt6fng/company-logo_200_200/company-logo_200_200/0/1713964305331?e=1749686400&v=beta&t=jlf2_LNpdVEV5nVazUxYaEjw7JeFfVJZVyeBBswTcMs",
     founded_at: 2009,
     size: "501-1,000 employees",
+    average_salary: 1800,
+    average_it_count: 800,
   },
   {
     name: "Shopee",
@@ -65,10 +77,18 @@ export const companies: Partial<ICompany>[] = [
       main: "http://careers.shopee.com/",
     },
     industry: "Software Development",
-    location: ["Singapore, Singapore"],
+    location: [
+      "Singapore, Singapore",
+      "Ho Chi Minh City, Vietnam",
+      "Hanoi, Vietnam",
+      "Jakarta, Indonesia",
+      "Bangkok, Thailand",
+    ],
     photo_url:
-      "https://media.licdn.com/dms/image/v2/C560BAQE0iX_dgdH7nA/company-logo_200_200/company-logo_200_200/0/1672279162763/shopee_logo?e=1749686400&v=beta&t=r9nuwFV4ZPBUyNa7jjhmVeBYG2zMV7U2w4bSWA0JI8U",
+      "https://media.licdn.com/dms/image/C560BAQE0iX_dgdH7nA/company-logo_200_200/company-logo_200_200/0/1672279162763/shopee_logo?e=1749686400&v=beta&t=r9nuwFV4ZPBUyNa7jjhmVeBYG2zMV7U2w4bSWA0JI8U",
     size: "5,001-10,000 employees",
+    average_salary: 2000,
+    average_it_count: 3000,
   },
   {
     name: "FPT Software",
@@ -76,12 +96,20 @@ export const companies: Partial<ICompany>[] = [
       main: "https://fptsoftware.com",
     },
     industry: "Information Technology",
-    location: ["Hanoi, Vietnam"],
+    location: [
+      "Hanoi, Vietnam",
+      "Ho Chi Minh City, Vietnam",
+      "Da Nang, Vietnam",
+      "Can Tho, Vietnam",
+      "Hai Phong, Vietnam",
+    ],
     phone: "024 7300 7300",
     photo_url:
       "https://media.licdn.com/dms/image/C510BAQGLJQpMY3WbVg/company-logo_200_200/0/1579780447635?e=1750636800&v=beta&t=YGV-ljiOiM2_OHfX5n8P8UQmPk9xndRGPX9N24vVmLk",
     founded_at: 1999,
     size: "5,001-10,000 employees",
+    average_salary: 1200,
+    average_it_count: 7000,
   },
   {
     name: "Tiki Corporation",
@@ -89,11 +117,17 @@ export const companies: Partial<ICompany>[] = [
       main: "https://tiki.vn",
     },
     industry: "E-commerce",
-    location: ["Ho Chi Minh City, Vietnam"],
+    location: [
+      "Ho Chi Minh City, Vietnam",
+      "Hanoi, Vietnam",
+      "Da Nang, Vietnam",
+    ],
     photo_url:
       "https://media.licdn.com/dms/image/C560BAQEJrgyRNu2iiw/company-logo_200_200/0/1661147734051?e=1750636800&v=beta&t=c2A6xZY7I8oI5Rr_fYnQm2bQm7HV5nSJYbf3kSUB5eo",
     founded_at: 2010,
     size: "1,001-5,000 employees",
+    average_salary: 1300,
+    average_it_count: 1500,
   },
   {
     name: "Microsoft",
@@ -101,11 +135,19 @@ export const companies: Partial<ICompany>[] = [
       main: "https://microsoft.com",
     },
     industry: "Technology, Information and Internet",
-    location: ["Redmond, WA"],
+    location: [
+      "Redmond, Washington, USA",
+      "San Francisco, California, USA",
+      "New York, New York, USA",
+      "London, UK",
+      "Singapore",
+    ],
     photo_url:
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1975,
     size: "10,001+ employees",
+    average_salary: 10000,
+    average_it_count: 40000,
   },
   {
     name: "Momo",
@@ -113,11 +155,17 @@ export const companies: Partial<ICompany>[] = [
       main: "https://momo.vn",
     },
     industry: "Financial Services",
-    location: ["Ho Chi Minh City, Vietnam"],
+    location: [
+      "Ho Chi Minh City, Vietnam",
+      "Hanoi, Vietnam",
+      "Da Nang, Vietnam",
+    ],
     photo_url:
       "https://media.licdn.com/dms/image/C560BAQH9u8Jz84fPQQ/company-logo_200_200/0/1632811546928?e=1750636800&v=beta&t=6sS_FkHCCnB4QuxQB3V6nz4I1aFxaLmh2O_g-6AqAdc",
     founded_at: 2007,
     size: "1,001-5,000 employees",
+    average_salary: 1400,
+    average_it_count: 1000,
   },
   {
     name: "Grab",
@@ -125,11 +173,20 @@ export const companies: Partial<ICompany>[] = [
       main: "https://grab.com",
     },
     industry: "Technology, Information and Internet",
-    location: ["HCMC, Vietnam"],
+    location: [
+      "Ho Chi Minh City, Vietnam",
+      "Hanoi, Vietnam",
+      "Singapore",
+      "Jakarta, Indonesia",
+      "Bangkok, Thailand",
+      "Kuala Lumpur, Malaysia",
+    ],
     photo_url:
       "https://media.licdn.com/dms/image/C510BAQFbLucj13QjsQ/company-logo_200_200/0/1519886220208?e=1750636800&v=beta&t=RJmmxY8GQBFsmcQ7TnI8YWQqOjLKnZeF8yrO12na-Qk",
     founded_at: 2012,
     size: "10,001+ employees",
+    average_salary: 2000,
+    average_it_count: 5000,
   },
   {
     name: "CMC Global",
@@ -137,11 +194,17 @@ export const companies: Partial<ICompany>[] = [
       main: "https://cmcglobal.com.vn",
     },
     industry: "Information Technology and Services",
-    location: ["Hanoi, Vietnam"],
+    location: [
+      "Hanoi, Vietnam",
+      "Ho Chi Minh City, Vietnam",
+      "Da Nang, Vietnam",
+    ],
     photo_url:
       "https://media.licdn.com/dms/image/C510BAQHuRyqJPF8YfQ/company-logo_200_200/0/1519896996975?e=1750636800&v=beta&t=WrxqILmUFgcoqmgQYkXe3JHMfh7oXGlcbxQldX_w0AQ",
     founded_at: 1993,
     size: "1,001-5,000 employees",
+    average_salary: 1200,
+    average_it_count: 2000,
   },
   {
     name: "Viettel Group",
@@ -154,6 +217,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/D560BAQHAfrw4y3MjuA/company-logo_200_200/0/1694494672437?e=1750636800&v=beta&t=s5V9bZH2WRHvHYvFP9PPjyftXALyJeafZXWaKCh5YY4",
     founded_at: 1989,
     size: "10,001+ employees",
+    average_salary: 1500,
+    average_it_count: 3000,
   },
   {
     name: "Amazon",
@@ -166,6 +231,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHTvZwCx4p2Qg/company-logo_200_200/0/1612205615891?e=1750636800&v=beta&t=EZpLKJKv0G4Zy-nPQRXYHfTQXCfI-YWo2DXmnCoCCCc",
     founded_at: 1994,
     size: "10,001+ employees",
+    average_salary: 12000,
+    average_it_count: 50000,
   },
   {
     name: "NashTech",
@@ -178,8 +245,9 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQGiBS2tpjoVhg/company-logo_200_200/0/1644504410787?e=1750636800&v=beta&t=YRcsvk5_YNYLSUYoP3s9nM5NhV8K48-3QrFeTN4XGMM",
     founded_at: 2000,
     size: "1,001-5,000 employees",
+    average_salary: 1300,
+    average_it_count: 1500,
   },
-
   {
     name: "Apple Inc.",
     website_urls: {
@@ -191,6 +259,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1976,
     size: "10,001+ employees",
+    average_salary: 15000,
+    average_it_count: 60000,
   },
   {
     name: "Meta Platforms",
@@ -203,6 +273,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 2004,
     size: "10,001+ employees",
+    average_salary: 14000,
+    average_it_count: 45000,
   },
   {
     name: "Netflix",
@@ -215,6 +287,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1997,
     size: "10,001+ employees",
+    average_salary: 13000,
+    average_it_count: 40000,
   },
   {
     name: "Tesla",
@@ -227,6 +301,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 2003,
     size: "10,001+ employees",
+    average_salary: 11000,
+    average_it_count: 35000,
   },
   {
     name: "Adobe",
@@ -239,6 +315,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1982,
     size: "10,001+ employees",
+    average_salary: 12000,
+    average_it_count: 30000,
   },
   {
     name: "Intel",
@@ -251,6 +329,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1968,
     size: "10,001+ employees",
+    average_salary: 11000,
+    average_it_count: 40000,
   },
   {
     name: "Oracle",
@@ -263,6 +343,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1977,
     size: "10,001+ employees",
+    average_salary: 11000,
+    average_it_count: 35000,
   },
   {
     name: "Salesforce",
@@ -275,6 +357,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1999,
     size: "10,001+ employees",
+    average_salary: 12000,
+    average_it_count: 30000,
   },
   {
     name: "IBM",
@@ -287,6 +371,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1911,
     size: "10,001+ employees",
+    average_salary: 10000,
+    average_it_count: 40000,
   },
   {
     name: "Cisco",
@@ -299,6 +385,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1984,
     size: "10,001+ employees",
+    average_salary: 11000,
+    average_it_count: 35000,
   },
   {
     name: "Qualcomm",
@@ -311,6 +399,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1985,
     size: "10,001+ employees",
+    average_salary: 12000,
+    average_it_count: 30000,
   },
   {
     name: "Dell Technologies",
@@ -323,6 +413,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1984,
     size: "10,001+ employees",
+    average_salary: 10000,
+    average_it_count: 40000,
   },
   {
     name: "HP Inc.",
@@ -335,6 +427,8 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1939,
     size: "10,001+ employees",
+    average_salary: 11000,
+    average_it_count: 35000,
   },
   {
     name: "NVIDIA",
@@ -347,5 +441,7 @@ export const companies: Partial<ICompany>[] = [
       "https://media.licdn.com/dms/image/C560BAQHdAaarsO-eyA/company-logo_200_200/0/1595530301220?e=1750636800&v=beta&t=XOCvx8GsUFn0jIaSSx9AISV7wu3w6-Y-sjONGznv_sU",
     founded_at: 1939,
     size: "10,001+ employees",
+    average_salary: 13000,
+    average_it_count: 40000,
   },
 ];

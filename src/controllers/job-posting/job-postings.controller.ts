@@ -1,5 +1,6 @@
 import { Request, Response, NextFunction } from "express";
 import jobPostingsService from "src/services/job-postings.service";
+import { JobPostingsQueryDto } from "./dto/job-postings-query.dto";
 
 class JobPostingsController {
   /**
@@ -35,8 +36,8 @@ class JobPostingsController {
    */
   async getPositionStats(req: Request, res: Response, next: NextFunction) {
     try {
-      const limit = req.query.limit ? parseInt(req.query.limit as string) : 5;
-      const stats = await jobPostingsService.getPositionStats(limit);
+      const query = JobPostingsQueryDto.parse(req.query);
+      const stats = await jobPostingsService.getPositionStats(query);
       res.json(stats);
     } catch (error) {
       next(error);
@@ -89,10 +90,9 @@ class JobPostingsController {
     next: NextFunction
   ) {
     try {
-      const limit = parseInt(req.query.limit as string);
-
+      const query = JobPostingsQueryDto.parse(req.query);
       const results = await jobPostingsService.getTopCompaniesByJobPostings(
-        limit
+        query
       );
       res.json(results);
     } catch (error) {
@@ -140,8 +140,9 @@ class JobPostingsController {
     next: NextFunction
   ) {
     try {
+      const query = JobPostingsQueryDto.parse(req.query);
       const stats =
-        await jobPostingsService.getJobPostingsByExperienceLevelStats();
+        await jobPostingsService.getJobPostingsByExperienceLevelStats(query);
       res.json(stats);
     } catch (error) {
       next(error);
@@ -188,8 +189,8 @@ class JobPostingsController {
     next: NextFunction
   ) {
     try {
-      const limit = req.query.limit ? parseInt(req.query.limit as string) : 5;
-      const stats = await jobPostingsService.getTopSkillsDemandStats(limit);
+      const query = JobPostingsQueryDto.parse(req.query);
+      const stats = await jobPostingsService.getTopSkillsDemandStats(query);
       res.json(stats);
     } catch (error) {
       next(error);
@@ -260,11 +261,9 @@ class JobPostingsController {
    */
   async getJobPostingsHeatmap(req: Request, res: Response, next: NextFunction) {
     try {
-      const year = req.query.year
-        ? parseInt(req.query.year as string)
-        : undefined;
+      const query = JobPostingsQueryDto.parse(req.query);
       const heatmapData = await jobPostingsService.getJobPostingsHeatmapData(
-        year
+        query
       );
       res.json(heatmapData);
     } catch (error) {

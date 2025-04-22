@@ -26,6 +26,8 @@ export interface ICompany extends Document {
   created_at?: Date;
   updated_at?: Date;
   size?: string;
+  average_salary?: number;
+  average_it_count?: number;
 }
 
 const CompanySchema: Schema<ICompany> = new mongoose.Schema(
@@ -56,6 +58,8 @@ const CompanySchema: Schema<ICompany> = new mongoose.Schema(
     photo_url: { type: String },
     founded_at: { type: Number },
     size: { type: String },
+    average_salary: { type: Number },
+    average_it_count: { type: Number },
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },

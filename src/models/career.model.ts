@@ -4,8 +4,8 @@ export interface ICareer extends Document {
   id: Types.ObjectId;
   name: string;
   description: string;
-  average_salary: number;
-  growth_rate: number;
+  average_salary: number; //
+  growth_rate: number; // 
 
   topic_id: Types.ObjectId | null;
   related_topics: Types.ObjectId[] | null;
