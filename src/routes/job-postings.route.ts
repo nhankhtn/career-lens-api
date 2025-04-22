@@ -3,7 +3,7 @@ import jobPostingsController from "src/controllers/job-posting/job-postings.cont
 import { z } from "zod";
 import { validate } from "src/middlewares/validator.middleware";
 import { JobPostingsQueryDto } from "src/controllers/job-posting/dto/job-postings-query.dto";
-
+import { jwtAuthMiddleware } from "src/middlewares/jwt-auth.middleware";
 const router = express.Router();
 
 /**
@@ -16,6 +16,7 @@ const router = express.Router();
 // Get job position statistics
 router.get(
   "/position-stats",
+  jwtAuthMiddleware,
   validate(z.object({ query: JobPostingsQueryDto })),
   jobPostingsController.getPositionStats
 );
@@ -23,6 +24,7 @@ router.get(
 // Get job postings by company
 router.get(
   "/company",
+  jwtAuthMiddleware,
   validate(z.object({ query: JobPostingsQueryDto })),
   jobPostingsController.getTopCompaniesByJobPostings
 );
@@ -30,6 +32,7 @@ router.get(
 // Get job experience level statistics
 router.get(
   "/experience-stats",
+  jwtAuthMiddleware,
   validate(z.object({ query: JobPostingsQueryDto })),
   jobPostingsController.getJobPostingsByExperienceLevel
 );
@@ -37,6 +40,7 @@ router.get(
 // Get top skills demand statistics
 router.get(
   "/skills-demand-stats",
+  jwtAuthMiddleware,
   validate(z.object({ query: JobPostingsQueryDto })),
   jobPostingsController.getTopSkillsDemandStats
 );
@@ -44,6 +48,7 @@ router.get(
 // Get job postings heatmap data
 router.get(
   "/heatmap",
+  jwtAuthMiddleware,
   validate(z.object({ query: JobPostingsQueryDto })),
   jobPostingsController.getJobPostingsHeatmap
 );
