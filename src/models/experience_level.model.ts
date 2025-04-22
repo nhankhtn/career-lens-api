@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
+import { applyBaseSchemaOptions } from "src/utils/mongoose-helper";
 
 export interface IExperienceLevel extends Document {
   id: Types.ObjectId;
@@ -18,22 +19,8 @@ const ExperienceLevelSchema: Schema<IExperienceLevel> = new mongoose.Schema(
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
   }
 );
-ExperienceLevelSchema.set("toJSON", {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, ret) {
-    ret.id = ret._id.toString();
-    delete ret._id;
-  },
-});
-ExperienceLevelSchema.set("toObject", {
-  virtuals: true,
-  versionKey: false,
-  transform: function (doc, ret) {
-    ret.id = ret._id.toString();
-    delete ret._id;
-  },
-});
+
+applyBaseSchemaOptions(ExperienceLevelSchema);
 const ExperienceLevel = mongoose.model<IExperienceLevel>(
   "ExperienceLevel",
   ExperienceLevelSchema

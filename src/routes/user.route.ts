@@ -8,6 +8,7 @@ import { jwtAuthMiddleware } from "../middlewares/jwt-auth.middleware";
 import { UpdateProfileDto } from "src/controllers/user/dto/update-profile.dto";
 import { CreateUserTopicProgressDto } from "src/controllers/user/dto/create-user-topic-progress.dto";
 import { UpdateUserSkillDto } from "src/controllers/user/dto/user-skill.dto";
+import { UserOnboardingDto } from "src/controllers/user/dto/user-onboarding.dto";
 
 const router = express.Router();
 
@@ -81,6 +82,17 @@ router.delete(
   (req, res, next) => {
     userController.removeSkills(req as CustomRequest, res, next);
   }
+);
+
+router.post(
+  "/onboarding",
+  jwtAuthMiddleware,
+  validate(
+    z.object({
+      body: UserOnboardingDto,
+    })
+  ),
+  userController.createOnboarding
 );
 
 export default router;

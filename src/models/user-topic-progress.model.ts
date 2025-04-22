@@ -36,6 +36,7 @@ const UserTopicProgressSchema = new Schema<IUserTopicProgress>(
     rating: { type: Number, min: 1, max: 5, default: null },
   },
   {
+    collection: "user_topic_progress",
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
   }
 );
