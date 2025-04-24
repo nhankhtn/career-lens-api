@@ -36,8 +36,9 @@ const CareerHistorySchema: Schema<ICareerHistory> = new mongoose.Schema(
     job_postings_prediction: {
       weekly_postings: { type: Number, required: true },
       trend: { type: String, required: true },
+      total_openings: { type: Number, required: true },
       confidence: { type: Number, required: true },
-      top_companies: [{ type: String, required: true }],
+      average_openings_per_posting: { type: Number, required: true },
     },
   },
   {

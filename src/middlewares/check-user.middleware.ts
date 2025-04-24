@@ -8,7 +8,7 @@ export const checkUserMiddleware = (
   next: NextFunction
 ): void => {
   const user = req.user;
-  if (!user || user.role !== "user") {
+  if (!user || user.role === "anonymous") {
     res
       .status(StatusCodes.FORBIDDEN)
       .json({ message: ErrorMessages.REQUIRE_LOGIN });

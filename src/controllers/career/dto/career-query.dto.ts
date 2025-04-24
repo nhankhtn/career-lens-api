@@ -2,24 +2,42 @@ import { GeneralQueryDto } from "src/common/types";
 import { z } from "zod";
 
 export const CareerQueryDto = GeneralQueryDto.extend({
-  skill: z
-    .union([z.string(), z.array(z.string())])
-    .optional()
-    .transform((val) => (typeof val === "string" ? [val] : val)),
+  skills: z
+    .preprocess((val) => {
+      if (typeof val === "string") return val.split(",");
+      return val;
+    }, z.array(z.string()))
+    .optional(),
 
-  min_salary: z
+  salary_min: z
     .string()
     .optional()
     .transform((val) => parseInt(val || "0"))
     .refine((val) => !isNaN(val), {
-      message: "min_salary must be a number",
+      message: "salary_min must be a number",
     }),
 
-  max_salary: z
+  salary_max: z
     .string()
     .optional()
     .refine((val) => !val || !isNaN(parseInt(val)), {
-      message: "max_salary must be a valid number or undefined",
+      message: "salary_max must be a valid number or undefined",
+    })
+    .transform((val) => (val ? parseInt(val) : undefined)),
+
+  experience_min: z
+    .string()
+    .optional()
+    .transform((val) => parseInt(val || "0"))
+    .refine((val) => !isNaN(val), {
+      message: "experience_min must be a number",
+    }),
+
+  experience_max: z
+    .string()
+    .optional()
+    .refine((val) => !val || !isNaN(parseInt(val)), {
+      message: "experience_max must be a valid number or undefined",
     })
     .transform((val) => (val ? parseInt(val) : undefined)),
 

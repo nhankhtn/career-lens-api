@@ -13,6 +13,7 @@ export const jobPostings = [
     date_posted: new Date("2025-09-15"),
     skills: ["JavaScript", "TypeScript", "ReactJS"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Full Stack Developer",
@@ -26,6 +27,7 @@ export const jobPostings = [
     date_posted: new Date("2025-10-05"),
     skills: ["TypeScript", "ReactJS", "NodeJS", "MongoDB"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "DevOps Engineer",
@@ -39,6 +41,7 @@ export const jobPostings = [
     date_posted: new Date("2025-11-20"),
     skills: ["Docker", "Kubernetes", "AWS", "CI/CD"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Junior Backend Developer",
@@ -52,6 +55,7 @@ export const jobPostings = [
     date_posted: new Date("2025-12-01"),
     skills: ["JavaScript", "NodeJS", "ExpressJS"],
     location: "Da Nang, Vietnam",
+    number_of_openings: 4,
   },
   {
     job_title: "Machine Learning Engineer",
@@ -65,6 +69,7 @@ export const jobPostings = [
     date_posted: new Date("2025-10-25"),
     skills: ["Python", "Pandas", "NumPy", "Scikit-learn"],
     location: "Mexico City, Mexico",
+    number_of_openings: 2,
   },
   {
     job_title: "React Native Developer",
@@ -78,6 +83,7 @@ export const jobPostings = [
     date_posted: new Date("2025-11-05"),
     skills: ["JavaScript", "ReactJS", "React Native"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "QA Engineer",
@@ -91,6 +97,7 @@ export const jobPostings = [
     date_posted: new Date("2025-09-28"),
     skills: ["Jest", "Cypress", "Testing Library"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Data Engineer",
@@ -104,6 +111,7 @@ export const jobPostings = [
     date_posted: new Date("2025-10-15"),
     skills: ["Python", "MongoDB", "PostgreSQL", "Redis"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Intern Frontend Developer",
@@ -117,6 +125,7 @@ export const jobPostings = [
     date_posted: new Date("2025-12-10"),
     skills: ["JavaScript", "HTML", "CSS"],
     location: "Da Nang, Vietnam",
+    number_of_openings: 5,
   },
   {
     job_title: "Technical Lead",
@@ -130,6 +139,7 @@ export const jobPostings = [
     date_posted: new Date("2025-09-20"),
     skills: ["TypeScript", "ReactJS", "ExpressJS", "Git"],
     location: "Mexico City, Mexico",
+    number_of_openings: 1,
   },
   {
     job_title: "Fresher Android Developer",
@@ -143,6 +153,7 @@ export const jobPostings = [
     date_posted: new Date("2025-11-15"),
     skills: ["Java", "Android", "Kotlin"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Principal Software Architect",
@@ -156,6 +167,7 @@ export const jobPostings = [
     date_posted: new Date("2025-10-10"),
     skills: ["System Design", "Microservices", "Cloud Architecture", "AWS"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Mid-level iOS Developer",
@@ -169,6 +181,7 @@ export const jobPostings = [
     date_posted: new Date("2025-08-20"),
     skills: ["Swift", "Objective-C", "UIKit", "SwiftUI"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Senior UX/UI Designer",
@@ -182,6 +195,7 @@ export const jobPostings = [
     date_posted: new Date("2025-07-15"),
     skills: ["Figma", "Adobe XD", "User Research", "Prototyping"],
     location: "Da Nang, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Blockchain Developer",
@@ -195,6 +209,7 @@ export const jobPostings = [
     date_posted: new Date("2025-09-05"),
     skills: ["Solidity", "Ethereum", "Web3.js", "Smart Contracts"],
     location: "Mexico City, Mexico",
+    number_of_openings: 2,
   },
   {
     job_title: "Lead Data Scientist",
@@ -208,6 +223,7 @@ export const jobPostings = [
     date_posted: new Date("2025-10-22"),
     skills: ["Python", "Machine Learning", "Deep Learning", "TensorFlow"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Fresher Web Developer",
@@ -221,6 +237,7 @@ export const jobPostings = [
     date_posted: new Date("2025-11-08"),
     skills: ["HTML", "CSS", "JavaScript", "React"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 5,
   },
   {
     job_title: "Junior Data Scientist",
@@ -234,6 +251,7 @@ export const jobPostings = [
     date_posted: new Date("2025-12-05"),
     skills: ["SQL", "Excel", "Data Visualization", "Power BI"],
     location: "Da Nang, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Intern Backend Developer",
@@ -247,6 +265,7 @@ export const jobPostings = [
     date_posted: new Date("2025-06-15"),
     skills: ["Java", "Spring Boot", "SQL", "APIs"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 4,
   },
   {
     job_title: "Principal Cloud Architect",
@@ -260,6 +279,7 @@ export const jobPostings = [
     date_posted: new Date("2025-07-20"),
     skills: ["AWS", "Azure", "GCP", "Infrastructure as Code"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Lead Frontend Developer",
@@ -273,6 +293,7 @@ export const jobPostings = [
     date_posted: new Date("2025-09-10"),
     skills: ["JavaScript", "TypeScript", "React", "Vue.js"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Junior DevOps Engineer",
@@ -286,6 +307,7 @@ export const jobPostings = [
     date_posted: new Date("2025-11-25"),
     skills: ["Docker", "Jenkins", "Linux", "Git"],
     location: "Mexico City, Mexico",
+    number_of_openings: 2,
   },
   {
     job_title: "Intern Machine Learning Engineer",
@@ -299,6 +321,7 @@ export const jobPostings = [
     date_posted: new Date("2025-12-15"),
     skills: ["Python", "Pandas", "NumPy", "Machine Learning"],
     location: "Da Nang, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Mid-level Backend Developer",
@@ -312,6 +335,7 @@ export const jobPostings = [
     date_posted: new Date("2025-10-08"),
     skills: ["NodeJS", "ExpressJS", "MongoDB", "PostgreSQL"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 4,
   },
   {
     job_title: "Java Developer",
@@ -325,6 +349,7 @@ export const jobPostings = [
     date_posted: new Date("2025-09-05"),
     skills: ["Java", "Spring Boot", "Hibernate", "MySQL"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Senior Software Engineer",
@@ -338,6 +363,7 @@ export const jobPostings = [
     date_posted: new Date("2025-10-12"),
     skills: ["Java", "Microservices", "Docker", "Kubernetes"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Frontend Developer",
@@ -351,6 +377,7 @@ export const jobPostings = [
     date_posted: new Date("2025-11-08"),
     skills: ["JavaScript", "ReactJS", "HTML", "CSS"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Backend Developer",
@@ -364,6 +391,7 @@ export const jobPostings = [
     date_posted: new Date("2025-08-15"),
     skills: ["PHP", "Laravel", "MySQL", "Redis"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Cloud Solutions Architect",
@@ -382,6 +410,7 @@ export const jobPostings = [
       "Networking",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "AI Research Scientist",
@@ -400,6 +429,7 @@ export const jobPostings = [
       "Computer Vision",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Mobile App Developer",
@@ -413,6 +443,7 @@ export const jobPostings = [
     date_posted: new Date("2025-09-20"),
     skills: ["Android", "Kotlin", "iOS", "Swift"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 4,
   },
   {
     job_title: "Financial Software Engineer",
@@ -426,6 +457,7 @@ export const jobPostings = [
     date_posted: new Date("2025-11-15"),
     skills: ["Java", "Spring", "Security", "Payment Systems"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Product Manager",
@@ -439,6 +471,7 @@ export const jobPostings = [
     date_posted: new Date("2025-08-25"),
     skills: ["Product Strategy", "Agile", "User Research", "Data Analysis"],
     location: "Singapore",
+    number_of_openings: 2,
   },
   {
     job_title: "Backend Engineer",
@@ -452,6 +485,7 @@ export const jobPostings = [
     date_posted: new Date("2025-10-18"),
     skills: ["Go", "Microservices", "Kubernetes", "Distributed Systems"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Software Engineer",
@@ -465,6 +499,7 @@ export const jobPostings = [
     date_posted: new Date("2025-09-10"),
     skills: ["Java", ".NET", "SQL", "Web Services"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 5,
   },
   {
     job_title: "Technical Project Manager",
@@ -478,6 +513,7 @@ export const jobPostings = [
     date_posted: new Date("2025-07-20"),
     skills: ["Project Management", "Agile", "Scrum", "JIRA"],
     location: "Da Nang, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Network Engineer",
@@ -491,6 +527,7 @@ export const jobPostings = [
     date_posted: new Date("2025-08-05"),
     skills: ["TCP/IP", "Routing", "Switching", "Network Security"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Cybersecurity Analyst",
@@ -509,6 +546,7 @@ export const jobPostings = [
       "Incident Response",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 4,
   },
   {
     job_title: "AWS Solutions Architect",
@@ -527,6 +565,7 @@ export const jobPostings = [
       "Cost Optimization",
     ],
     location: "Singapore",
+    number_of_openings: 2,
   },
   {
     job_title: "Senior Software Development Engineer",
@@ -545,6 +584,7 @@ export const jobPostings = [
       "Performance Optimization",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: ".NET Developer",
@@ -558,6 +598,7 @@ export const jobPostings = [
     date_posted: new Date("2025-08-18"),
     skills: ["C#", ".NET Core", "SQL Server", "Azure"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 4,
   },
   {
     job_title: "QA Automation Engineer",
@@ -571,6 +612,7 @@ export const jobPostings = [
     date_posted: new Date("2025-10-25"),
     skills: ["Selenium", "TestNG", "CI/CD", "API Testing"],
     location: "Da Nang, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Senior Cloud Engineer",
@@ -584,6 +626,7 @@ export const jobPostings = [
     date_posted: new Date("2025-03-15"),
     skills: ["Azure", "Terraform", "Kubernetes", "DevOps"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Frontend Tech Lead",
@@ -597,6 +640,7 @@ export const jobPostings = [
     date_posted: new Date("2025-04-20"),
     skills: ["React", "TypeScript", "Web Performance", "Team Leadership"],
     location: "Singapore",
+    number_of_openings: 1,
   },
   {
     job_title: "Junior DevOps Engineer",
@@ -610,6 +654,7 @@ export const jobPostings = [
     date_posted: new Date("2025-05-10"),
     skills: ["Docker", "Jenkins", "Linux", "Shell Scripting"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Data Engineering Lead",
@@ -623,6 +668,7 @@ export const jobPostings = [
     date_posted: new Date("2025-06-05"),
     skills: ["Python", "Spark", "Data Warehousing", "ETL"],
     location: "Singapore",
+    number_of_openings: 1,
   },
   {
     job_title: "Mobile App Tech Lead",
@@ -636,6 +682,7 @@ export const jobPostings = [
     date_posted: new Date("2025-07-15"),
     skills: ["Android", "iOS", "Flutter", "Mobile Architecture"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Senior Backend Developer",
@@ -649,6 +696,7 @@ export const jobPostings = [
     date_posted: new Date("2025-08-22"),
     skills: ["Java", "Spring Boot", "Microservices", "AWS"],
     location: "Da Nang, Vietnam",
+    number_of_openings: 4,
   },
   {
     job_title: "UI/UX Designer",
@@ -662,6 +710,7 @@ export const jobPostings = [
     date_posted: new Date("2025-09-30"),
     skills: ["Figma", "Adobe XD", "User Research", "Prototyping"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Data Scientist",
@@ -675,6 +724,7 @@ export const jobPostings = [
     date_posted: new Date("2025-10-12"),
     skills: ["Python", "Machine Learning", "SQL", "Data Analysis"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Cybersecurity Analyst",
@@ -693,6 +743,7 @@ export const jobPostings = [
       "Compliance",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Product Owner",
@@ -706,6 +757,7 @@ export const jobPostings = [
     date_posted: new Date("2025-12-18"),
     skills: ["Agile", "Scrum", "Product Strategy", "Stakeholder Management"],
     location: "Mexico City, Mexico",
+    number_of_openings: 1,
   },
   {
     job_title: "QA Team Lead",
@@ -724,6 +776,7 @@ export const jobPostings = [
       "Quality Assurance",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Blockchain Developer",
@@ -737,6 +790,7 @@ export const jobPostings = [
     date_posted: new Date("2025-02-15"),
     skills: ["Solidity", "Web3.js", "Smart Contracts", "Blockchain"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Cloud Architect",
@@ -750,6 +804,7 @@ export const jobPostings = [
     date_posted: new Date("2025-03-28"),
     skills: ["AWS", "Cloud Architecture", "Infrastructure as Code", "DevOps"],
     location: "Singapore",
+    number_of_openings: 1,
   },
   {
     job_title: "Frontend Developer",
@@ -763,6 +818,7 @@ export const jobPostings = [
     date_posted: new Date("2025-04-10"),
     skills: ["React", "TypeScript", "CSS", "Web Development"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "DevOps Lead",
@@ -781,6 +837,7 @@ export const jobPostings = [
       "Team Leadership",
     ],
     location: "Singapore",
+    number_of_openings: 1,
   },
   {
     job_title: "AI Research Engineer",
@@ -794,6 +851,7 @@ export const jobPostings = [
     date_posted: new Date("2025-06-15"),
     skills: ["Machine Learning", "Deep Learning", "Python", "Research"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Network Cybersecurity Analyst",
@@ -807,6 +865,7 @@ export const jobPostings = [
     date_posted: new Date("2025-07-20"),
     skills: ["Network Security", "Firewalls", "VPN", "Security Protocols"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Full Stack Developer",
@@ -820,6 +879,7 @@ export const jobPostings = [
     date_posted: new Date("2025-08-05"),
     skills: ["JavaScript", "Node.js", "React", "MongoDB"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 4,
   },
   {
     job_title: "Senior Software Engineer",
@@ -833,6 +893,7 @@ export const jobPostings = [
     date_posted: new Date("2025-01-15"),
     skills: ["C++", "Embedded Systems", "RTOS", "Hardware Integration"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Cloud Infrastructure Engineer",
@@ -846,6 +907,7 @@ export const jobPostings = [
     date_posted: new Date("2025-02-20"),
     skills: ["AWS", "Azure", "Terraform", "Kubernetes"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Hardware Engineer",
@@ -859,6 +921,7 @@ export const jobPostings = [
     date_posted: new Date("2025-03-10"),
     skills: ["PCB Design", "Hardware Testing", "CAD", "System Architecture"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "GPU Software Engineer",
@@ -872,6 +935,7 @@ export const jobPostings = [
     date_posted: new Date("2025-04-05"),
     skills: ["CUDA", "OpenGL", "C++", "GPU Programming"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Systems Architect",
@@ -890,6 +954,7 @@ export const jobPostings = [
       "Team Leadership",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Storage Solutions Engineer",
@@ -908,6 +973,7 @@ export const jobPostings = [
       "Performance Tuning",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Printer Systems Engineer",
@@ -921,6 +987,7 @@ export const jobPostings = [
     date_posted: new Date("2025-07-25"),
     skills: ["Firmware", "C++", "Embedded Systems", "Print Technologies"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "AI Hardware Engineer",
@@ -939,6 +1006,7 @@ export const jobPostings = [
       "Performance Analysis",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Mobile Software Engineer",
@@ -957,6 +1025,7 @@ export const jobPostings = [
       "Performance Optimization",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Enterprise Solutions Architect",
@@ -975,6 +1044,7 @@ export const jobPostings = [
       "Consulting",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Security Researcher",
@@ -993,6 +1063,7 @@ export const jobPostings = [
       "Security Protocols",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Graphics Software Engineer",
@@ -1006,6 +1077,7 @@ export const jobPostings = [
     date_posted: new Date("2025-12-25"),
     skills: ["Graphics Programming", "DirectX", "OpenGL", "Driver Development"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "IoT Solutions Engineer",
@@ -1019,6 +1091,7 @@ export const jobPostings = [
     date_posted: new Date("2025-01-05"),
     skills: ["IoT", "Wireless Protocols", "Embedded Systems", "Connectivity"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Data Center Architect",
@@ -1037,6 +1110,7 @@ export const jobPostings = [
       "Cloud Computing",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Print Systems Developer",
@@ -1055,6 +1129,7 @@ export const jobPostings = [
       "Enterprise Software",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Deep Learning Engineer",
@@ -1068,6 +1143,7 @@ export const jobPostings = [
     date_posted: new Date("2025-04-20"),
     skills: ["Deep Learning", "PyTorch", "TensorFlow", "GPU Computing"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Wireless Systems Engineer",
@@ -1081,6 +1157,7 @@ export const jobPostings = [
     date_posted: new Date("2025-05-25"),
     skills: ["Wireless Systems", "RF Design", "Signal Processing", "Protocols"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Cloud Solutions Engineer",
@@ -1099,6 +1176,7 @@ export const jobPostings = [
       "Automation",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Security Solutions Architect",
@@ -1117,6 +1195,7 @@ export const jobPostings = [
       "Automation",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "GPU Architecture Engineer",
@@ -1135,6 +1214,7 @@ export const jobPostings = [
       "Performance Optimization",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Cloud Infrastructure Engineer",
@@ -1148,6 +1228,7 @@ export const jobPostings = [
     date_posted: new Date("2025-09-20"),
     skills: ["Cloud Computing", "Kubernetes", "Terraform", "CI/CD"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "AI Research Scientist",
@@ -1161,6 +1242,7 @@ export const jobPostings = [
     date_posted: new Date("2025-10-05"),
     skills: ["Machine Learning", "Deep Learning", "NLP", "Research"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Quantum Computing Researcher",
@@ -1174,6 +1256,7 @@ export const jobPostings = [
     date_posted: new Date("2025-11-10"),
     skills: ["Quantum Computing", "Physics", "Algorithm Design", "Research"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Network Cybersecurity Analyst",
@@ -1187,6 +1270,7 @@ export const jobPostings = [
     date_posted: new Date("2025-12-15"),
     skills: ["Network Security", "Firewalls", "VPN", "Security Protocols"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Mobile Chip Designer",
@@ -1205,6 +1289,7 @@ export const jobPostings = [
       "Mobile Architecture",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Enterprise Solutions Architect",
@@ -1223,6 +1308,7 @@ export const jobPostings = [
       "Networking",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Printer Systems Engineer",
@@ -1241,6 +1327,7 @@ export const jobPostings = [
       "Printing Technology",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Graphics Software Engineer",
@@ -1254,6 +1341,7 @@ export const jobPostings = [
     date_posted: new Date("2026-04-05"),
     skills: ["Graphics Programming", "CUDA", "OpenGL", "Driver Development"],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Database Administrator",
@@ -1272,6 +1360,7 @@ export const jobPostings = [
       "Backup/Recovery",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "AI Platform Engineer",
@@ -1290,6 +1379,7 @@ export const jobPostings = [
       "Cloud Computing",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Quantum Software Engineer",
@@ -1303,6 +1393,7 @@ export const jobPostings = [
     date_posted: new Date("2026-07-20"),
     skills: ["Quantum Computing", "Python", "Qiskit", "Algorithm Design"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Network Architect",
@@ -1316,6 +1407,7 @@ export const jobPostings = [
     date_posted: new Date("2026-08-25"),
     skills: ["Network Design", "Routing", "Switching", "Network Security"],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "RF Engineer",
@@ -1333,6 +1425,7 @@ export const jobPostings = [
       "Antenna Design",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "Storage Solutions Architect",
@@ -1350,6 +1443,7 @@ export const jobPostings = [
       "Cloud Storage",
     ],
     location: "Da Nang, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Security Researcher",
@@ -1368,6 +1462,7 @@ export const jobPostings = [
       "Security Tools",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "AI Hardware Engineer",
@@ -1385,6 +1480,7 @@ export const jobPostings = [
       "Performance Optimization",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Cloud Cybersecurity Analyst",
@@ -1403,6 +1499,7 @@ export const jobPostings = [
       "Security Compliance",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 3,
   },
   {
     job_title: "ML Infrastructure Engineer",
@@ -1421,6 +1518,7 @@ export const jobPostings = [
       "Cloud Computing",
     ],
     location: "Hanoi, Vietnam",
+    number_of_openings: 2,
   },
   {
     job_title: "Quantum Hardware Engineer",
@@ -1439,6 +1537,7 @@ export const jobPostings = [
       "Cloud Computing",
     ],
     location: "Ho Chi Minh City, Vietnam",
+    number_of_openings: 1,
   },
   {
     job_title: "Cloud Cybersecurity Analyst",
@@ -1457,6 +1556,7 @@ export const jobPostings = [
       "Security Compliance",
     ],
     location: "Singapore",
+    number_of_openings: 2,
   },
   {
     job_title: "ML Infrastructure Engineer",
@@ -1475,6 +1575,7 @@ export const jobPostings = [
       "Cloud Computing",
     ],
     location: "Tokyo, Japan",
+    number_of_openings: 1,
   },
   {
     job_title: "Quantum Hardware Engineer",
@@ -1493,6 +1594,7 @@ export const jobPostings = [
       "Cloud Computing",
     ],
     location: "Seoul, South Korea",
+    number_of_openings: 2,
   },
 ];
 
