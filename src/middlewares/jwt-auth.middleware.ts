@@ -3,6 +3,7 @@ import { ErrorMessages, StatusCodes } from "../utils/api-error";
 import jwt from "jsonwebtoken";
 import configEnv from "../config/env";
 import { CustomRequest, JWTPayload } from "src/common/types";
+import { Socket } from "socket.io";
 
 export const jwtAuthMiddleware = (
   req: CustomRequest,
@@ -36,6 +37,31 @@ export const jwtAuthMiddleware = (
       res.status(StatusCodes.UNAUTHORIZED).json({ message: "Invalid token" });
     } else {
       next(error);
+    }
+  }
+};
+
+// Middleware xác thực cho Socket.IO
+export const jwtAuthMiddlewareSocket = (socket: Socket, next: (err?: Error) => void) => {
+  const token = socket.handshake.auth.token;
+  if (!token) {
+    return next(new Error("Authentication error: No token provided"));
+  }
+
+  try {
+    const decoded = jwt.verify(token, configEnv.JWT_SECRET) as JWTPayload;
+    if (!decoded) {
+      return next(new Error("Authentication error: Invalid token"));
+    }
+    (socket as any).user = decoded; // Gắn user vào socket
+    next();
+  } catch (error) {
+    if (error.name === "TokenExpiredError") {
+      return next(new Error("Authentication error: Token has expired"));
+    } else if (error.name === "JsonWebTokenError") {
+      return next(new Error("Authentication error: Invalid token"));
+    } else {
+      return next(error);
     }
   }
 };
