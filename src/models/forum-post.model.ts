@@ -11,6 +11,8 @@ export interface IForumPost extends Document {
   updated_at: Date;
   deleted_at?: Date;
   deleted_by?: IUser["_id"];
+  like_count: number;
+  comment_count: number;
 }
 
 export interface ILike extends Document {
@@ -19,7 +21,7 @@ export interface ILike extends Document {
   created_at: Date;
 }
 
-export interface IShare extends Document {
+export interface ISave extends Document {
   user_id: IUser["id"];
   post_id: IForumPost["_id"];
   created_at: Date;
@@ -32,12 +34,12 @@ const LikeSchema: Schema<ILike> = new mongoose.Schema({
 });
 const PostLike = mongoose.model<ILike>("Like", LikeSchema);
 
-const ShareSchema: Schema<IShare> = new mongoose.Schema({
+const SaveSchema: Schema<ISave> = new mongoose.Schema({
   user_id: { type: Schema.Types.ObjectId, ref: "User", required: true },
   post_id: { type: Schema.Types.ObjectId, ref: "ForumPost", required: true },
   created_at: { type: Date, default: Date.now },
 });
-const PostShare = mongoose.model<IShare>("Share", ShareSchema);
+const PostSave = mongoose.model<ISave>("Save", SaveSchema);
 
 const ForumPostSchema: Schema<IForumPost> = new mongoose.Schema(
   {
@@ -46,6 +48,8 @@ const ForumPostSchema: Schema<IForumPost> = new mongoose.Schema(
     image_url: [{ type: [String], default: [] }],
     deleted_at: { type: Date },
     deleted_by: { type: Schema.Types.ObjectId, ref: "User" },
+    like_count: { type: Number, default: 0 },
+    comment_count: { type: Number, default: 0 },
   },
   {
     collection: "forum_posts",
@@ -53,8 +57,15 @@ const ForumPostSchema: Schema<IForumPost> = new mongoose.Schema(
   }
 );
 
+// Thêm virtual field để populate comments
+ForumPostSchema.virtual("comments", {
+  ref: "Comment",
+  localField: "_id",
+  foreignField: "post_id",
+});
 applyBaseSchemaOptions(ForumPostSchema);
+
 const ForumPost = mongoose.model<IForumPost>("ForumPost", ForumPostSchema);
 
-export { PostLike, PostShare };
+export { PostLike, PostSave };
 export default ForumPost;

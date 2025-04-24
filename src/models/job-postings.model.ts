@@ -13,6 +13,7 @@ export interface IJobPosting extends Document {
   yof: Types.ObjectId;
   date_posted: Date;
   location: string;
+  number_of_openings: number;
 
   skills: ISkill[];
 }
@@ -28,6 +29,7 @@ const JobPostingSchema: Schema<IJobPosting> = new mongoose.Schema(
     yof: { type: Schema.Types.ObjectId, required: true },
     date_posted: { type: Date, default: Date.now },
     location: { type: String, required: true },
+    number_of_openings: { type: Number, default: 1, min: 1 },
     skills: [{ type: Schema.Types.ObjectId, ref: "Skill" }],
   },
   {

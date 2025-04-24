@@ -1,4 +1,5 @@
 import mongoose, { Document, Schema, Types } from "mongoose";
+import { applyBaseSchemaOptions } from "src/utils/mongoose-helper";
 
 export interface ICompany extends Document {
   id: Types.ObjectId;
@@ -65,22 +66,8 @@ const CompanySchema: Schema<ICompany> = new mongoose.Schema(
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
   }
 );
-CompanySchema.set("toJSON", {
-  virtuals: true,
-  versionKey: false,
-  transform: function (_, ret) {
-    ret.id = ret._id.toString();
-    delete ret._id;
-  },
-});
-CompanySchema.set("toObject", {
-  virtuals: true,
-  versionKey: false,
-  transform: function (_, ret) {
-    ret.id = ret._id.toString();
-    delete ret._id;
-  },
-});
+
+applyBaseSchemaOptions(CompanySchema);
 const Company = mongoose.model<ICompany>("Company", CompanySchema);
 
 export default Company;
