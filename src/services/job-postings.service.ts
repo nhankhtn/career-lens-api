@@ -324,7 +324,7 @@ class JobPostingsService {
                 },
               },
             },
-            count: { $sum: 1 },
+            totalOpenings: { $sum: "$number_of_openings" },
           },
         },
         {
@@ -332,7 +332,7 @@ class JobPostingsService {
             _id: 0,
             month: { $subtract: ["$_id.month", 1] }, // Convert to 0-based index
             week: "$_id.week",
-            count: 1,
+            totalOpenings: 1,
           },
         },
       ];
@@ -345,11 +345,11 @@ class JobPostingsService {
 
       jobPostings.forEach((posting) => {
         if (posting.week >= 0 && posting.week < 4) {
-          result[posting.week][posting.month] = posting.count;
+          result[posting.week][posting.month] = posting.totalOpenings;
         }
       });
 
-      return result.map((w) => w.map((c) => c * getRandomInt(1000, 10000)));
+      return result.map((w) => w.map((c) => c * getRandomInt(100, 500)));
     } catch (error) {
       console.error("Error getting job postings heatmap data:", error);
       throw error;

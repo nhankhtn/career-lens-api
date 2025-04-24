@@ -126,7 +126,7 @@ class CareerController {
     try {
       const user = req.user;
       const query = CareerQueryDto.parse(req.query);
-      const result = await careerService.findAll(query, user?.user_id!);
+      const result = await careerService.findAll(query, user?.user_id);
       res.json(result);
       return;
     } catch (error) {

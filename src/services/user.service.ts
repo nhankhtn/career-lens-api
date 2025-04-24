@@ -5,9 +5,7 @@ import { ApiError, StatusCodes } from "../utils/api-error";
 import configEnv from "../config/env";
 import User from "src/models/user.model";
 import { UpdateProfilInput } from "src/controllers/user/dto/update-profile.dto";
-import UserTopicProgress, {
-  UserTopicStatus,
-} from "src/models/user-topic-progress.model";
+import UserTopicProgress from "src/models/user-topic-progress.model";
 import UserOnboarding from "src/models/user-onboarding";
 import { JWTPayload } from "src/common/types";
 import { ObjectId } from "mongodb";
@@ -24,7 +22,7 @@ class UserService {
       });
       if (!user && decodedToken.provider_id !== "anonymous") {
         const newUser = new User({
-          name: decodedToken.name,
+          name: decodedToken.name || decodedToken.email,
           email: decodedToken.email,
           phone: decodedToken.phone_number,
           photo_url: decodedToken.picture,

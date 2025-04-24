@@ -10,7 +10,6 @@ import Career, { ICareer } from "src/models/career.model"; // Then import Career
 import Topic from "src/models/topic.model";
 import UserOnboarding from "src/models/user-onboarding";
 import User from "src/models/user.model";
-import { getRandomInt } from "src/utils/number";
 
 class CareerService {
   async create(body: CreateCareerInput) {
@@ -24,45 +23,49 @@ class CareerService {
     }
   }
 
-  async findAll(query: CareerQueryInput, userId: string) {
+  async findAll(query: CareerQueryInput, userId?: string) {
     try {
       const {
         offset = 0,
         limit = 10,
         key,
-        min_salary,
-        max_salary,
-        skill,
+        salary_min,
+        salary_max,
+        experience_min,
+        experience_max,
+        skills,
         major,
       } = query;
       const filter: RootFilterQuery<ICareer> = {};
       if (key) {
         filter.name = { $regex: key, $options: "i" };
       }
-      if (min_salary !== undefined || max_salary !== undefined) {
+      if (salary_min !== undefined || salary_max !== undefined) {
         filter.average_salary = {};
-        if (min_salary !== undefined) filter.average_salary.$gte = min_salary;
-        if (max_salary !== undefined) filter.average_salary.$lte = max_salary;
+        if (salary_min !== undefined) filter.average_salary.$gte = salary_min;
+        if (salary_max !== undefined) filter.average_salary.$lte = salary_max;
       }
       if (major) {
         filter.topic_id = major;
       }
-      if (skill) {
-        filter.skills = { $in: [skill] };
+      if (skills) {
+        filter.skills = { $in: skills };
       }
 
-      // Get user's skills from both User and UserOnboarding models
-      const [user, userOnboarding] = await Promise.all([
-        User.findById(userId).select("skills"),
-        UserOnboarding.findOne({ user_id: userId }).select("skills_have"),
-      ]);
+      let userSkills: Types.ObjectId[] = [];
+      if (userId) {
+        // Get user's skills from both User and UserOnboarding models
+        const [user, userOnboarding] = await Promise.all([
+          User.findById(userId).select("skills"),
+          UserOnboarding.findOne({ user_id: userId }).select("skills_have"),
+        ]);
 
-      // Combine skills from both models
-      const userSkills = [
-        ...(user?.skills || []),
-        ...(userOnboarding?.skills_have || []),
-      ];
-
+        // Combine skills from both models
+        userSkills = [
+          ...(user?.skills || []),
+          ...(userOnboarding?.skills_have || []),
+        ];
+      }
       const careers = await Career.find(filter)
         .populate({
           path: "skills",
@@ -80,7 +83,6 @@ class CareerService {
 
       const results = await Promise.all(
         careers.map(async (career) => {
-          let childrenCount = 0;
           let level2Count = 0;
           let matchPercentage = 0;
 
@@ -108,7 +110,7 @@ class CareerService {
           return {
             ...career.toObject(),
             topic: career.topic_id,
-            topic_count: level2Count + getRandomInt(0, 20),
+            topic_count: level2Count,
             skill_match_percentage: matchPercentage,
           };
         })
@@ -120,7 +122,6 @@ class CareerService {
       );
 
       console.log("Get careers successfully");
-      console.log("results", results);
       return {
         data: results,
         total: total,

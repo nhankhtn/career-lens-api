@@ -32,7 +32,7 @@ router.get(
     })
   ),
   jwtAuthMiddleware,
-  checkUserMiddleware,
+  // checkUserMiddleware,
   careerController.findAll
 );
 router.put(
