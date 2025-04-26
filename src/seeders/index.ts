@@ -15,6 +15,8 @@ import { jobPostings } from "./job-postings";
 import Topic from "src/models/topic.model";
 import { ObjectId } from "mongodb";
 import { topics } from "./topics";
+import CareerHistory from "src/models/career-history.model";
+import { careerHistories } from "./career_history";
 
 const seedSkill = async () => {
   try {
@@ -185,6 +187,28 @@ const seedTopics = async (skills: any[]) => {
   }
 };
 
+const seedCareerHistory = async (careers: any[]) => {
+  try {
+    await CareerHistory.deleteMany({});
+    console.log("Deleted existing careers");
+
+    const data = careerHistories.map((careerHistory) => {
+      const career = careers.find((c) => c.name === careerHistory.job_title);
+      return {
+        ...careerHistory,
+        career_id: career ? career._id : null,
+      };
+    });
+
+    const careerCreated = await CareerHistory.insertMany(data);
+    console.log(`Created ${careerCreated.length} new career history`);
+    return careerCreated;
+  } catch (error) {
+    console.error("Error seeding career history:", error);
+    return null;
+  }
+};
+
 const seedAll = async () => {
   try {
     await mongoose.connect(configEnv.DATABASE_URL);
@@ -195,6 +219,7 @@ const seedAll = async () => {
     const experienceLevels = await seedExperienceLevel();
     const topics = await seedTopics(skills || []);
     const careers = await seedCareers(skills || [], topics || []);
+    await seedCareerHistory(careers || []);
     await seedJobPostings(
       skills || [],
       companies || [],
