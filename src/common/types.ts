@@ -29,3 +29,16 @@ export const GeneralQueryDto = z.object({
 });
 
 export type GeneralQueryProps = z.infer<typeof GeneralQueryDto>;
+
+export interface IOpenaiCareer {
+  skills: string[];
+  education: string;
+  experience: string;
+  target_job: string;
+}
+export interface IOpenaiCareerGuidance {
+  status: string;
+  guidance: string;
+  message: string | null;
+  relevant_jobs_count: number;
+}

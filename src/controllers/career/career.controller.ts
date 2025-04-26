@@ -181,6 +181,116 @@ class CareerController {
     }
   }
 
+  /**
+   * @swagger
+   * /api/v1/careers/{id}/future:
+   *   get:
+   *     summary: Get career future predictions
+   *     description: Retrieve future predictions for a specific career over the next 30 days
+   *     tags: [Career]
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Career ID
+   *     responses:
+   *       200:
+   *         description: Career future predictions
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 career_id:
+   *                   type: string
+   *                   description: ID of the career
+   *                 career_name:
+   *                   type: string
+   *                   description: Name of the career
+   *                 history:
+   *                   type: array
+   *                   items:
+   *                     type: object
+   *                     properties:
+   *                       prediction_date:
+   *                         type: string
+   *                         format: date-time
+   *                       demand:
+   *                         type: number
+   *                       salary:
+   *                         type: number
+   *       404:
+   *         description: Career not found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   */
+  async getCareerFuture(req: CustomRequest, res: Response, next: NextFunction) {
+    try {
+      const data = await careerService.getCareerFuture(req.params.id);
+      res.json(data);
+      return;
+    } catch (error) {
+      next(error);
+    }
+  }
+
+  /**
+   * @swagger
+   * /api/v1/careers/{id}/detail:
+   *   get:
+   *     summary: Get career detail
+   *     description: Retrieve detailed information for a specific career
+   *     tags: [Career]
+   *     security:
+   *       - bearerAuth: []
+   *     parameters:
+   *       - in: path
+   *         name: id
+   *         required: true
+   *         schema:
+   *           type: string
+   *         description: Career ID
+   *     responses:
+   *       200:
+   *         description: Career detail
+   *         content:
+   *           application/json:
+   *             schema:
+   *               type: object
+   *               properties:
+   *                 career_id:
+   *                   type: string
+   *                   description: ID of the career
+   *                 career_name:
+   *                   type: string
+   *                   description: Name of the career
+   *                 guidance:
+   *                   type: string
+   *                   description: Guidance for the career
+   *       404:
+   *         description: Career not found
+   *         content:
+   *           application/json:
+   *             schema:
+   *               $ref: '#/components/schemas/ErrorResponse'
+   */
+  async getCareerDetail(req: CustomRequest, res: Response, next: NextFunction) {
+    try {
+      const data = await careerService.getCareerDetail(
+        req.params.id,
+        req.user?.user_id!
+      );
+      res.json(data);
+      return;
+    } catch (error) {
+      next(error);
+    }
+  }
+
   async update(req: Request, res: Response, next: NextFunction) {
     try {
       const topic = await careerService.update(req.params.id, req.body);
