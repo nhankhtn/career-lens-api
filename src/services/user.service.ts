@@ -350,7 +350,7 @@ class UserService {
         skills_have: allSkills.map((skill) => new ObjectId(skill.id)),
       });
       await onboarding.save();
-
+      console.log("userId", userId);
       await User.findByIdAndUpdate(userId, {
         onboarding_completed: true,
       });

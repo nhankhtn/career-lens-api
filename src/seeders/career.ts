@@ -2,7 +2,7 @@ export const careers = [
   {
     name: "Software Engineer",
     description: "Thiết kế và phát triển các ứng dụng và hệ thống phần mềm.",
-    average_salary: 95000,
+    average_salary: 35_000_000,
     growth_rate: 0.22,
     topic_id: null,
     related_topics: null,
@@ -12,7 +12,7 @@ export const careers = [
     name: "Data Scientist",
     description:
       "Phân tích và giải thích dữ liệu phức tạp để giúp các công ty đưa ra quyết định.",
-    average_salary: 105000,
+    average_salary: 40_000_000,
     growth_rate: 0.31,
     topic_id: null,
     related_topics: null,
@@ -21,7 +21,7 @@ export const careers = [
   {
     name: "UI/UX Designer",
     description: "Tạo ra giao diện người dùng thân thiện và dễ sử dụng.",
-    average_salary: 80000,
+    average_salary: 25_000_000,
     growth_rate: 0.18,
     topic_id: null,
     related_topics: null,
@@ -31,7 +31,7 @@ export const careers = [
     name: "DevOps Engineer",
     description:
       "Thiết kế, triển khai và quản lý các hệ thống tự động hóa và cơ sở hạ tầng cho phát triển và vận hành phần mềm.",
-    average_salary: 110000,
+    average_salary: 45_000_000,
     growth_rate: 0.24,
     topic_id: null,
     related_topics: null,
@@ -41,7 +41,7 @@ export const careers = [
     name: "Data Engineer",
     description:
       "Thiết kế, xây dựng và duy trì các hệ thống xử lý dữ liệu quy mô lớn, đảm bảo dữ liệu được thu thập, lưu trữ và phân tích hiệu quả.",
-    average_salary: 105000,
+    average_salary: 38_000_000,
     growth_rate: 0.27,
     topic_id: null,
     related_topics: null,
@@ -50,7 +50,7 @@ export const careers = [
   {
     name: "Cybersecurity Analyst",
     description: "Bảo vệ các hệ thống và mạng khỏi các mối đe dọa mạng.",
-    average_salary: 98000,
+    average_salary: 42_000_000,
     growth_rate: 0.28,
     topic_id: null,
     related_topics: null,
@@ -59,7 +59,7 @@ export const careers = [
   {
     name: "Product Manager",
     description: "Giám sát sự phát triển và triển khai các sản phẩm.",
-    average_salary: 115000,
+    average_salary: 50_000_000,
     growth_rate: 0.19,
     topic_id: null,
     related_topics: null,
@@ -74,7 +74,7 @@ export const careers = [
     name: "Business Analyst",
     description:
       "Đánh giá các quy trình kinh doanh và đưa ra các khuyến nghị dựa trên dữ liệu.",
-    average_salary: 87000,
+    average_salary: 28_000_000,
     growth_rate: 0.14,
     topic_id: null,
     related_topics: null,
@@ -88,7 +88,7 @@ export const careers = [
   {
     name: "Cloud Engineer",
     description: "Triển khai và quản lý cơ sở hạ tầng và dịch vụ đám mây.",
-    average_salary: 112000,
+    average_salary: 45_000_000,
     growth_rate: 0.26,
     topic_id: null,
     related_topics: null,
@@ -97,7 +97,7 @@ export const careers = [
   {
     name: "AI Engineer",
     description: "Phát triển các mô hình và hệ thống trí tuệ nhân tạo.",
-    average_salary: 120000,
+    average_salary: 55_000_000,
     growth_rate: 0.35,
     topic_id: null,
     related_topics: null,
@@ -105,20 +105,20 @@ export const careers = [
   },
   {
     name: "Frontend Developer",
-    description: "Phát triển các mô hình và hệ thống trí tuệ nhân tạo.",
-    average_salary: 120000,
-    growth_rate: 0.35,
+    description:
+      "Phát triển giao diện người dùng và trải nghiệm người dùng cho các ứng dụng web.",
+    average_salary: 32_000_000,
+    growth_rate: 0.25,
     topic_id: null,
     related_topics: null,
-    skills: ["Python", "TensorFlow", "PyTorch", "Học sâu"],
+    skills: ["React", "Vue.js", "TypeScript", "CSS"],
   },
   {
     name: "Mobile App Developer",
     description:
       "Tạo ra các ứng dụng cho các nền tảng di động như Android và iOS.",
-    average_salary: 90000,
+    average_salary: 35_000_000,
     growth_rate: 0.2,
-
     topic_id: null,
     related_topics: null,
     skills: ["Flutter", "React Native", "Swift", "Kotlin"],
@@ -127,7 +127,7 @@ export const careers = [
     name: "QA Engineer",
     description:
       "Đảm bảo chất lượng phần mềm thông qua kiểm thử và tự động hóa.",
-    average_salary: 78000,
+    average_salary: 25_000_000,
     growth_rate: 0.17,
     topic_id: null,
     related_topics: null,
@@ -136,7 +136,7 @@ export const careers = [
   {
     name: "Blockchain Developer",
     description: "Xây dựng và duy trì các ứng dụng dựa trên blockchain.",
-    average_salary: 130000,
+    average_salary: 60_000_000,
     growth_rate: 0.33,
     topic_id: null,
     related_topics: null,
@@ -146,7 +146,7 @@ export const careers = [
     name: "IT Support Specialist",
     description:
       "Cung cấp hỗ trợ kỹ thuật cho các vấn đề phần mềm và phần cứng.",
-    average_salary: 60000,
+    average_salary: 15_000_000,
     growth_rate: 0.12,
     topic_id: null,
     related_topics: null,
@@ -155,7 +155,7 @@ export const careers = [
   {
     name: "Game Developer",
     description: "Tạo ra các trò chơi tương tác cho các nền tảng khác nhau.",
-    average_salary: 85000,
+    average_salary: 30_000_000,
     growth_rate: 0.16,
     topic_id: null,
     related_topics: null,
@@ -164,7 +164,7 @@ export const careers = [
   {
     name: "Technical Writer",
     description: "Tạo ra tài liệu kỹ thuật và hướng dẫn sử dụng.",
-    average_salary: 70000,
+    average_salary: 20_000_000,
     growth_rate: 0.1,
     topic_id: null,
     related_topics: null,
@@ -173,7 +173,7 @@ export const careers = [
   {
     name: "Network Administrator",
     description: "Duy trì và xử lý sự cố hạ tầng mạng.",
-    average_salary: 82000,
+    average_salary: 25_000_000,
     growth_rate: 0.13,
     topic_id: null,
     related_topics: null,
@@ -182,7 +182,7 @@ export const careers = [
   {
     name: "Digital Marketer",
     description: "Phát triển và thực hiện các chiến lược marketing trực tuyến.",
-    average_salary: 68000,
+    average_salary: 22_000_000,
     growth_rate: 0.23,
     topic_id: null,
     related_topics: null,
@@ -192,7 +192,7 @@ export const careers = [
     name: "Robotics Engineer",
     description:
       "Thiết kế robot và các hệ thống tự động hóa cho ngành công nghiệp.",
-    average_salary: 102000,
+    average_salary: 40_000_000,
     growth_rate: 0.27,
     topic_id: null,
     related_topics: null,
@@ -202,7 +202,7 @@ export const careers = [
     name: "Backend Developer",
     description:
       "Phát triển và duy trì phần server-side của ứng dụng web và mobile.",
-    average_salary: 95000,
+    average_salary: 35_000_000,
     growth_rate: 0.21,
     topic_id: null,
     related_topics: null,
@@ -211,7 +211,7 @@ export const careers = [
   {
     name: "Full Stack Developer",
     description: "Làm việc cả frontend và backend của các ứng dụng web.",
-    average_salary: 100000,
+    average_salary: 40_000_000,
     growth_rate: 0.25,
     topic_id: null,
     related_topics: null,
@@ -220,7 +220,7 @@ export const careers = [
   {
     name: "Computer Vision Engineer",
     description: "Xây dựng các hệ thống xử lý và giải thích dữ liệu hình ảnh.",
-    average_salary: 115000,
+    average_salary: 45_000_000,
     growth_rate: 0.3,
     topic_id: null,
     related_topics: null,
@@ -230,7 +230,7 @@ export const careers = [
     name: "Database Administrator",
     description:
       "Quản lý và duy trì các hệ thống cơ sở dữ liệu và đảm bảo tính toàn vẹn của dữ liệu.",
-    average_salary: 95000,
+    average_salary: 30_000_000,
     growth_rate: 0.2,
     topic_id: null,
     related_topics: null,
@@ -240,7 +240,7 @@ export const careers = [
     name: "System Architect",
     description:
       "Thiết kế và quản lý các hệ thống và cơ sở hạ tầng CNTT phức tạp.",
-    average_salary: 130000,
+    average_salary: 50_000_000,
     growth_rate: 0.15,
     topic_id: null,
     related_topics: null,
@@ -250,7 +250,7 @@ export const careers = [
     name: "SEO Specialist",
     description:
       "Tối ưu hóa website để cải thiện thứ hạng trên công cụ tìm kiếm.",
-    average_salary: 75000,
+    average_salary: 25_000_000,
     growth_rate: 0.18,
     topic_id: null,
     related_topics: null,
@@ -259,7 +259,7 @@ export const careers = [
   {
     name: "Network Engineer",
     description: "Thiết kế và quản lý các mạng máy tính.",
-    average_salary: 85000,
+    average_salary: 28_000_000,
     growth_rate: 0.17,
     topic_id: null,
     related_topics: null,
@@ -269,7 +269,7 @@ export const careers = [
     name: "Cloud Solutions Architect",
     description:
       "Thiết kế các giải pháp đám mây và đảm bảo hiệu quả hạ tầng đám mây.",
-    average_salary: 135000,
+    average_salary: 55_000_000,
     growth_rate: 0.28,
     topic_id: null,
     related_topics: null,
@@ -279,7 +279,7 @@ export const careers = [
     name: "Artificial Intelligence Researcher",
     description:
       "Tiến hành nghiên cứu để phát triển lĩnh vực trí tuệ nhân tạo.",
-    average_salary: 125000,
+    average_salary: 60_000_000,
     growth_rate: 0.33,
     topic_id: null,
     related_topics: null,
@@ -289,7 +289,7 @@ export const careers = [
     name: "Content Strategist",
     description:
       "Phát triển chiến lược nội dung để nâng cao khả năng nhận diện thương hiệu.",
-    average_salary: 80000,
+    average_salary: 22_000_000,
     growth_rate: 0.19,
     topic_id: null,
     related_topics: null,
@@ -299,7 +299,7 @@ export const careers = [
     name: "Marketing Manager",
     description:
       "Lãnh đạo các chiến dịch và chiến lược marketing để thúc đẩy sự phát triển kinh doanh.",
-    average_salary: 95000,
+    average_salary: 35_000_000,
     growth_rate: 0.15,
     topic_id: null,
     related_topics: null,
@@ -313,7 +313,7 @@ export const careers = [
   {
     name: "Legal Counsel",
     description: "Cung cấp lời khuyên pháp lý và hướng dẫn cho các tổ chức.",
-    average_salary: 140000,
+    average_salary: 45_000_000,
     growth_rate: 0.05,
     topic_id: null,
     related_topics: null,
@@ -322,7 +322,7 @@ export const careers = [
   {
     name: "Human Resources Manager",
     description: "Quản lý tuyển dụng, quan hệ nhân viên và phát triển tổ chức.",
-    average_salary: 95000,
+    average_salary: 30_000_000,
     growth_rate: 0.1,
     topic_id: null,
     related_topics: null,
@@ -337,7 +337,7 @@ export const careers = [
     name: "Financial Analyst",
     description:
       "Phân tích dữ liệu tài chính và cung cấp những thông tin kinh doanh cho quá trình ra quyết định.",
-    average_salary: 85000,
+    average_salary: 28_000_000,
     growth_rate: 0.12,
     topic_id: null,
     related_topics: null,
@@ -352,7 +352,7 @@ export const careers = [
     name: "Operations Manager",
     description:
       "Giám sát sản xuất, logistics và các hoạt động hàng ngày của doanh nghiệp.",
-    average_salary: 105000,
+    average_salary: 32_000_000,
     growth_rate: 0.08,
     topic_id: null,
     related_topics: null,
@@ -367,7 +367,7 @@ export const careers = [
     name: "Agricultural Engineer",
     description:
       "Thiết kế các hệ thống và cấu trúc cho nông nghiệp và sản xuất nông sản.",
-    average_salary: 85000,
+    average_salary: 25_000_000,
     growth_rate: 0.12,
     topic_id: null,
     related_topics: null,
@@ -382,7 +382,7 @@ export const careers = [
     name: "Marine Biologist",
     description:
       "Nghiên cứu các sinh vật biển và hệ sinh thái để hiểu về hành vi và môi trường của chúng.",
-    average_salary: 72000,
+    average_salary: 20_000_000,
     growth_rate: 0.05,
     topic_id: null,
     related_topics: null,
@@ -392,7 +392,7 @@ export const careers = [
     name: "Meteorologist",
     description:
       "Nghiên cứu các mô hình thời tiết và hiện tượng khí quyển để dự báo thời tiết và tư vấn các vấn đề liên quan đến khí hậu.",
-    average_salary: 75000,
+    average_salary: 22_000_000,
     growth_rate: 0.08,
     topic_id: null,
     related_topics: null,
@@ -407,7 +407,7 @@ export const careers = [
     name: "Biomedical Engineer",
     description:
       "Thiết kế và phát triển các thiết bị y tế, trang thiết bị và công nghệ để cải thiện chăm sóc sức khỏe.",
-    average_salary: 95000,
+    average_salary: 35_000_000,
     growth_rate: 0.1,
     topic_id: null,
     related_topics: null,
@@ -417,7 +417,7 @@ export const careers = [
     name: "Chartered Accountant",
     description:
       "Chuẩn bị các hồ sơ tài chính, kiểm toán tài khoản và cung cấp lời khuyên tài chính.",
-    average_salary: 75000,
+    average_salary: 35_000_000,
     growth_rate: 0.04,
     topic_id: null,
     related_topics: null,
@@ -427,7 +427,7 @@ export const careers = [
     name: "Clinical Psychologist",
     description:
       "Chẩn đoán và điều trị các vấn đề sức khỏe tâm lý thông qua liệu pháp và các kỹ thuật hành vi.",
-    average_salary: 95000,
+    average_salary: 30_000_000,
     growth_rate: 0.07,
     topic_id: null,
     related_topics: null,
@@ -442,7 +442,7 @@ export const careers = [
     name: "Social Worker",
     description:
       "Hỗ trợ cá nhân và cộng đồng vượt qua các thử thách cá nhân, thường liên quan đến nghèo đói, lạm dụng hoặc sức khỏe tâm thần.",
-    average_salary: 50000,
+    average_salary: 15_000_000,
     growth_rate: 0.06,
     topic_id: null,
     related_topics: null,
@@ -452,7 +452,7 @@ export const careers = [
     name: "Event Planner",
     description:
       "Lên kế hoạch và điều phối các sự kiện như đám cưới, hội nghị và các cuộc họp doanh nghiệp.",
-    average_salary: 60000,
+    average_salary: 20_000_000,
     growth_rate: 0.09,
     topic_id: null,
     related_topics: null,
@@ -466,7 +466,7 @@ export const careers = [
   {
     name: "Real Estate Agent",
     description: "Hỗ trợ khách hàng mua, bán hoặc cho thuê bất động sản.",
-    average_salary: 55000,
+    average_salary: 25_000_000,
     growth_rate: 0.08,
     topic_id: null,
     related_topics: null,
@@ -476,7 +476,7 @@ export const careers = [
     name: "Chiropractor",
     description:
       "Chẩn đoán và điều trị các vấn đề về cơ xương khớp, tập trung vào cột sống và hệ thần kinh.",
-    average_salary: 85000,
+    average_salary: 30_000_000,
     growth_rate: 0.04,
     topic_id: null,
     related_topics: null,
@@ -491,7 +491,7 @@ export const careers = [
     name: "Film Director",
     description:
       "Giám sát các khía cạnh sáng tạo và kỹ thuật trong sản xuất phim.",
-    average_salary: 120000,
+    average_salary: 40_000_000,
     growth_rate: 0.06,
     topic_id: null,
     related_topics: null,
@@ -500,7 +500,7 @@ export const careers = [
   {
     name: "Veterinarian",
     description: "Cung cấp chăm sóc y tế và điều trị cho động vật.",
-    average_salary: 90000,
+    average_salary: 25_000_000,
     growth_rate: 0.05,
     topic_id: null,
     related_topics: null,
@@ -510,7 +510,7 @@ export const careers = [
     name: "Dietitian",
     description:
       "Tư vấn cho cá nhân về dinh dưỡng và chế độ ăn uống để cải thiện sức khỏe và quản lý bệnh tật.",
-    average_salary: 70000,
+    average_salary: 20_000_000,
     growth_rate: 0.07,
     topic_id: null,
     related_topics: null,
@@ -525,7 +525,7 @@ export const careers = [
     name: "Art Curator",
     description:
       "Quản lý và giám sát việc thu thập, bảo tồn và trưng bày các bộ sưu tập nghệ thuật.",
-    average_salary: 60000,
+    average_salary: 18_000_000,
     growth_rate: 0.03,
     topic_id: null,
     related_topics: null,
@@ -539,7 +539,7 @@ export const careers = [
   {
     name: "Speech-Language Pathologist",
     description: "Chẩn đoán và điều trị các rối loạn giao tiếp và nuốt.",
-    average_salary: 77000,
+    average_salary: 22_000_000,
     growth_rate: 0.08,
     topic_id: null,
     related_topics: null,
@@ -554,7 +554,7 @@ export const careers = [
     name: "Astronomer",
     description:
       "Nghiên cứu các đối tượng và hiện tượng thiên thể bằng các dụng cụ và lý thuyết thiên văn học.",
-    average_salary: 90000,
+    average_salary: 30_000_000,
     growth_rate: 0.03,
     topic_id: null,
     related_topics: null,
@@ -564,7 +564,7 @@ export const careers = [
     name: "Interior Designer",
     description:
       "Thiết kế không gian nội thất để nâng cao tính thẩm mỹ và chức năng.",
-    average_salary: 75000,
+    average_salary: 25_000_000,
     growth_rate: 0.06,
     topic_id: null,
     related_topics: null,
@@ -578,7 +578,7 @@ export const careers = [
   {
     name: "Pilot",
     description: "Lái máy bay để vận chuyển hành khách hoặc hàng hóa.",
-    average_salary: 120000,
+    average_salary: 50_000_000,
     growth_rate: 0.04,
     topic_id: null,
     related_topics: null,
@@ -593,7 +593,7 @@ export const careers = [
     name: "Forensic Scientist",
     description:
       "Phân tích chứng cứ vật lý từ hiện trường vụ án để hỗ trợ trong các cuộc điều tra hình sự.",
-    average_salary: 80000,
+    average_salary: 25_000_000,
     growth_rate: 0.06,
     topic_id: null,
     related_topics: null,
@@ -608,7 +608,7 @@ export const careers = [
     name: "Park Ranger",
     description:
       "Quản lý và bảo vệ các công viên quốc gia và khu vực giải trí.",
-    average_salary: 45000,
+    average_salary: 15_000_000,
     growth_rate: 0.05,
     topic_id: null,
     related_topics: null,
@@ -623,7 +623,7 @@ export const careers = [
     name: "Fashion Designer",
     description:
       "Sáng tạo các bộ trang phục và phụ kiện, làm việc với các mẫu mã, vật liệu và phong cách.",
-    average_salary: 70000,
+    average_salary: 25_000_000,
     growth_rate: 0.08,
     topic_id: null,
     related_topics: null,
@@ -633,7 +633,7 @@ export const careers = [
     name: "Interpreter",
     description:
       "Dịch các từ ngữ nói hoặc ngôn ngữ ký hiệu trong thời gian thực giữa các ngôn ngữ.",
-    average_salary: 60000,
+    average_salary: 20_000_000,
     growth_rate: 0.07,
     topic_id: null,
     related_topics: null,
@@ -648,7 +648,7 @@ export const careers = [
     name: "Quality Assurance Engineer",
     description:
       "Đảm bảo chất lượng phần mềm thông qua kiểm thử tự động và thủ công.",
-    average_salary: 65000,
+    average_salary: 35_000_000,
     growth_rate: 0.06,
     topic_id: null,
     related_topics: null,
@@ -658,7 +658,7 @@ export const careers = [
     name: "Software Developer",
     description:
       "Phát triển các ứng dụng phần mềm và giải pháp kỹ thuật cho các vấn đề kinh doanh.",
-    average_salary: 75000,
+    average_salary: 40_000_000,
     growth_rate: 0.08,
     topic_id: null,
     related_topics: null,
@@ -668,7 +668,7 @@ export const careers = [
     name: "Cloud Engineer",
     description:
       "Xây dựng và duy trì hạ tầng đám mây, triển khai và quản lý các dịch vụ đám mây.",
-    average_salary: 85000,
+    average_salary: 45_000_000,
     growth_rate: 0.09,
     topic_id: null,
     related_topics: null,
@@ -678,7 +678,7 @@ export const careers = [
     name: "DevOps Engineer",
     description:
       "Đảm bảo quá trình phát triển và triển khai phần mềm diễn ra liên tục, hiệu quả và tự động.",
-    average_salary: 90000,
+    average_salary: 50_000_000,
     growth_rate: 0.07,
     topic_id: null,
     related_topics: null,
@@ -688,7 +688,7 @@ export const careers = [
     name: "AI Engineer",
     description:
       "Phát triển các mô hình học máy, trí tuệ nhân tạo và các giải pháp tự động hóa thông minh.",
-    average_salary: 100000,
+    average_salary: 60_000_000,
     growth_rate: 0.12,
     topic_id: null,
     related_topics: null,
@@ -704,7 +704,7 @@ export const careers = [
     name: "Network Security Engineer",
     description:
       "Thiết kế, triển khai và duy trì các giải pháp bảo mật mạng để bảo vệ hệ thống và dữ liệu khỏi các mối đe dọa.",
-    average_salary: 80000,
+    average_salary: 45_000_000,
     growth_rate: 0.05,
     topic_id: null,
     related_topics: null,
@@ -720,7 +720,7 @@ export const careers = [
     name: "Hardware Engineer",
     description:
       "Thiết kế, phát triển và kiểm tra phần cứng cho các hệ thống máy tính và thiết bị điện tử.",
-    average_salary: 85000,
+    average_salary: 40_000_000,
     growth_rate: 0.04,
     topic_id: null,
     related_topics: null,
@@ -730,7 +730,7 @@ export const careers = [
     name: "Hardware Design Engineer",
     description:
       "Chuyên thiết kế các mô-đun phần cứng hiệu suất cao cho các hệ thống công nghệ mới.",
-    average_salary: 90000,
+    average_salary: 45_000_000,
     growth_rate: 0.05,
     topic_id: null,
     related_topics: null,
@@ -740,7 +740,7 @@ export const careers = [
     name: "Solutions Architect",
     description:
       "Thiết kế các giải pháp công nghệ phức tạp cho doanh nghiệp, kết hợp các hệ thống và dịch vụ đám mây.",
-    average_salary: 120000,
+    average_salary: 70_000_000,
     growth_rate: 0.06,
     topic_id: null,
     related_topics: null,
@@ -756,7 +756,7 @@ export const careers = [
     name: "Systems Engineer",
     description:
       "Thiết kế và triển khai các hệ thống phức tạp, đảm bảo khả năng mở rộng và hiệu suất.",
-    average_salary: 85000,
+    average_salary: 45_000_000,
     growth_rate: 0.05,
     topic_id: null,
     related_topics: null,
@@ -772,7 +772,7 @@ export const careers = [
     name: "Database Engineer",
     description:
       "Quản lý, tối ưu hóa và bảo mật các cơ sở dữ liệu, đảm bảo hiệu suất cao cho các ứng dụng.",
-    average_salary: 95000,
+    average_salary: 50_000_000,
     growth_rate: 0.04,
     topic_id: null,
     related_topics: null,
@@ -782,7 +782,7 @@ export const careers = [
     name: "ML Engineer",
     description:
       "Xây dựng và triển khai các mô hình học máy để giải quyết các vấn đề kinh doanh phức tạp.",
-    average_salary: 105000,
+    average_salary: 60_000_000,
     growth_rate: 0.11,
     topic_id: null,
     related_topics: null,
@@ -798,7 +798,7 @@ export const careers = [
     name: "Quality Assurance",
     description:
       "Đảm bảo chất lượng phần mềm thông qua kiểm thử tự động và thủ công.",
-    average_salary: 65000,
+    average_salary: 30_000_000,
     growth_rate: 0.06,
     topic_id: null,
     related_topics: null,
@@ -815,7 +815,7 @@ export const careers = [
     name: "Software Development",
     description:
       "Phát triển các ứng dụng phần mềm và giải pháp kỹ thuật cho các vấn đề kinh doanh.",
-    average_salary: 75000,
+    average_salary: 40_000_000,
     growth_rate: 0.08,
     topic_id: null,
     related_topics: null,
@@ -833,7 +833,7 @@ export const careers = [
     name: "Cloud Computing",
     description:
       "Quản lý hạ tầng đám mây và triển khai các dịch vụ cloud cho doanh nghiệp.",
-    average_salary: 85000,
+    average_salary: 45_000_000,
     growth_rate: 0.09,
     topic_id: null,
     related_topics: null,
@@ -850,7 +850,7 @@ export const careers = [
     name: "DevOps",
     description:
       "Đảm bảo quá trình phát triển và triển khai phần mềm diễn ra liên tục, hiệu quả và tự động.",
-    average_salary: 90000,
+    average_salary: 50_000_000,
     growth_rate: 0.07,
     topic_id: null,
     related_topics: null,
@@ -867,7 +867,7 @@ export const careers = [
     name: "Artificial Intelligence",
     description:
       "Phát triển các mô hình học máy, trí tuệ nhân tạo và các giải pháp tự động hóa thông minh.",
-    average_salary: 100000,
+    average_salary: 60_000_000,
     growth_rate: 0.12,
     topic_id: null,
     related_topics: null,
@@ -884,7 +884,7 @@ export const careers = [
     name: "Network & Security",
     description:
       "Quản lý và bảo vệ hạ tầng mạng, bảo mật các hệ thống và dữ liệu khỏi các mối đe dọa.",
-    average_salary: 80000,
+    average_salary: 45_000_000,
     growth_rate: 0.05,
     topic_id: null,
     related_topics: null,
@@ -901,7 +901,7 @@ export const careers = [
     name: "Hardware",
     description:
       "Thiết kế, phát triển và kiểm tra phần cứng cho các hệ thống máy tính và thiết bị điện tử.",
-    average_salary: 85000,
+    average_salary: 45_000_000,
     growth_rate: 0.04,
     topic_id: null,
     related_topics: null,
