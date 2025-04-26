@@ -76,4 +76,31 @@ router.get(
   careerController.findById
 );
 
+router.get(
+  "/:id/future",
+  validate(
+    z.object({
+      params: z.object({
+        id: z.string(),
+      }),
+    })
+  ),
+  jwtAuthMiddleware,
+  careerController.getCareerFuture
+);
+
+router.get(
+  "/:id/detail",
+  validate(
+    z.object({
+      params: z.object({
+        id: z.string(),
+      }),
+    })
+  ),
+  jwtAuthMiddleware,
+  checkUserMiddleware,
+  careerController.getCareerDetail
+);
+
 export default router;

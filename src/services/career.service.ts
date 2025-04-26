@@ -10,6 +10,10 @@ import Career, { ICareer } from "src/models/career.model"; // Then import Career
 import Topic from "src/models/topic.model";
 import UserOnboarding from "src/models/user-onboarding";
 import User from "src/models/user.model";
+import Skill from "src/models/skill.model";
+import { IOpenaiCareer } from "src/common/types";
+import openaiService from "./openai.service";
+import CareerHistory from "src/models/career-history.model";
 
 class CareerService {
   async create(body: CreateCareerInput) {
@@ -165,6 +169,99 @@ class CareerService {
       return {
         ...career.toObject(),
         topics: level2Topics,
+      };
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getCareerFuture(id: string) {
+    try {
+      const career = await Career.findById(id);
+      if (!career) {
+        throw new ApiError(
+          StatusCodes.NOT_FOUND,
+          "Career not found",
+          "career.service/getCareerFuture",
+          true
+        );
+      }
+
+      // Get current date
+      const currentDate = new Date();
+      const pastDate = new Date();
+      pastDate.setMonth(currentDate.getMonth() - 7);
+      // Calculate date 30 days from now
+      const futureDate = new Date();
+      futureDate.setMonth(currentDate.getMonth() + 7);
+
+      // Query career history for the next 30 days
+      const history = await CareerHistory.find({
+        career_id: id,
+        prediction_date: {
+          $gte: pastDate,
+          $lte: futureDate,
+        },
+      })
+        .select("salary_prediction job_postings_prediction prediction_date")
+        .sort({ prediction_date: 1 });
+
+      return history;
+    } catch (error) {
+      throw error;
+    }
+  }
+
+  async getCareerDetail(id: string, userId: string) {
+    try {
+      const career = await Career.findById(id);
+      if (!career) {
+        throw new ApiError(
+          StatusCodes.NOT_FOUND,
+          "Career not found",
+          "career.service/getCareerDetail",
+          true
+        );
+      }
+
+      const user = await User.findById(userId);
+      if (!user) {
+        throw new ApiError(
+          StatusCodes.NOT_FOUND,
+          "User not found",
+          "career.service/findById",
+          true
+        );
+      }
+
+      const userOnboarding = await UserOnboarding.findOne({ user_id: userId });
+      if (!userOnboarding) {
+        throw new ApiError(
+          StatusCodes.NOT_FOUND,
+          "User onboarding not found",
+          "career.service/findById",
+          true
+        );
+      }
+      const unionSkillIds = Array.from(
+        new Set([...userOnboarding.skills_have, ...user.skills])
+      );
+
+      const skills = await Skill.find({
+        _id: { $in: unionSkillIds },
+      });
+      const skillNames = skills.map((skill) => skill.name);
+
+      const query: IOpenaiCareer = {
+        skills: skillNames,
+        education: userOnboarding.education_level || "",
+        experience: userOnboarding.experience?.[0]?.years.toString() || "0",
+        target_job: career.name,
+      };
+
+      const guidance = await openaiService.generateCareerDescription(query);
+      return {
+        guidance,
       };
     } catch (error) {
       throw error;

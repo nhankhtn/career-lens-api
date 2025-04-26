@@ -24,6 +24,8 @@ const UserSchema: Schema<IUser> = new mongoose.Schema(
     phone: { type: String },
     photo_url: { type: String },
     role: { type: String, required: true, default: "user" },
+    skills: { type: [Schema.Types.ObjectId], ref: "Skill", default: [] },
+    onboarding_completed: { type: Boolean, default: false },
   },
   {
     timestamps: { createdAt: "created_at", updatedAt: "updated_at" },
