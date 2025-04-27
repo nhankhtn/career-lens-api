@@ -7,6 +7,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["JavaScript", "Node.js", "React", "Git"],
+    min_experience_years: 0,
   },
   {
     name: "Data Scientist",
@@ -17,6 +18,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Python", "Pandas", "Học máy", "SQL"],
+    min_experience_years: 2,
   },
   {
     name: "UI/UX Designer",
@@ -26,6 +28,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Figma", "Adobe XD", "Nghiên cứu người dùng", "Prototyping"],
+    min_experience_years: 0,
   },
   {
     name: "DevOps Engineer",
@@ -36,6 +39,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Docker", "Kubernetes", "AWS", "CI/CD", "Terraform", "Jenkins"],
+    min_experience_years: 2,
   },
   {
     name: "Data Engineer",
@@ -46,6 +50,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Python", "SQL", "Spark", "Hadoop", "ETL", "Data Warehousing"],
+    min_experience_years: 2,
   },
   {
     name: "Cybersecurity Analyst",
@@ -55,6 +60,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Bảo mật mạng", "Tường lửa", "SIEM", "Hack đạo đức"],
+    min_experience_years: 2,
   },
   {
     name: "Product Manager",
@@ -69,6 +75,7 @@ export const careers = [
       "Nghiên cứu thị trường",
       "Lập kế hoạch sản phẩm",
     ],
+    min_experience_years: 3,
   },
   {
     name: "Business Analyst",
@@ -84,6 +91,7 @@ export const careers = [
       "Trực quan hóa dữ liệu",
       "Giao tiếp với các bên liên quan",
     ],
+    min_experience_years: 1,
   },
   {
     name: "Cloud Engineer",
@@ -93,6 +101,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["AWS", "Azure", "Terraform", "Bảo mật đám mây"],
+    min_experience_years: 2,
   },
   {
     name: "AI Engineer",
@@ -102,6 +111,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Python", "TensorFlow", "PyTorch", "Học sâu"],
+    min_experience_years: 2,
   },
   {
     name: "Frontend Developer",
@@ -112,6 +122,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["React", "Vue.js", "TypeScript", "CSS"],
+    min_experience_years: 0,
   },
   {
     name: "Mobile App Developer",
@@ -122,6 +133,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Flutter", "React Native", "Swift", "Kotlin"],
+    min_experience_years: 0,
   },
   {
     name: "QA Engineer",
@@ -132,6 +144,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Selenium", "Bài kiểm thử", "Jest", "Tự động hóa"],
+    min_experience_years: 1,
   },
   {
     name: "Blockchain Developer",
@@ -141,6 +154,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Solidity", "Ethereum", "Smart Contracts", "Web3.js"],
+    min_experience_years: 2,
   },
   {
     name: "IT Support Specialist",
@@ -151,6 +165,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Helpdesk", "Khắc phục sự cố", "Hỗ trợ khách hàng", "Mạng"],
+    min_experience_years: 0,
   },
   {
     name: "Game Developer",
@@ -160,6 +175,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Unity", "Unreal Engine", "C#", "Mô hình 3D"],
+    min_experience_years: 1,
   },
   {
     name: "Technical Writer",
@@ -169,6 +185,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Markdown", "Tài liệu API", "Viết", "Chú ý đến chi tiết"],
+    min_experience_years: 0,
   },
   {
     name: "Network Administrator",
@@ -178,6 +195,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Mạng", "Tường lửa", "VPN", "Cisco"],
+    min_experience_years: 2,
   },
   {
     name: "Digital Marketer",
@@ -187,6 +205,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["SEO", "Google Analytics", "Mạng xã hội", "Tiếp thị qua email"],
+    min_experience_years: 1,
   },
   {
     name: "Robotics Engineer",
@@ -197,6 +216,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["C++", "ROS", "Cảm biến", "Hệ thống điều khiển"],
+    min_experience_years: 3,
   },
   {
     name: "Backend Developer",
@@ -207,6 +227,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Java", "Spring Boot", "Node.js", "SQL"],
+    min_experience_years: 0,
   },
   {
     name: "Full Stack Developer",
@@ -216,6 +237,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["JavaScript", "Node.js", "React", "MongoDB"],
+    min_experience_years: 3,
   },
   {
     name: "Computer Vision Engineer",
@@ -225,6 +247,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["OpenCV", "Python", "Xử lý ảnh", "Học máy"],
+    min_experience_years: 3,
   },
   {
     name: "Database Administrator",
@@ -235,6 +258,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["SQL", "MySQL", "PostgreSQL", "Oracle"],
+    min_experience_years: 2,
   },
   {
     name: "System Architect",
@@ -245,6 +269,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Thiết kế hệ thống", "Điện toán đám mây", "Mạng", "Tự động hóa"],
+    min_experience_years: 5,
   },
   {
     name: "SEO Specialist",
@@ -255,6 +280,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["SEO", "Google Analytics", "Content Strategy", "Keyword Research"],
+    min_experience_years: 1,
   },
   {
     name: "Network Engineer",
@@ -264,6 +290,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["TCP/IP", "Routing", "Switching", "Cisco"],
+    min_experience_years: 2,
   },
   {
     name: "Cloud Solutions Architect",
@@ -274,6 +301,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["AWS", "Azure", "GCP", "Cloud Security"],
+    min_experience_years: 4,
   },
   {
     name: "Artificial Intelligence Researcher",
@@ -284,6 +312,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Machine Learning", "Deep Learning", "Neural Networks", "Python"],
+    min_experience_years: 4,
   },
   {
     name: "Content Strategist",
@@ -294,6 +323,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Content Strategy", "SEO", "Writing", "Social Media"],
+    min_experience_years: 2,
   },
   {
     name: "Marketing Manager",
@@ -309,6 +339,7 @@ export const careers = [
       "Campaign Management",
       "Analytics",
     ],
+    min_experience_years: 3,
   },
   {
     name: "Legal Counsel",
@@ -318,6 +349,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Contract Law", "Legal Research", "Compliance", "Negotiation"],
+    min_experience_years: 4,
   },
   {
     name: "Human Resources Manager",
@@ -332,6 +364,7 @@ export const careers = [
       "Performance Management",
       "HR Strategy",
     ],
+    min_experience_years: 3,
   },
   {
     name: "Financial Analyst",
@@ -347,6 +380,7 @@ export const careers = [
       "Financial Analysis",
       "Investment Strategy",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Operations Manager",
@@ -362,6 +396,7 @@ export const careers = [
       "Supply Chain",
       "Operations Strategy",
     ],
+    min_experience_years: 3,
   },
   {
     name: "Agricultural Engineer",
@@ -377,6 +412,7 @@ export const careers = [
       "Engineering Design",
       "Soil Science",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Marine Biologist",
@@ -387,6 +423,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Marine Ecology", "Field Research", "Oceanography", "Biology"],
+    min_experience_years: 2,
   },
   {
     name: "Meteorologist",
@@ -402,6 +439,7 @@ export const careers = [
       "Meteorological Equipment",
       "Statistics",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Biomedical Engineer",
@@ -412,6 +450,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Biomedical Devices", "Medical Imaging", "Bioinformatics", "CAD"],
+    min_experience_years: 3,
   },
   {
     name: "Chartered Accountant",
@@ -422,6 +461,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Accounting", "Taxation", "Audit", "Financial Reporting"],
+    min_experience_years: 3,
   },
   {
     name: "Clinical Psychologist",
@@ -437,6 +477,7 @@ export const careers = [
       "Psychological Assessment",
       "Mental Health",
     ],
+    min_experience_years: 4,
   },
   {
     name: "Social Worker",
@@ -447,6 +488,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Counseling", "Social Services", "Crisis Management", "Advocacy"],
+    min_experience_years: 2,
   },
   {
     name: "Event Planner",
@@ -462,6 +504,7 @@ export const careers = [
       "Project Management",
       "Communication",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Real Estate Agent",
@@ -471,6 +514,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Negotiation", "Real Estate Law", "Property Management", "Sales"],
+    min_experience_years: 1,
   },
   {
     name: "Chiropractor",
@@ -486,6 +530,7 @@ export const careers = [
       "Patient Care",
       "Spinal Manipulation",
     ],
+    min_experience_years: 3,
   },
   {
     name: "Film Director",
@@ -496,6 +541,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Film Production", "Directing", "Scriptwriting", "Cinematography"],
+    min_experience_years: 5,
   },
   {
     name: "Veterinarian",
@@ -505,6 +551,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Animal Care", "Surgery", "Veterinary Medicine", "Diagnostics"],
+    min_experience_years: 3,
   },
   {
     name: "Dietitian",
@@ -520,6 +567,7 @@ export const careers = [
       "Diet Plans",
       "Medical Nutrition Therapy",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Art Curator",
@@ -535,6 +583,7 @@ export const careers = [
       "Exhibit Planning",
       "Curation",
     ],
+    min_experience_years: 3,
   },
   {
     name: "Speech-Language Pathologist",
@@ -549,6 +598,7 @@ export const careers = [
       "Swallowing Therapy",
       "Patient Care",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Astronomer",
@@ -559,6 +609,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Astronomy", "Physics", "Astrophysics", "Observational Skills"],
+    min_experience_years: 4,
   },
   {
     name: "Interior Designer",
@@ -574,6 +625,7 @@ export const careers = [
       "Color Theory",
       "Interior Decoration",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Pilot",
@@ -588,6 +640,7 @@ export const careers = [
       "Air Traffic Control",
       "Aviation Safety",
     ],
+    min_experience_years: 5,
   },
   {
     name: "Forensic Scientist",
@@ -603,6 +656,7 @@ export const careers = [
       "Evidence Collection",
       "Criminal Justice",
     ],
+    min_experience_years: 3,
   },
   {
     name: "Park Ranger",
@@ -618,6 +672,7 @@ export const careers = [
       "Public Education",
       "First Aid",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Fashion Designer",
@@ -628,6 +683,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Fashion Design", "Textile Knowledge", "Sewing", "Trend Analysis"],
+    min_experience_years: 3,
   },
   {
     name: "Interpreter",
@@ -643,6 +699,7 @@ export const careers = [
       "Cultural Knowledge",
       "Communication",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Quality Assurance Engineer",
@@ -653,6 +710,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Automation Testing", "Manual Testing", "Bug Tracking", "CI/CD"],
+    min_experience_years: 2,
   },
   {
     name: "Software Developer",
@@ -663,6 +721,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["JavaScript", "React", "NodeJS", "Git", "REST APIs"],
+    min_experience_years: 2,
   },
   {
     name: "Cloud Engineer",
@@ -673,6 +732,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["AWS", "Azure", "Docker", "Kubernetes", "Terraform"],
+    min_experience_years: 3,
   },
   {
     name: "DevOps Engineer",
@@ -683,6 +743,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["CI/CD", "Jenkins", "Docker", "Kubernetes", "Ansible"],
+    min_experience_years: 3,
   },
   {
     name: "AI Engineer",
@@ -699,6 +760,7 @@ export const careers = [
       "Deep Learning",
       "Natural Language Processing",
     ],
+    min_experience_years: 3,
   },
   {
     name: "Network Security Engineer",
@@ -715,6 +777,7 @@ export const careers = [
       "SIEM",
       "Intrusion Detection Systems",
     ],
+    min_experience_years: 3,
   },
   {
     name: "Hardware Engineer",
@@ -725,6 +788,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["Verilog", "C", "PCB Design", "FPGA", "Embedded Systems"],
+    min_experience_years: 3,
   },
   {
     name: "Hardware Design Engineer",
@@ -735,6 +799,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["CAD", "Hardware Design", "Circuit Design", "FPGA", "Verilog"],
+    min_experience_years: 4,
   },
   {
     name: "Solutions Architect",
@@ -751,6 +816,7 @@ export const careers = [
       "Microservices",
       "AWS",
     ],
+    min_experience_years: 5,
   },
   {
     name: "Systems Engineer",
@@ -767,6 +833,7 @@ export const careers = [
       "Networking",
       "Systems Integration",
     ],
+    min_experience_years: 4,
   },
   {
     name: "Database Engineer",
@@ -777,6 +844,7 @@ export const careers = [
     topic_id: null,
     related_topics: null,
     skills: ["SQL", "PostgreSQL", "Database Optimization", "MySQL", "NoSQL"],
+    min_experience_years: 3,
   },
   {
     name: "ML Engineer",
@@ -793,6 +861,7 @@ export const careers = [
       "Keras",
       "Data Science",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Quality Assurance",
@@ -810,6 +879,7 @@ export const careers = [
       "Jest",
       "Cypress",
     ],
+    min_experience_years: 1,
   },
   {
     name: "Software Development",
@@ -828,6 +898,7 @@ export const careers = [
       "REST APIs",
       "GraphQL",
     ],
+    min_experience_years: 1,
   },
   {
     name: "Cloud Computing",
@@ -845,6 +916,7 @@ export const careers = [
       "Kubernetes",
       "Terraform",
     ],
+    min_experience_years: 2,
   },
   {
     name: "DevOps",
@@ -862,6 +934,7 @@ export const careers = [
       "Ansible",
       "Terraform",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Artificial Intelligence",
@@ -879,6 +952,7 @@ export const careers = [
       "Natural Language Processing",
       "Machine Learning",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Network & Security",
@@ -896,6 +970,7 @@ export const careers = [
       "Intrusion Detection Systems",
       "TLS/SSL",
     ],
+    min_experience_years: 2,
   },
   {
     name: "Hardware",
@@ -913,5 +988,6 @@ export const careers = [
       "Embedded Systems",
       "Hardware Design",
     ],
+    min_experience_years: 3,
   },
 ];
