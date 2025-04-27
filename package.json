@@ -4,9 +4,7 @@
   "main": "src/server.ts",
   "license": "MIT",
   "scripts": {
-    "start": "npx tsx --watch src/server.ts",
-    "seed": "npx tsx --env-file=.env src/seeders/index.ts",
-    "seed:users": "ts-node src/seeders/user-profile.seeder.ts"
+    "start": "npx tsx --watch src/server.ts"
   },
   "dependencies": {
     "axios": "^1.9.0",
