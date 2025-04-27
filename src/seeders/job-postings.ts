@@ -721,7 +721,7 @@ export const jobPostings = [
       "Work on exciting data science projects and build machine learning models. You'll analyze data and provide insights to drive business decisions.",
     position: "Data Scientist",
     yof: "Mid-level",
-    date_posted: new Date("2025-05-12"),
+    date_posted: new Date("2025-01-12"),
     skills: ["Python", "Machine Learning", "SQL", "Data Analysis"],
     location: "Hanoi, Vietnam",
     number_of_openings: 3,
@@ -735,7 +735,7 @@ export const jobPostings = [
       "Protect our infrastructure and applications from security threats. You'll implement security measures and conduct security assessments.",
     position: "Cybersecurity Analyst",
     yof: "Senior",
-    date_posted: new Date("2025-05-05"),
+    date_posted: new Date("2025-02-05"),
     skills: [
       "Security",
       "Network Security",
@@ -754,7 +754,7 @@ export const jobPostings = [
       "Lead product development teams and manage product backlogs. You'll work with stakeholders to define requirements and prioritize features.",
     position: "Product Manager",
     yof: "Mid-level",
-    date_posted: new Date("2025-06-18"),
+    date_posted: new Date("2025-02-18"),
     skills: ["Agile", "Scrum", "Product Strategy", "Stakeholder Management"],
     location: "Mexico City, Mexico",
     number_of_openings: 1,
@@ -1491,7 +1491,7 @@ export const jobPostings = [
       "Secure cloud infrastructure. You'll protect cloud services.",
     position: "Cybersecurity Analyst",
     yof: "Senior",
-    date_posted: new Date("2025-05-12"),
+    date_posted: new Date("2025-02-12"),
     skills: [
       "Cloud Security",
       "Identity Management",
@@ -1510,7 +1510,7 @@ export const jobPostings = [
       "Build ML infrastructure. You'll scale machine learning systems.",
     position: "ML Engineer",
     yof: "Senior",
-    date_posted: new Date("2025-06-18"),
+    date_posted: new Date("2025-02-18"),
     skills: [
       "ML Infrastructure",
       "Distributed Systems",
@@ -1529,7 +1529,7 @@ export const jobPostings = [
       "Design quantum hardware. You'll advance quantum computing.",
     position: "Hardware Engineer",
     yof: "Senior",
-    date_posted: new Date("2025-07-22"),
+    date_posted: new Date("2025-02-22"),
     skills: [
       "ML Infrastructure",
       "Distributed Systems",
@@ -1548,7 +1548,7 @@ export const jobPostings = [
       "Secure cloud infrastructure. You'll protect cloud services.",
     position: "Cybersecurity Analyst",
     yof: "Senior",
-    date_posted: new Date("2025-08-30"),
+    date_posted: new Date("2025-02-30"),
     skills: [
       "Cloud Security",
       "Identity Management",
@@ -1567,7 +1567,7 @@ export const jobPostings = [
       "Build ML infrastructure. You'll scale machine learning systems.",
     position: "AI Engineer",
     yof: "Senior",
-    date_posted: new Date("2025-09-15"),
+    date_posted: new Date("2025-02-15"),
     skills: [
       "ML Infrastructure",
       "Distributed Systems",
@@ -1586,7 +1586,7 @@ export const jobPostings = [
       "Design quantum hardware. You'll advance quantum computing.",
     position: "Robotics Engineer",
     yof: "Senior",
-    date_posted: new Date("2025-10-20"),
+    date_posted: new Date("2025-02-20"),
     skills: [
       "ML Infrastructure",
       "Distributed Systems",

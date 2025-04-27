@@ -49,6 +49,13 @@ class CareerService {
         if (salary_min !== undefined) filter.average_salary.$gte = salary_min;
         if (salary_max !== undefined) filter.average_salary.$lte = salary_max;
       }
+      if (experience_min !== undefined || experience_max !== undefined) {
+        filter.min_experience_years = {};
+        if (experience_min !== undefined)
+          filter.min_experience_years.$gte = experience_min;
+        if (experience_max !== undefined)
+          filter.min_experience_years.$lte = experience_max;
+      }
       if (major) {
         filter.topic_id = major;
       }

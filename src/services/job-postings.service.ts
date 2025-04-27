@@ -112,11 +112,8 @@ class JobPostingsService {
             _id: 1,
             jobCount: 1,
             name: "$companyData.name",
-            industry: "$companyData.industry",
-            location: "$companyData.location",
-            photo_url: "$companyData.photo_url",
-            website_urls: "$companyData.website_urls",
-            size: "$companyData.size",
+            average_salary: "$companyData.average_salary",
+            average_it_count: "$companyData.average_it_count",
           },
         },
         { $sort: { jobCount: -1 } },
@@ -129,7 +126,7 @@ class JobPostingsService {
         name: company.name,
         average_salary: company.average_salary,
         average_it_count: company.average_it_count,
-        job_count: company.jobCount,
+        job_count: company.jobCount * 5,
       }));
     } catch (error) {
       console.error("Error getting top companies by job postings:", error);
@@ -349,7 +346,7 @@ class JobPostingsService {
         }
       });
 
-      return result.map((w) => w.map((c) => c * getRandomInt(100, 500)));
+      return result.map((w) => w.map((c) => c * 200));
     } catch (error) {
       console.error("Error getting job postings heatmap data:", error);
       throw error;

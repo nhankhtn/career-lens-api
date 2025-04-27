@@ -198,26 +198,34 @@ class UserService {
         topic_id: topicId,
       });
 
+      let progress;
       if (existingProgress) {
-        throw new ApiError(
-          StatusCodes.BAD_REQUEST,
-          "Progress for this topic already exists",
-          "user.service/createUserTopicProgress"
-        );
+        // Update existing progress
+        existingProgress.status = data.status || existingProgress.status;
+        existingProgress.started_at =
+          data.status === "in_progress"
+            ? new Date()
+            : existingProgress.started_at;
+        existingProgress.completed_at =
+          data.status === "completed"
+            ? new Date()
+            : existingProgress.completed_at;
+        existingProgress.notes = data.notes || existingProgress.notes;
+        existingProgress.rating = data.rating || existingProgress.rating;
+        progress = await existingProgress.save();
+      } else {
+        // Create new progress
+        progress = new UserTopicProgress({
+          user_id: userId,
+          topic_id: topicId,
+          status: data.status || "not_started",
+          started_at: data.status === "in_progress" ? new Date() : null,
+          completed_at: data.status === "completed" ? new Date() : null,
+          notes: data.notes || "",
+          rating: data.rating || null,
+        });
+        await progress.save();
       }
-
-      // Create new progress
-      const progress = new UserTopicProgress({
-        user_id: userId,
-        topic_id: topicId,
-        status: data.status || "not_started",
-        started_at: data.status === "in_progress" ? new Date() : null,
-        completed_at: data.status === "completed" ? new Date() : null,
-        notes: data.notes || "",
-        rating: data.rating || null,
-      });
-
-      await progress.save();
 
       // If topic is level 1 and status is completed, add skills to user
       if (topic.level === 1 && data.status === "completed" && topic.skills) {
@@ -244,7 +252,7 @@ class UserService {
           await user.save();
         }
       }
-      console.log("Create user topic progress successfully");
+      console.log("Create/Update user topic progress successfully");
       return progress;
     } catch (error) {
       throw error;
